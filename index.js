@@ -1,4 +1,4 @@
-const { Client, Collection, GatewayIntentBits } = require('discord.js')
+const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ApplicationCommand } = require('discord.js')
 const config = require(`./config.json`)
 const client = new Client ({ 
     intents: [
@@ -6,34 +6,42 @@ const client = new Client ({
     ],
     presence: {
         activities: [{
-            name: "Em desenvolvimento",
-            type: 1
+            name: "em desenvolvimento",
+            type: 3
         }],
-        status: 'idle'
+        status: 'dnd'
     } 
 })
-const hand = require(`./handling`)(client, Collection, GatewayIntentBits)
+const rest = new REST({ version: '10' }).setToken(config.token);
+
+
+
+rest.put(Routes.applicationCommands('1049428107150512148'), { body: [] })
+      .then(() => console.log('[Slash] Slash deletados com sucesso'))
+      .catch(console.error)
+
+require(`./handling`)(client, rest)
 
 client.on(`ready`, () => {
-    console.log(`Log in ${client.user.tag}`)
+    console.log(`[Start] Log in ${client.user.tag}`)
 })
 
-client.on(`interactionCreate`, async interaction => {
-    if (!interaction.isChatInputCommand()) return;
+
+client.on(Events.InteractionCreate, async interaction => {
+  if (!interaction.isChatInputCommand()) return;
+  const command = interaction.client.commands.get(interaction.commandName);
   
-    const command = interaction.client.commands.get(interaction.commandName);
+  if (!command) {
+    console.error(`No command matching ${interaction.commandName} was found.`);
+    return;
+  }
   
-    if (!command) {
-      console.error(`No command matching ${interaction.commandName} was found.`);
-      return;
-    }
-  
-    try {
-      await command.execute(interaction);
-    } catch (error) {
-      console.error(error);
-      await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-    }
-  });
+  try {
+    await command.execute(interaction, client);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({ content: 'Ocorreu um erro enquanto eu estava executando o comando :/', ephemeral: true });
+  }
+});
 
 client.login(config.token)
