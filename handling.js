@@ -18,8 +18,12 @@ module.exports = (client, rest) => {
     try {
       console.log(`[Reload] recarregando ${commands.length} comandos`);
 
+      rest.put(Routes.applicationCommands(config.id), { body: [] })
+        .then(() => console.log('[Slash] Slash deletados com sucesso'))
+        .catch(console.error)
+
       const data = await rest.put(
-        Routes.applicationCommands('1049428107150512148'),
+        Routes.applicationCommands(config.id),
         { body: commands },
       )
 
