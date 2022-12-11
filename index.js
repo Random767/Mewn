@@ -21,7 +21,6 @@ require(`./handling`)(client, rest)
 
 client.on(`ready`, () => {
   console.log(`[Start] O bot ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
-  console.log(`${client.guilds.cache.map(x => x.name)}`)
 })
 
 client.on('guildCreate', (guild) => {
