@@ -1,29 +1,31 @@
-const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ApplicationCommand } = require('discord.js')
-const config = require(`./config.json`)
+const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ApplicationCommand } = require('discord.js');
+const config = require('./config.json')
+require('dotenv').config()
 const client = new Client ({ 
     intents: [
         GatewayIntentBits.Guilds
     ],
     presence: {
         activities: [{
-            name: "em desenvolvimento",
+            name: "Mewn beta",
             type: 3
         }],
         status: 'dnd'
     } 
 })
-const rest = new REST({ version: '10' }).setToken(config.token);
 
 
-
-rest.put(Routes.applicationCommands('1049428107150512148'), { body: [] })
-      .then(() => console.log('[Slash] Slash deletados com sucesso'))
-      .catch(console.error)
+const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 require(`./handling`)(client, rest)
 
 client.on(`ready`, () => {
-    console.log(`[Start] Log in ${client.user.tag}`)
+  console.log(`[Start] O bot ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
+  console.log(`${client.guilds.cache.map(x => x.name)}`)
+})
+
+client.on('guildCreate', (guild) => {
+  console.log(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}`)
 })
 
 
@@ -44,4 +46,4 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 });
 
-client.login(config.token)
+client.login(process.env.TOKEN)
