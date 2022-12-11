@@ -1,5 +1,4 @@
 const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ApplicationCommand } = require('discord.js');
-const config = require('./config.json')
 require('dotenv').config()
 const client = new Client ({ 
     intents: [
