@@ -1,7 +1,8 @@
-const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ApplicationCommand } = require('discord.js');
+const { Client, Events, GatewayIntentBits, REST, EmbedBuilder} = require('discord.js');
 const { prefix } = require('./config.json')
-process.title = 'Mewn'
 require('dotenv').config()
+process.title = 'Mewn'
+
 const client = new Client ({ 
     intents: [
         GatewayIntentBits.Guilds,
@@ -22,16 +23,29 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 require(`./handling`)(client, rest)
 
 client.on(`ready`, () => {
-  console.log(`[Start] O bot ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
+  console.log(`[Start] ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
 })
 
 client.on('guildCreate', (guild) => {
-  console.log(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}`)
+  console.log(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
+})
+
+client.on('guildDelete', (guild) => {
+  console.log(`[Lost server] O servidor "${guild.name}" removeu o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
 })
 
 client.on('messageCreate', (message) => {
   if(message.content.includes(client.user.id)){
-    message.reply(`Olá ${message.author}! Eu sou o ${client.user.username}, utilize ${prefix}help para ajuda`)
+    const response = new EmbedBuilder()
+      .setTitle('Central de ajuda')
+      .setDescription(`Olá ${message.author.username}! Eu sou o ${client.user.username}, um bot em fase beta, mas futuramente vai vir cheio de functionalidades`)
+      .addFields(({ name: '❓ • Entre no meu servidor de suporte', value: 'Clicando aqui: https://discord.gg/3WYfg5RV9T', inline: true} ))
+      .addFields(({ name: '🖥 • Eu sou open source', value: 'Meu repositório no github: https://github.com/Random767/Mewn-Bot', inline: true} ))
+      
+      .setThumbnail(client.user.displayAvatarURL({ dinamic: true, size: 4096, format: "png" }))
+      .setColor('#2f3136')
+
+    message.reply({ embeds: [response] })
   }
 })
 
