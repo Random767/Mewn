@@ -1,8 +1,12 @@
 const { Client, Collection, Events, GatewayIntentBits, REST, Routes, ApplicationCommand } = require('discord.js');
+const { prefix } = require('./config.json')
+process.title = 'Mewn'
 require('dotenv').config()
 const client = new Client ({ 
     intents: [
-        GatewayIntentBits.Guilds
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
     ],
     presence: {
         activities: [{
@@ -12,7 +16,6 @@ const client = new Client ({
         status: 'dnd'
     } 
 })
-
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
@@ -24,6 +27,12 @@ client.on(`ready`, () => {
 
 client.on('guildCreate', (guild) => {
   console.log(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}`)
+})
+
+client.on('messageCreate', (message) => {
+  if(message.content.includes(client.user.id)){
+    message.reply(`Olá ${message.author}! Eu sou o ${client.user.username}, utilize ${prefix}help para ajuda`)
+  }
 })
 
 
