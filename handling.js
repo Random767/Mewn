@@ -16,16 +16,14 @@ module.exports = (client, rest) => {
 
   (async () => {
     try {
-      console.log(`[Reload] recarregando ${commands.length} comandos`);
-
       const data = await rest.put(
         Routes.applicationCommands(config.id),
         { body: commands },
       )
 
-      console.log('[Load] Comandos recarregados ' + data.length)
+      console.log(`[Load] ${data.length} comandos carregados `)
+
       rest.put(Routes.applicationCommands(config.id), { body: [] })
-        .then(() => console.log('[Slash] Slashs anteriores deletados com sucesso'))
         .catch(console.error)
     } catch(err){
       console.error(err);
