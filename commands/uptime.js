@@ -29,6 +29,6 @@ module.exports = {
         }
 
         uptime += ` **${semanas} semanas** **${dias}d** **${horas}h** **${minutos}m** **${segundos}s**`
-        await interaction.reply(`Fazem exatamente ${uptime} que eu tô acordado, e contando...`)
+        await interaction.reply(`Fazem exatamente ${uptime} que eu tô acordado, a vontade de mimir ta forte kkkk`)
     }
 };
