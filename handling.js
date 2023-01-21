@@ -1,10 +1,9 @@
 const { REST, Routes, Collection } = require('discord.js');
 const fs = require(`fs`)
-const path = require('node:path');
 const config = require('./config.json')
 
 module.exports = (client, rest) => {
-  client.commands = new Collection()
+    client.commands = new Collection()
   const commands = [];
   const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -16,15 +15,19 @@ module.exports = (client, rest) => {
 
   (async () => {
     try {
-      const data = await rest.put(
-        Routes.applicationCommands(config.id),
-        { body: commands },
+      rest.put(Routes.applicationCommands(config.id), { body: [] })
+      .catch(console.error)
+
+      let data;
+      const servers = client.guilds.cache.map(x => x.id)
+    for(let i=0; i<servers.length; i++){
+      data = await rest.put(Routes.applicationGuildCommands(config.id, `${servers[i]}`),
+        { body: commands }
       )
+    }
 
       console.log(`[Load] ${data.length} comandos carregados `)
 
-      rest.put(Routes.applicationCommands(config.id), { body: [] })
-        .catch(console.error)
     } catch(err){
       console.error(err);
     }
