@@ -1,5 +1,5 @@
 {
-  "name": "mewn-bot",
+  "name": "mewn",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/random767/Mewn-Bot.git"
+    "url": "git+https://github.com/random767/Mewn.git"
   },
   "keywords": [],
   "author": "GRandom#0898",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/random767/Mewn-Bot/issues"
+    "url": "https://github.com/random767/Mewn/issues"
   },
-  "homepage": "https://github.com/random767/Mewn-Bot#readme",
+  "homepage": "https://github.com/random767/Mewn#readme",
   "dependencies": {
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3"
