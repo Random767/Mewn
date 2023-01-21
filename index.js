@@ -22,7 +22,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 client.on(`ready`, () => {
   console.log(`[Start] ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
-  require(`./handling`)(client, rest)
+  require(`${__dirname}/handling`)(client, rest)
 
 })
 
@@ -55,7 +55,7 @@ client.on(Events.InteractionCreate, async interaction => {
   const command = interaction.client.commands.get(interaction.commandName);
   
   if (!command) {
-    console.error(`No command matching ${interaction.commandName} was found.`);
+    console.error(`Nenhum comando com o nome ${interaction.commandName} foi encontrado`);
     return;
   }
   
