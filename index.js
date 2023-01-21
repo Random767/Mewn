@@ -35,7 +35,7 @@ client.on('guildDelete', (guild) => {
 })
 
 client.on('messageCreate', (message) => {
-  if(message.content.includes(client.user.id && !message.author.bot)){
+  if(message.content.includes(client.user.id) && (!message.author.bot)){
     const response = new EmbedBuilder()
       .setTitle('Central de ajuda')
       .setDescription(`Olá ${message.author.username}! Eu sou o ${client.user.username}, um bot em fase beta, mas futuramente vai vir cheio de functionalidades`)
