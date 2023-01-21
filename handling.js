@@ -1,14 +1,14 @@
-const { REST, Routes, Collection } = require('discord.js');
-const fs = require(`fs`)
+const { Routes, Collection } = require('discord.js');
+const fs = require(`fs`);
 const config = require('./config.json')
 
 module.exports = (client, rest) => {
     client.commands = new Collection()
   const commands = [];
-  const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+  const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.js'));
 
   for (const file of commandFiles){
-    const command = require(`./commands/${file}`);
+    const command = require(`${__dirname}/commands/${file}`);
     commands.push(command.data.toJSON());
     client.commands.set(command.data.name, command)
   }
