@@ -2,5 +2,6 @@
     "logs": {
         "enable": true,
         "logChannelId": "1050831952707604510"
-    }
+    },
+    "applicationId": "1049428107150512148"
 }
