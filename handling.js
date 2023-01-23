@@ -3,7 +3,7 @@ const fs = require(`fs`);
 const config = require('./config.json')
 
 module.exports = (client, rest) => {
-    client.commands = new Collection()
+  client.commands = new Collection()
   const commands = [];
   const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.js'));
 
@@ -15,13 +15,13 @@ module.exports = (client, rest) => {
 
   (async () => {
     try {
-      rest.put(Routes.applicationCommands(config.id), { body: [] })
-      .catch(console.error)
+      rest.put(Routes.applicationCommands(config.applicationId), { body: [] })
+        .catch(console.error)
 
       let data;
       const servers = client.guilds.cache.map(x => x.id)
-    for(let i=0; i<servers.length; i++){
-      data = await rest.put(Routes.applicationGuildCommands(config.id, `${servers[i]}`),
+      for(let i=0; i<servers.length; i++){
+        data = await rest.put(Routes.applicationGuildCommands(config.applicationId, `${servers[i]}`),
         { body: commands }
       )
     }
