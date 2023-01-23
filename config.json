@@ -1,7 +1,13 @@
 {
     "logs": {
-        "enable": true,
-        "logChannelId": "1050831952707604510"
-    },
-    "applicationId": "1049428107150512148"
+        "isEnabled": true,
+        "channels": {
+            "commandCreateChannelId": "1050831952707604510",
+            "guildUpdateChannelId": "1050831950530756648"
+        },
+        "logFile": {
+            "filename": "client.log",
+            "overwrite": false
+        }
+    }
 }
