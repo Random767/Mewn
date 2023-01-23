@@ -6,14 +6,15 @@ const client = new Client ({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildPresences
     ],
     presence: {
         activities: [{
-            name: "Mewn beta",
+            name: "Mewn Beta",
             type: 3
         }],
-        status: 'dnd'
+        status: 'idle'
     } 
 })
 
@@ -58,7 +59,18 @@ client.on(Events.InteractionCreate, async interaction => {
     console.error(`Nenhum comando com o nome ${interaction.commandName} foi encontrado`);
     return;
   }
-  
+  console.log(`O comando ${interaction.commandName} foi executado`)
+  console.log(interaction)
+  const log = new EmbedBuilder()
+    .setTitle(interaction.commandName)
+    .addFields({ name: "Autor", value: "```" + interaction.user.tag + " (" + interaction.user.id + ") ```", inline: false})
+    .addFields({ name: "Servidor", value: "```" + interaction.guild.name + " (" + interaction.guild.id + ")```", inline: false})
+    .addFields({ name: "Canal", value: "```" + interaction.channel.name + " (" + interaction.channel.id + ")```", inline: false})
+    .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
+    .setColor('#2f3136')
+    
+  client.channels.cache.get('1050831952707604510').send({ embeds: [log] })
+
   try {
     await command.execute(interaction, client);
   } catch (error) {
