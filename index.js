@@ -1,5 +1,6 @@
 const { Client, Events, GatewayIntentBits, REST, EmbedBuilder} = require('discord.js');
 require('dotenv').config()
+const config = require('./config.json')
 process.title = 'Mewn'
 
 const client = new Client ({ 
@@ -59,8 +60,6 @@ client.on(Events.InteractionCreate, async interaction => {
     console.error(`Nenhum comando com o nome ${interaction.commandName} foi encontrado`);
     return;
   }
-  console.log(`O comando ${interaction.commandName} foi executado`)
-  console.log(interaction)
   const log = new EmbedBuilder()
     .setTitle(interaction.commandName)
     .addFields({ name: "Autor", value: "```" + interaction.user.tag + " (" + interaction.user.id + ") ```", inline: false})
@@ -68,8 +67,9 @@ client.on(Events.InteractionCreate, async interaction => {
     .addFields({ name: "Canal", value: "```" + interaction.channel.name + " (" + interaction.channel.id + ")```", inline: false})
     .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
     .setColor('#2f3136')
-    
-  client.channels.cache.get('1050831952707604510').send({ embeds: [log] })
+  if(config.logs.enable === true){
+    client.channels.cache.get(config.logs.logChannelId).send({ embeds: [log] })
+  }
 
   try {
     await command.execute(interaction, client);
