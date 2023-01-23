@@ -1,6 +1,5 @@
 const { Routes, Collection } = require('discord.js');
 const fs = require(`fs`);
-const config = require('./config.json')
 
 module.exports = (client, rest) => {
   client.commands = new Collection()
@@ -15,13 +14,13 @@ module.exports = (client, rest) => {
 
   (async () => {
     try {
-      rest.put(Routes.applicationCommands(config.applicationId), { body: [] })
+      rest.put(Routes.applicationCommands(client.user.id), { body: [] })
         .catch(console.error)
 
       let data;
       const servers = client.guilds.cache.map(x => x.id)
       for(let i=0; i<servers.length; i++){
-        data = await rest.put(Routes.applicationGuildCommands(config.applicationId, `${servers[i]}`),
+        data = await rest.put(Routes.applicationGuildCommands(client.user.id, `${servers[i]}`),
         { body: commands }
       )
     }
