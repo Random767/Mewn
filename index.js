@@ -1,6 +1,7 @@
 const { Client, Events, GatewayIntentBits, REST, EmbedBuilder} = require('discord.js');
 require('dotenv').config()
-const config = require('./config.json')
+const { logs } = require('./config.json')
+const moment = require('moment')
 process.title = 'Mewn'
 
 const client = new Client ({ 
@@ -30,10 +31,34 @@ client.on(`ready`, () => {
 
 client.on('guildCreate', (guild) => {
   console.log(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
+  const log = new EmbedBuilder()
+    .setTitle(`Novo servidor :D`)
+    .addFields({ name: "Nome", value: `${guild.name} (${guild.id})`, inline: false })
+    .addFields({ name: "Criado em", value: moment(guild.createdTimestamp).format('LLLL'), inline: false })
+    .addFields({ name: "Usuários", value: `${guild.memberCount}`, inline: false })
+    .setThumbnail(guild.iconURL({dynamic: true}, {size: 4096}))
+    .setColor('#4775ec')
+
+  if(logs.isEnabled === true){
+    client.channels.cache.get(logs.channels.guildUpdateChannelId).send({ embeds: [log] })
+  }
 })
 
 client.on('guildDelete', (guild) => {
   console.log(`[Lost server] O servidor "${guild.name}" removeu o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
+
+  const log = new EmbedBuilder()
+  .setTitle(`Fui removido de um servidor`)
+  .addFields({ name: "Nome", value: `${guild.name} (${guild.id})`, inline: false })
+  .addFields({ name: "Criado em", value: moment(guild.createdTimestamp).format('LLLL'), inline: false })
+  .addFields({ name: "Usuários", value: `${guild.memberCount}`, inline: false })
+  .setThumbnail(guild.iconURL({dynamic: true}, {size: 4096}))
+  .setColor('#e02c2f')
+
+  if(logs.isEnabled === true){
+    client.channels.cache.get(logs.channels.guildUpdateChannelId).send({ embeds: [log] })
+  }
+
 })
 
 client.on('messageCreate', (message) => {
@@ -67,8 +92,8 @@ client.on(Events.InteractionCreate, async interaction => {
     .addFields({ name: "Canal", value: "```" + interaction.channel.name + " (" + interaction.channel.id + ")```", inline: false})
     .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
     .setColor('#2f3136')
-  if(config.logs.enable === true){
-    client.channels.cache.get(config.logs.logChannelId).send({ embeds: [log] })
+  if(logs.isEnabled === true){
+    client.channels.cache.get(logs.channels.commandCreateChannelId).send({ embeds: [log] })
   }
 
   try {
