@@ -6,7 +6,6 @@ module.exports = {
         .setName('uptime')
         .setDescription('Veja a quanto tempo o bot está ligado'),
     async execute(interaction, client){
-        let semanas = 0
 
         let uptime = ''
         let totalSegundos = (client.uptime / 1000)
@@ -17,7 +16,7 @@ module.exports = {
         let minutos = Math.floor(totalSegundos / 60)
         let segundos = Math.floor(totalSegundos % 60)
 
-        uptime += ` **${semanas} semanas** **${dias}d** **${horas}h** **${minutos}m** **${segundos}s**`
+        uptime += ` **${dias}d** **${horas}h** **${minutos}m** **${segundos}s**`
         await interaction.reply(`Fazem exatamente ${uptime} que eu tô acordado, a vontade de mimir ta forte kkkk`)
     }
 };
