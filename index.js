@@ -1,6 +1,6 @@
 const { Client, Events, GatewayIntentBits, REST, EmbedBuilder} = require('discord.js');
 require('dotenv').config()
-const { logs } = require('./config.json')
+const { eventLog } = require('./config.json')
 const moment = require('moment')
 process.title = 'Mewn'
 
@@ -23,7 +23,7 @@ const client = new Client ({
 
 client.on(`ready`, () => {
   console.log(`[Start] ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
-  require(`${__dirname}/handling`)(client, rest)
+  require(`${__dirname}/handling`)(client)
 
 })
 
@@ -37,8 +37,8 @@ client.on('guildCreate', (guild) => {
     .setThumbnail(guild.iconURL({dynamic: true}, {size: 4096}))
     .setColor('#4775ec')
 
-  if(logs.isEnabled === true){
-    client.channels.cache.get(logs.channels.guildUpdateChannelId).send({ embeds: [log] })
+  if(eventLog.isEnabled){
+    client.channels.cache.get(eventLog.channels.guildUpdateChannelId).send({ embeds: [log] })
   }
 })
 
@@ -53,8 +53,8 @@ client.on('guildDelete', (guild) => {
   .setThumbnail(guild.iconURL({dynamic: true}, {size: 4096}))
   .setColor('#e02c2f')
 
-  if(logs.isEnabled === true){
-    client.channels.cache.get(logs.channels.guildUpdateChannelId).send({ embeds: [log] })
+  if(eventLog.isEnabled){
+    client.channels.cache.get(eventLog.channels.guildUpdateChannelId).send({ embeds: [log] })
   }
 
 })
@@ -90,8 +90,8 @@ client.on(Events.InteractionCreate, async interaction => {
     .addFields({ name: "Canal", value: "```" + interaction.channel.name + " (" + interaction.channel.id + ")```", inline: false})
     .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
     .setColor('#2f3136')
-  if(logs.isEnabled === true){
-    client.channels.cache.get(logs.channels.commandCreateChannelId).send({ embeds: [log] })
+  if(eventLog.isEnabled){
+    client.channels.cache.get(eventLog.channels.commandCreateChannelId).send({ embeds: [log] })
   }
 
   try {
