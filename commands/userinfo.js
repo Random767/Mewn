@@ -5,27 +5,29 @@ moment.locale('pt-BR')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`userinfo`)
-        .setDescription(`[Beta] Veja as informações de um usuário`)
+        .setDescription(`Veja as informações de um usuário`)
         .addStringOption(option =>
             option.setName('usuário')
                 .setDescription('Digite um id ou mencione um usuário')
                 .setRequired(false)),
     async execute(interaction, client) {
         const getUser = interaction.options.getString('usuário') || interaction.member.id
-        const userinfo =  client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
-        const joinedAt = interaction.guild.members.cache.get(getUser).joinedTimestamp
+        const userinfo = client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
+        const memberinfo = interaction.guild.members.cache.get(getUser)
 
         if(!userinfo){
             await interaction.reply('Desculpe, não consegui encontrar o usuário')
             return
         }
 
+        console.log(memberinfo)
         const uname = userinfo.username
         const utag = userinfo.tag
         const uid = userinfo.id
         const ucreatedat = `${moment(userinfo.createdAt).format('LLLL')} (${moment(userinfo.createdAt).fromNow()})`
-        const ujoined = `${moment(joinedAt).format('LLLL')} (${moment(joinedAt).fromNow()})`
+        const ujoined = `${moment(memberinfo.joinedTimestamp).format('LLLL')} (${moment(memberinfo.joinedTimestamp).fromNow()})`
         const uavatar = userinfo.displayAvatarURL({dynamic: true})
+        const upresence = memberinfo.presence.status
 
         function isMember(){
             let result = interaction.guild.members.cache.filter(a => a.id === userinfo.id).size
@@ -57,6 +59,11 @@ module.exports = {
                 .addFields({
                     name: "Entrou aqui em",
                     value: ujoined,
+                    inline: true
+                })
+                .addFields({
+                    name: "Presença",
+                    value: upresence,
                     inline: true
                 })
             .setThumbnail(uavatar)
