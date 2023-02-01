@@ -20,8 +20,6 @@ const client = new Client ({
     } 
 })
 
-const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
-
 
 client.on(`ready`, () => {
   console.log(`[Start] ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)

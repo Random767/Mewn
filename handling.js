@@ -1,7 +1,7 @@
-const { Routes, Collection } = require('discord.js');
+const { Routes, Collection, REST } = require('discord.js');
 const fs = require(`fs`);
 
-module.exports = (client, rest) => {
+module.exports = (client) => {
   client.commands = new Collection()
   const commands = [];
   const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.js'));
@@ -11,7 +11,7 @@ module.exports = (client, rest) => {
     commands.push(command.data.toJSON());
     client.commands.set(command.data.name, command)
   }
-
+  const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
   (async () => {
     try {
       rest.put(Routes.applicationCommands(client.user.id), { body: [] })
