@@ -24,7 +24,10 @@ const client = new Client ({
 client.on(`ready`, () => {
   console.log(`[Start] ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
   require(`${__dirname}/handling`)(client)
+})
 
+client.on('rateLimit', (limite) => {
+  console.log(`[rateLimit] - RateLimit de ${limite.timeout}ms`)
 })
 
 client.on('guildCreate', (guild) => {
