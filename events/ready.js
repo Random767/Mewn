@@ -1,4 +1,5 @@
 const { Events } = require('discord.js')
+const { info } = require('./../config.json')
 
 module.exports =  {
     name: Events.ClientReady,
