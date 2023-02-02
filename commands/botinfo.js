@@ -61,6 +61,7 @@ module.exports = {
             
             .setThumbnail(client.user.displayAvatarURL({ dinamic: true, size: 4096, format: "png" }))
             .setColor('#2f3136')
+            .setTimestamp()
         await interaction.reply({ embeds: [botinfo] })
     },
 }
