@@ -50,6 +50,20 @@ client.on('rateLimit', (limite) => {
   console.log(`[rateLimit] - RateLimit de ${limite.timeout}ms`)
 })
 
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+	const filePath = path.join(eventsPath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.exec(...args));
+	} else {
+		client.on(event.name, (...args) => event.exec(...args));
+	}
+}
+
+
 client.on('guildCreate', (guild) => {
   console.log(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
   const log = new EmbedBuilder()
