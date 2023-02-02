@@ -5,7 +5,7 @@ moment.locale('pt-BR')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`serverinfo`)
-        .setDescription(`[Em breve] Veja as informações de um servidor`)
+        .setDescription(`Veja as informações de um servidor`)
         .addStringOption(option => 
             option.setName('guild')
                 .setDescription('Digite o id de um servidor')
