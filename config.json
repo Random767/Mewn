@@ -1,4 +1,7 @@
 {
+    "info": {
+        "devId": ["633764019559202836"]
+    },
     "eventLog": {
         "isEnabled": true,
         "channels": {
