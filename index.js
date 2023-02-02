@@ -1,6 +1,9 @@
 const { Client, Events, GatewayIntentBits, REST, EmbedBuilder} = require('discord.js');
 require('dotenv').config()
 const { eventLog } = require('./config.json')
+const { info } = require('./config.json')
+const fs = require('fs')
+const path = require('path')
 const moment = require('moment')
 process.title = 'Mewn'
 
@@ -13,7 +16,7 @@ const client = new Client ({
     ],
     presence: {
         activities: [{
-            name: "Mewn Beta",
+            name: "Carregando...",
             type: 3
         }],
         status: 'idle'
@@ -23,6 +26,23 @@ const client = new Client ({
 
 client.on(`ready`, () => {
   console.log(`[Start] ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
+  
+  let activities = [
+    `❓ • Ultilize /help para ajuda`,
+    `🖥️ • Criado por: ${client.users.cache.get(info.devId[0]).tag}`,
+    `🐱 • Estou espalhando fofura em ${client.guilds.cache.size} servidores >:3`,
+    `👌 • Ajudando ${client.users.cache.size} pessoas :3`,
+    `🦆 • Patos são fofos :D`,
+    `+  • Me adicione usando o comando /adicionar`
+  ]
+  i = 0
+  setInterval(() => {
+    client.user.setActivity(`${activities[i++ % activities.length]}`, {
+    type: 1
+  }
+  )}, 10000);
+  client.user.setStatus('online')
+
   require(`${__dirname}/handling`)(client)
 })
 
