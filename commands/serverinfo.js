@@ -12,7 +12,6 @@ module.exports = {
                 .setRequired(false)),
     async execute(interaction, client) {
         let servidor = client.guilds.cache.get(interaction.options.getString("guild")) || interaction.guild
-        console.log(servidor)
         let servBanner = interaction.guild.bannerURL({ dynamic: false, size: 4096})
         let text = servidor.channels.cache.filter(x => x.type === 'text').size
         let voice = servidor.channels.cache.filter(x => x.type === 'voice').size
@@ -37,7 +36,6 @@ module.exports = {
         const bots = servidor.members.cache.filter(b => b.user.bot).size
         const membros = servidor.memberCount
 
-        console.log(criador.username)
         const embed = new EmbedBuilder()
             .setTitle(servidor.name)
             .setColor("Random")
