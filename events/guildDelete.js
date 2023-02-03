@@ -1,9 +1,14 @@
-const { Events } = require('discord.js')
+const { Events, EmbedBuilder } = require('discord.js')
+const { eventLog } = require('./../config.json')
+const moment = require('moment')
+moment.locale('pt-BR')
+const Discord = require('./../index')
+let client = Discord.client
 
 module.exports = {
     name: Events.GuildDelete,
     once: false,
-    exec(client, guild){
+    exec(guild){
         console.log(`[Lost server] O servidor "${guild.name}" removeu o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
 
         const log = new EmbedBuilder()
