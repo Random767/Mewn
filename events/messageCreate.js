@@ -1,9 +1,12 @@
 const { Events } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
+const Discord = require('./../index')
+let client = Discord.client
 
 module.exports = {
-    data: Events.MessageCreate,
+    name: Events.MessageCreate,
     once: false,
-    exec(message, client){
+    exec(message){
         if(message.content.includes(client.user.id) && (!message.author.bot)){
             const response = new EmbedBuilder()
               .setTitle('Central de ajuda')
