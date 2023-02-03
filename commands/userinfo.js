@@ -13,21 +13,19 @@ module.exports = {
     async execute(interaction, client) {
         const getUser = interaction.options.getString('usuário') || interaction.member.id
         const userinfo = client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
-        const memberinfo = interaction.guild.members.cache.get(getUser)
+        const memberinfo = interaction.guild.members.cache.get(`${getUser}`)
 
         if(!userinfo){
             await interaction.reply('Desculpe, não consegui encontrar o usuário')
             return
         }
 
-        console.log(memberinfo)
         const uname = userinfo.username
+        const unickname = userinfo.nickname
         const utag = userinfo.tag
         const uid = userinfo.id
         const ucreatedat = `${moment(userinfo.createdAt).format('LLLL')} (${moment(userinfo.createdAt).fromNow()})`
-        const ujoined = `${moment(memberinfo.joinedTimestamp).format('LLLL')} (${moment(memberinfo.joinedTimestamp).fromNow()})`
         const uavatar = userinfo.displayAvatarURL({dynamic: true})
-        const upresence = memberinfo.presence.status
 
         function isMember(){
             let result = interaction.guild.members.cache.filter(a => a.id === userinfo.id).size
@@ -38,9 +36,17 @@ module.exports = {
             }
         }
 
-        if(isMember){
+        if(isMember()){
+            let upresence
+            if(memberinfo.presence == undefined){
+                upresence = 'offline'
+            } else {
+                upresence = memberinfo.presence.status
+            }
+            const ujoined = `${moment(memberinfo.joinedTimestamp).format('LLLL')} (${moment(memberinfo.joinedTimestamp).fromNow()})`
+
             const embed = new EmbedBuilder()
-                .setTitle(uname)
+                .setTitle(unickname)
                 .addFields({
                     name: "Tag",
                     value: utag,
