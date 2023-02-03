@@ -24,10 +24,6 @@ const client = new Client ({
 })
 exports.client = client
 
-client.on('rateLimit', (limite) => {
-  console.log(`[rateLimit] - RateLimit de ${limite.timeout}ms`)
-})
-
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
