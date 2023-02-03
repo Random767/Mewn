@@ -13,7 +13,7 @@ module.exports =  {
           `🐱 • Estou espalhando fofura em ${client.guilds.cache.size} servidores >:3`,
           `👌 • Ajudando ${client.users.cache.size} pessoas :3`,
           `🦆 • Patos são fofos :D`,
-          `+  • Me adicione usando o comando /adicionar`
+          `+  • Me adicione usando o comando /add`
         ]
         i = 0
         setInterval(() => {
