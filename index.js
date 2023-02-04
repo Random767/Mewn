@@ -1,7 +1,5 @@
 const { Client, Events, GatewayIntentBits, REST, EmbedBuilder} = require('discord.js');
 require('dotenv').config()
-const { eventLog } = require('./config.json')
-const { info } = require('./config.json')
 const fs = require('fs')
 const path = require('path')
 const moment = require('moment')
