@@ -1,8 +1,7 @@
-const { Client, Events, GatewayIntentBits, REST, EmbedBuilder} = require('discord.js');
+const { Client, GatewayIntentBits} = require('discord.js');
 require('dotenv').config()
 const fs = require('fs')
 const path = require('path')
-const moment = require('moment')
 process.title = 'Mewn'
 
 const client = new Client ({ 
