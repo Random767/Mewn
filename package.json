@@ -1,7 +1,7 @@
 {
   "name": "mewn",
   "version": "1.0.0",
-  "description": "O Mewn é um bot que oferece uma variedade de recursos úteis para os usuários do servidor, mas ainda está está em fase beta. ",
+  "description": "O Mewn é um bot que oferece uma variedade de recursos úteis para os usuários do servidor.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
