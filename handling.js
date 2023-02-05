@@ -4,12 +4,16 @@ const fs = require(`fs`);
 module.exports = (client) => {
   client.commands = new Collection()
   const commands = [];
-  const commandFiles = fs.readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.js'));
+  const commandFolder = fs.readdirSync(`./commands`)
 
-  for (const file of commandFiles){
-    const command = require(`${__dirname}/commands/${file}`);
-    commands.push(command.data.toJSON());
-    client.commands.set(command.data.name, command)
+  for(const folder of commandFolder){
+    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'))
+    for (const file of commandFiles){
+      console.log(`Loading ${folder}/${file}`)
+      const command = require(`./commands/${folder}/${file}`);
+      commands.push(command.data.toJSON());
+      client.commands.set(command.data.name, command)
+    }  
   }
   const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
   (async () => {
