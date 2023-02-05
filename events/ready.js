@@ -1,5 +1,4 @@
 const { Events } = require('discord.js')
-const { info } = require('./../config.json')
 
 module.exports =  {
     name: Events.ClientReady,
@@ -9,7 +8,8 @@ module.exports =  {
   
         let activities = [
           `❓ • Ultilize /help para ajuda`,
-          `🖥️ • Criado por: ${client.users.cache.get(info.devId[0]).tag}`,
+          `🤔 • Ultilize /commands para ver meu comandos`,
+          `🖥️ • Criado por: ${client.users.cache.get('633764019559202836').tag}`,
           `🐱 • Estou espalhando fofura em ${client.guilds.cache.size} servidores >:3`,
           `👌 • Ajudando ${client.users.cache.size} pessoas :3`,
           `🦆 • Patos são fofos :D`,
