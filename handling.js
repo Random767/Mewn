@@ -4,13 +4,13 @@ const fs = require(`fs`);
 module.exports = (client) => {
   client.commands = new Collection()
   const commands = [];
-  const commandFolder = fs.readdirSync(`./commands`)
+  const commandFolder = fs.readdirSync(__dirname + `/commands`)
 
   for(const folder of commandFolder){
-    const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'))
+    const commandFiles = fs.readdirSync(__dirname + `/commands/${folder}`).filter(file => file.endsWith('.js'))
     for (const file of commandFiles){
       console.log(`Loading ${folder}/${file}`)
-      const command = require(`./commands/${folder}/${file}`);
+      const command = require(__dirname + `/commands/${folder}/${file}`);
       commands.push(command.data.toJSON());
       client.commands.set(command.data.name, command)
     }  
