@@ -21,7 +21,6 @@ module.exports = {
         let offline = servidor.members.cache.filter(x => x.presence.status === 'offline').size
         let total = online + idle + dnd
   
-        console.log(servidor.channels.cache.map(x => x.name))
         let criador = client.users.cache.get(servidor.ownerId)
         let criadoEm = moment(interaction.guild.createdAt).format('LLLL')
         let entreiEm = moment(interaction.guild.joinedAt).format('LLLL')
