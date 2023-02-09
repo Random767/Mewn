@@ -6,6 +6,9 @@ module.exports = (client) => {
   const commands = [];
   const commandFolder = fs.readdirSync(__dirname + `/commands`)
 
+  client.application.commands.set([]);
+  client.commands.set([]);
+
   for(const folder of commandFolder){
     const commandFiles = fs.readdirSync(__dirname + `/commands/${folder}`).filter(file => file.endsWith('.js'))
     for (const file of commandFiles){
@@ -18,18 +21,11 @@ module.exports = (client) => {
   const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
   (async () => {
     try {
-      rest.put(Routes.applicationCommands(client.user.id), { body: [] })
-        .catch(console.error)
-
-      let data;
-      const servers = client.guilds.cache.map(x => x.id)
-      for(let i=0; i<servers.length; i++){
-        data = await rest.put(Routes.applicationGuildCommands(client.user.id, `${servers[i]}`),
-        { body: commands }
-      )
-    }
-
-      console.log(`[Load] ${data.length} comandos carregados `)
+      await rest.put(
+        Routes.applicationCommands(client.user.id),
+        { body: commands },
+      );
+      console.log(`[Load] ${commands.length} comandos carregados`);
 
     } catch(err){
       console.error(err);
