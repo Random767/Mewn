@@ -4,7 +4,8 @@ const fs = require('fs')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`commands`)
-        .setDescription(`Menu de comandos`),
+        .setDescription(`Menu de comandos`)
+        .setDMPermission(false),
     async execute(interaction, client) {
       let bot = []
       let moderation = []

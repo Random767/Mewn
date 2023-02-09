@@ -4,7 +4,8 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('uptime')
-        .setDescription('Veja a quanto tempo o bot está ligado'),
+        .setDescription('Veja a quanto tempo o bot está ligado')
+        .setDMPermission(false),
     async execute(interaction, client){
 
         let uptime = ''

@@ -4,7 +4,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('Utilize esse comando para ajuda'),
+        .setDescription('Utilize esse comando para ajuda')
+        .setDMPermission(false),
     async execute(interaction, client){
         const response = new EmbedBuilder()
             .setTitle('Central de ajuda')

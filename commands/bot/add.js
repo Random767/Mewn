@@ -4,7 +4,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`add`)
-        .setDescription(`Me adicione no seu servidor com esse comando`),
+        .setDescription(`Me adicione no seu servidor com esse comando`)
+        .setDMPermission(false),
     async execute(interaction, client) {
 
         const add = new EmbedBuilder()
