@@ -24,7 +24,9 @@ module.exports = {
             'Provavelmente',
             'Eu sou apenas um bot, nao posso responder essas perguntas',
             'Sim, sem sombra de dúvida!',
-            "Não :D"
+            "Não :D",
+            "Claramente",
+            "Deus é Fiel"
         ]
 
         let result = Math.floor((Math.random() * results.length));
