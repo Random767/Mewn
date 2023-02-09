@@ -6,7 +6,6 @@ module.exports = (client) => {
   const commands = [];
   const commandFolder = fs.readdirSync(__dirname + `/commands`)
 
-
   client.guilds.cache.map(x => x.commands.set([]))
 
   for(const folder of commandFolder){
