@@ -7,8 +7,8 @@ module.exports =  {
         console.log(`[Start] ${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
   
         let activities = [
-          `❓ • Ultilize /help para ajuda`,
-          `🤔 • Ultilize /commands para ver meu comandos`,
+          `❓ • Utilize /help para ajuda`,
+          `🤔 • Utilize /commands para ver meus comandos`,
           `🖥️ • Criado por: ${client.users.cache.get('633764019559202836').tag}`,
           `🐱 • Estou espalhando fofura em ${client.guilds.cache.size} servidores >:3`,
           `👌 • Ajudando ${client.users.cache.size} pessoas :3`,
