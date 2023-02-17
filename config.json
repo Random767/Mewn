@@ -9,5 +9,16 @@
             "filename": "client.log",
             "overwrite": false
         }
+    },
+    "developerCommands": { 
+        "folder": "dev",
+        "whitelist": {
+            "servers": [
+                "1047905177459499018"
+            ],
+            "users": [
+                "633764019559202836"
+            ]
+        }
     }
 }
