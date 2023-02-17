@@ -11,14 +11,7 @@ const client = new Client ({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildPresences
-    ],
-    presence: {
-        activities: [{
-            name: "Carregando...",
-            type: 3
-        }],
-        status: 'idle'
-    } 
+    ]
 })
 exports.client = client
 
