@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits} = require('discord.js');
 require('dotenv').config()
+const { AutoPoster } = require('topgg-autoposter')
 const fs = require('fs')
 const path = require('path')
 process.title = 'Mewn'
@@ -32,6 +33,10 @@ for (const file of eventFiles) {
 	} else {
 		client.on(event.name, (...args) => event.exec(...args));
 	}
+}
+
+if(process.env.TOPGG_TOKEN){
+    AutoPoster(process.env.TOPGG_TOKEN, client)
 }
 
 client.login(process.env.TOKEN)
