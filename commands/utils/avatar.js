@@ -18,10 +18,11 @@ module.exports = {
         const webp = userAvatar.displayAvatarURL({ dynamic: true, size: 4096, format: "webp" })
         
         const embed = new EmbedBuilder()
-            .setTitle(`🐈 | Avatar de ${userAvatar.username}`)
+            .setTitle(`🖼️ | Avatar de ${userAvatar.username}`)
             .setDescription(`Baixar avatar [png](${png}) | [jpg](${jpg}) | [webp](${webp})`)
             .setImage(png)
             .setColor('#2f3136')
+            .setTimestamp()
 
         await interaction.reply(({ embeds: [embed] }));
     },
