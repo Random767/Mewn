@@ -5,7 +5,7 @@ const { developerCommands } = require('./../../config.json')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('eval')
-        .setDescription('Execute códigos no Mewn')
+        .setDescription('[DEV] Execute códigos no Mewn')
         .setDMPermission(false)
         .addStringOption(option => 
             option.setName('eval')

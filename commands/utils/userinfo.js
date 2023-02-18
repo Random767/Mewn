@@ -5,7 +5,7 @@ moment.locale('pt-BR')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`userinfo`)
-        .setDescription(`Veja as informações de um usuário`)
+        .setDescription(`[UTILS] Veja as informações de um usuário`)
         .setDMPermission(false)
         .addStringOption(option =>
             option.setName('usuário')

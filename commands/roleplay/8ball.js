@@ -4,7 +4,7 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`8ball`)
-        .setDescription(`Pergunte algo e eu responderei com sim ou não`)
+        .setDescription(`[RP] Faça uma pergunta`)
         .setDMPermission(false)
         .addStringOption(option =>
             option.setName('frase')

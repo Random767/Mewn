@@ -4,7 +4,7 @@ const { client } = require('./../../index')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('vote')
-        .setDescription('Vote em mim na top.gg')
+        .setDescription('[BOT] Vote em mim na top.gg')
         .setDMPermission(false),
     async execute(interaction){
         const voteEmbed = new EmbedBuilder()

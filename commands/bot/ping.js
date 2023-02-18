@@ -4,7 +4,7 @@ const { SlashCommandBuilder } = require("discord.js");
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Responde com pong')
+		.setDescription('[BOT] Responde com pong')
 		.setDMPermission(false),
 	async execute(interaction, client) {
 		const m = await interaction.reply({ content: 'Calculando ping...', fetchReply: true })
