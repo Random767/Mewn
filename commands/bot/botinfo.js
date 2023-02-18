@@ -4,7 +4,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('botinfo')
-        .setDescription('Veja as informações do bot')
+        .setDescription('[BOT] Veja minhas informações')
         .setDMPermission(false),
     async execute(interaction, client){
         let ram = Math.round(process.memoryUsage().rss / 1024 / 1024).toFixed(0)
