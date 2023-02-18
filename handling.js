@@ -19,7 +19,7 @@ module.exports = (client) => {
         commands.push(command.data.toJSON());
         client.commands.set(command.data.name, command)
       } else {
-        console.log(`Loading dev ${folder}/${file}`)
+        console.log(`Loading ${folder}/${file}`)
         const command = require(__dirname + `/commands/${folder}/${file}`);
         devCommands.push(command.data.toJSON());
         client.commands.set(command.data.name, command)
