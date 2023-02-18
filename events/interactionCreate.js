@@ -23,7 +23,7 @@ module.exports = {
           .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
           .setColor('#2f3136')
         if(eventLog.isEnabled){
-          client.channels.cache.get(eventLog.channels.commandCreateChannelId).send({ embeds: [log] })
+          client.channels.cache.get(eventLog.channels.commandCreate).send({ embeds: [log] })
         }
       
         try {

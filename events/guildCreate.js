@@ -19,7 +19,7 @@ module.exports =  {
           .setColor('#4775ec')
       
         if(eventLog.isEnabled){
-          client.channels.cache.get(eventLog.channels.guildUpdateChannelId).send({ embeds: [log] })
+          client.channels.cache.get(eventLog.channels.guildUpdate).send({ embeds: [log] })
         }
     }
 }
