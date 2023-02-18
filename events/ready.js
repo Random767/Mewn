@@ -18,7 +18,7 @@ module.exports =  {
         i = 0
         setInterval(() => {
           client.user.setActivity(`${activities[i++ % activities.length]}`, {
-          type: 1
+          type: 0
         }
         )}, 10000);
         client.user.setStatus('online')
