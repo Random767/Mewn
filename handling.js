@@ -14,12 +14,14 @@ module.exports = (client) => {
     const commandFiles = fs.readdirSync(__dirname + `/commands/${folder}`).filter(file => file.endsWith('.js'))
     for (const file of commandFiles){
       if(folder != developerCommands.folder){
-        console.log(`Loading ${folder}/${file}`)
         const command = require(__dirname + `/commands/${folder}/${file}`);
-        commands.push(command.data.toJSON());
-        client.commands.set(command.data.name, command)
+        if('data' in command && 'execute' in command){
+          commands.push(command.data.toJSON());
+          client.commands.set(command.data.name, command)
+        } else {
+          console.log(`[⚠️  Warning] O comando ${folder}/${file} não tem a propriedade "data" ou "execute" obrigatorias`)
+        }
       } else {
-        console.log(`Loading ${folder}/${file}`)
         const command = require(__dirname + `/commands/${folder}/${file}`);
         devCommands.push(command.data.toJSON());
         client.commands.set(command.data.name, command)
@@ -39,7 +41,7 @@ module.exports = (client) => {
           { body: devCommands },
         );
       }
-      console.log(`[Load] ${commands.length + devCommands.length} comandos carregados`);
+      console.log(`[✅ Load] ${commands.length + devCommands.length} comandos carregados`);
 
     } catch(err){
       console.error(err);
