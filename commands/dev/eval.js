@@ -1,18 +1,17 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js')
 const { developerCommands } = require('./../../config.json')
 
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('eval')
         .setDescription('[DEV] Execute códigos no Mewn')
         .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .addStringOption(option => 
             option.setName('eval')
                 .setDescription('Escreva um código')
-                .setRequired(true))
-                .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
-    async execute(interaction){
+                .setRequired(true)),
+    async execute(interaction, client){
         const clean = text => {
             if (typeof(text) === "string")
               return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
