@@ -15,7 +15,7 @@ module.exports = {
 
         const botinfo = new EmbedBuilder()
             .setTitle('Minhas informações')
-            .setDescription('Clique [aqui](https://discord.com/oauth2/authorize?client_id=1049428107150512148&scope=bot&permissions=8) para me adicionar\nMeu repositório no github: [github.com/Random767/Mewn](https://github.com/Random767/Mewn)')
+            .setDescription(`Clique [aqui](https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=132875558974) para me adicionar\nMeu repositório no github: [github.com/Random767/Mewn](https://github.com/Random767/Mewn)`)
             .addFields({ 
                     name: "Desenvolvedores",
                     value: `\`\`\`${client.users.cache.get('633764019559202836').tag}\`\`\``, 

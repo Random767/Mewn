@@ -10,7 +10,7 @@ module.exports = {
 
         const add = new EmbedBuilder()
             .setTitle('Me adicione no seu servidor :D')
-            .setDescription(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=4398046511103&scope=applications.commands%20bot`)
+            .setDescription(`https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=132875558974`)
             .setThumbnail(client.user.displayAvatarURL({ dinamic: true, size: 4096, format: "png" }))
             .setColor('#2f3136')
         await interaction.reply({ embeds: [add] });
