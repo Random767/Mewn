@@ -8,8 +8,6 @@ module.exports = (client) => {
   const devCommands = []
   const commandFolder = fs.readdirSync(__dirname + `/commands`)
 
-  client.guilds.cache.map(x => x.commands.set([]))
-
   for(const folder of commandFolder){
     const commandFiles = fs.readdirSync(__dirname + `/commands/${folder}`).filter(file => file.endsWith('.js'))
     for (const file of commandFiles){
