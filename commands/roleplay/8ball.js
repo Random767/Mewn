@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
             option.setName('frase')
                 .setDescription('Digite algo')
                 .setRequired(true)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         let results = [
             'Sim',
             'Não',
@@ -22,14 +22,20 @@ module.exports = {
             'Com certeza',
             'Sem dúvida',
             'Provavelmente',
-            'Eu sou apenas um bot, nao posso responder essas perguntas',
+            'Tenho minhas dúvidas',
             'Sim, sem sombra de dúvida!',
             "Não :D",
             "Claramente",
-            "Deus é Fiel"
         ]
-
+        const frase = interaction.options.getString("frase")
+        if(frase.length > 220) return interaction.reply(`Desculpe, o que você enviou tem ${frase.length} caracteres e eu suporto de 1 a 220 devido a limitações do Discord`)
         let result = Math.floor((Math.random() * results.length));
-        await interaction.reply(results[result]);
+
+        const embed = new EmbedBuilder()
+            .addFields({ name: `"${frase}"`, value: results[result] })
+            .setThumbnail(client.user.displayAvatarURL())
+            .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({dynamic: true}) })
+            .setColor("#2f3136")
+        await interaction.reply({ embeds:[embed] });
     },
 };
