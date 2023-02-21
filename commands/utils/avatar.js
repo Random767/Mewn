@@ -11,8 +11,8 @@ module.exports = {
                 .setRequired(false)),
     async execute(interaction, client) {
         const getUser = interaction.options.getString('usuário') || interaction.user.id
-        const userAvatar = client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
-
+        const userAvatar = client.users.cache.get(getUser.replace('<@','').replace('>','')) || client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
+        if(!userAvatar) return await interaction.reply({ content: "Desculpe, não encontrei esse usuário", ephemeral: true })
         const png = userAvatar.displayAvatarURL({ dynamic: true, size: 4096, format: "png" })
         const jpg = userAvatar.displayAvatarURL({ dynamic: true, size: 4096, format: "jpg" })
         const webp = userAvatar.displayAvatarURL({ dynamic: true, size: 4096, format: "webp" })
