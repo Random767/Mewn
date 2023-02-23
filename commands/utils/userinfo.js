@@ -13,16 +13,15 @@ module.exports = {
                 .setRequired(false)),
     async execute(interaction, client) {
         const getUser = interaction.options.getString('usuário') || interaction.member.id
-        const userinfo = client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
-        const memberinfo = interaction.guild.members.cache.get(`${getUser}`)
-
+        const userinfo = client.users.cache.get(getUser.replace('<@','').replace('>','')) || client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
         if(!userinfo){
-            await interaction.reply('Desculpe, não consegui encontrar o usuário')
+            await interaction.reply({ content: "Desculpe, não consegui encontrar o usuário", ephemeral: true})
             return
         }
+        const memberinfo = interaction.guild.members.cache.get(`${getUser}`) || interaction.guild.members.cache.get(getUser.replace('<@','').replace('>','')) || interaction.guild.members.cache.find(x => userinfo.username === getUser.toLowerCase())
 
         const uname = userinfo.username
-        const unickname = memberinfo.nickname
+        const unickname = uname ?? memberinfo.nickname
         const utag = userinfo.tag
         const uid = userinfo.id
         const ucreatedat = `${moment(userinfo.createdAt).format('LLLL')} (${moment(userinfo.createdAt).fromNow()})`
@@ -30,21 +29,16 @@ module.exports = {
 
         function isMember(){
             let result = interaction.guild.members.cache.filter(a => a.id === userinfo.id).size
-            if(result === '1'){
+            if(result === 1){
                 return true
             } else{
                 return false
             }
         }
 
-        console.log(userinfo)
-        if(isMember){
-            let upresence
-            if(memberinfo.presence == undefined){
-                upresence = 'offline'
-            } else {
-                upresence = memberinfo.presence.status
-            }
+        console.log(memberinfo)
+        if(isMember()){
+            let upresence = memberinfo?.presence?.status ?? 'offiline';
             const ujoined = `${moment(memberinfo.joinedTimestamp).format('LLLL')} (${moment(memberinfo.joinedTimestamp).fromNow()})`
 
             const embed = new EmbedBuilder()
