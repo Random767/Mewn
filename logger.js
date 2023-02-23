@@ -3,7 +3,7 @@ const moment = require('moment')
 moment.locale('pt-BR')
 
 let config = {
-  file: "app.log",
+  file: `${__dirname}/app.log`,
   overWrite: false
 }
 
