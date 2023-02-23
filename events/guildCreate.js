@@ -1,6 +1,7 @@
 const { Events, EmbedBuilder } = require('discord.js')
 const { eventLog } = require('./../config.json')
 const Discord = require('./../index')
+const logger = require('./../logger')
 let client = Discord.client
 const moment = require('moment')
 moment.locale('pt-BR')
@@ -9,7 +10,7 @@ module.exports =  {
     name: Events.GuildCreate,
     once: false,
     exec(guild) {
-        console.log(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
+        logger.info(`[New server] O servidor "${guild.name}" adicionou o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
         const log = new EmbedBuilder()
           .setTitle(`Novo servidor :D`)
           .addFields({ name: "Nome", value: `${guild.name} (${guild.id})`, inline: false })

@@ -1,5 +1,6 @@
 const { Events, EmbedBuilder } = require('discord.js')
 const { eventLog } = require('./../config.json')
+const logger = require('./../logger')
 const Discord = require('./../index')
 let client = Discord.client
 
@@ -29,7 +30,8 @@ module.exports = {
         try {
           await command.execute(interaction, client);
         } catch (error) {
-          console.error(error);
+          console.error(error)
+          logger.error(`${error.stack.split('\n')[1].trim()}: ${error}`)
           await interaction.reply({ content: 'Ocorreu um erro enquanto eu estava executando o comando :/', ephemeral: true });
         }
     }

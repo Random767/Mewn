@@ -3,13 +3,14 @@ const { eventLog } = require('./../config.json')
 const moment = require('moment')
 moment.locale('pt-BR')
 const Discord = require('./../index')
+const logger = require('./../logger')
 let client = Discord.client
 
 module.exports = {
     name: Events.GuildDelete,
     once: false,
     exec(guild){
-        console.log(`[Lost server] O servidor "${guild.name}" removeu o ${client.user.username}, agora tenho ${client.guilds.cache.size} servidores`)
+        logger.info(`[Lost server] O servidor "${guild.name}" me removeu, agora tenho ${client.guilds.cache.size} servidores`)
 
         const log = new EmbedBuilder()
         .setTitle(`Fui removido de um servidor`)

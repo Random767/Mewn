@@ -1,6 +1,7 @@
 const { Routes, Collection, REST } = require('discord.js');
 const { developerCommands } = require('./config.json')
 const fs = require(`fs`);
+const logger = require('./logger')
 
 module.exports = (client) => {
   client.commands = new Collection()
@@ -17,7 +18,7 @@ module.exports = (client) => {
           commands.push(command.data.toJSON());
           client.commands.set(command.data.name, command)
         } else {
-          console.log(`[⚠️  Warning] O comando ${folder}/${file} não tem a propriedade "data" ou "execute" obrigatorias`)
+          logger.warning(`O comando ${folder}/${file} não tem a propriedade "data" ou "execute" obrigatorias`)
         }
       } else {
         const command = require(__dirname + `/commands/${folder}/${file}`);
@@ -39,10 +40,10 @@ module.exports = (client) => {
           { body: devCommands },
         );
       }
-      console.log(`[✅ Load] ${commands.length + devCommands.length} comandos carregados`);
+      logger.info(`${commands.length + devCommands.length} comandos carregados`);
 
     } catch(err){
-      console.error(err);
+      logger.error(`${error.stack.split('\n')[1].trim()}: ${err}`)
     }
   })();
 }
