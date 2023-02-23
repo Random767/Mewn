@@ -13,7 +13,7 @@ module.exports = {
                 .setRequired(false)),
     async execute(interaction, client) {
         const getUser = interaction.options.getString('usuário') || interaction.member.id
-        const userinfo = client.users.cache.get(getUser.replace('<@','').replace('>','')) || client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser)
+        const userinfo = client.users.cache.get(getUser.replace('<@','').replace('>','')) || client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser) || await client.users.fetch(getUser)
         if(!userinfo){
             await interaction.reply({ content: "Desculpe, não consegui encontrar o usuário", ephemeral: true})
             return
@@ -24,7 +24,7 @@ module.exports = {
         const unickname = uname ?? memberinfo.nickname
         const utag = userinfo.tag
         const uid = userinfo.id
-        const ucreatedat = `${moment(userinfo.createdAt).format('LLLL')} (${moment(userinfo.createdAt).fromNow()})`
+        const ucreatedat = `${moment(userinfo.createdAt).format('LLL')} (${moment(userinfo.createdAt).fromNow()})`
         const uavatar = userinfo.displayAvatarURL({dynamic: true})
 
         function isMember(){
@@ -36,10 +36,9 @@ module.exports = {
             }
         }
 
-        console.log(memberinfo)
         if(isMember()){
             let upresence = memberinfo?.presence?.status ?? 'offiline';
-            const ujoined = `${moment(memberinfo.joinedTimestamp).format('LLLL')} (${moment(memberinfo.joinedTimestamp).fromNow()})`
+            const ujoined = `${moment(memberinfo.joinedTimestamp).format('LLL')} (${moment(memberinfo.joinedTimestamp).fromNow()})`
 
             const embed = new EmbedBuilder()
                 .setTitle(unickname)
@@ -54,6 +53,11 @@ module.exports = {
                     inline: true
                 })
                 .addFields({
+                    name: "Presença",
+                    value: upresence,
+                    inline: true
+                })
+                .addFields({
                     name: "Conta criada em",
                     value: ucreatedat,
                     inline: true
@@ -61,11 +65,6 @@ module.exports = {
                 .addFields({
                     name: "Entrou aqui em",
                     value: ujoined,
-                    inline: true
-                })
-                .addFields({
-                    name: "Presença",
-                    value: upresence,
                     inline: true
                 })
             .setThumbnail(uavatar)
