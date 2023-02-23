@@ -9,7 +9,7 @@ module.exports = {
         .setDMPermission(false)
         .addStringOption(option =>
             option.setName('usuário')
-                .setDescription('Digite um id')
+                .setDescription('Digite o nome de um usuário, o mencione ou coloque o id')
                 .setRequired(false)),
     async execute(interaction, client) {
         const getUser = interaction.options.getString('usuário') || interaction.member.id
