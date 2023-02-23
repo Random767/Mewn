@@ -29,7 +29,7 @@ module.exports = {
             })
             .addFields({ 
                 name: "Host", 
-                value: `\`\`\`Raspberry pi\`\`\``, 
+                value: `\`\`\`Raspberry Pi 3\`\`\``, 
                 inline: true})
             .addFields({ 
                 name: "Ping", 
