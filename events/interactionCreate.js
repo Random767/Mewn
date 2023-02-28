@@ -37,6 +37,14 @@ module.exports = {
         } catch (error) {
           console.error(error)
           logger.error(`${error.stack.split('\n')[1].trim()}: ${error}`)
+          const err = new EmbedBuilder()
+            .setTitle('Ocorreu um erro enquanto eu estava executando um comando :/')
+            .setDescription(`Error ${error.stack.split('\n')[1].trim()}: ${error}`)
+            .addFields({ name: "Comando", value: `\`\`\`${interaction.commandName}\`\`\``})
+            .addFields({ name: "Argumentos", value: `\`\`\`${options[0]?.value ?? 'Nenhum argumento foi utilizado'}\`\`\`` })
+            .setThumbnail('https://2.bp.blogspot.com/-CPO_z4zNSnc/WsY667p0JgI/AAAAAAAAYRs/ubTMJD5ToyImbR-o4EiK18gBypYXd0RiwCLcBGAs/s1600/Mercenary%2BGarage%2BError%2BGIF.gif')
+            .setColor('#e02c2f')
+          client.channels.cache.get(eventLog.channels.errorCreate).send({ embeds: [err] })
           await interaction.reply({ content: 'Ocorreu um erro enquanto eu estava executando o comando :/', ephemeral: true });
         }
     }
