@@ -3,7 +3,8 @@
         "isEnabled": true,
         "channels": {
             "commandCreate": "1050831952707604510",
-            "guildUpdate": "1050831950530756648"
+            "guildUpdate": "1050831950530756648",
+            "errorCreate": "1070373118771724350"
         },
         "file": {
             "filename": "client.log",
