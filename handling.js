@@ -40,10 +40,10 @@ module.exports = (client) => {
           { body: devCommands },
         );
       }
-      logger.info(`${commands.length + devCommands.length} comandos carregados`);
+      logger.info(`Comandos carregados com sucesso!`);
 
     } catch(err){
-      logger.error(`${error.stack.split('\n')[1].trim()}: ${err}`)
+      logger.error(`${err.stack.split('\n')[1].trim()}: ${err}`)
     }
   })();
 }
