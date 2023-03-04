@@ -7,28 +7,28 @@ module.exports = {
         .setName(`userinfo`)
         .setDescription(`[UTILS] Veja as informações de um usuário`)
         .setDMPermission(false)
-        .addStringOption(option =>
-            option.setName('usuário')
-                .setDescription('Digite o nome de um usuário, o mencione ou coloque o id')
-                .setRequired(false)),
-    async execute(interaction, client) {
-        const getUser = interaction.options.getString('usuário') || interaction.member.id
-        const userinfo = client.users.cache.get(getUser.replace('<@','').replace('>','')) || client.users.cache.find(user => user.username.toLowerCase() === getUser.toLowerCase()) || client.users.cache.get(getUser) || await client.users.fetch(getUser)
-        if(!userinfo){
+        .addUserOption(
+            option => option.setName('usuário')
+            .setDescription('Digite o nome de um usuário, o mencione ou coloque o id')
+            .setRequired(false)
+        ),
+    async execute(interaction) {
+        const getUser = interaction.options.getUser('usuário') || interaction.member.id
+        if(!getUser){
             await interaction.reply({ content: "Desculpe, não consegui encontrar o usuário", ephemeral: true})
             return
         }
-        const memberinfo = interaction.guild.members.cache.get(`${getUser}`) || interaction.guild.members.cache.get(getUser.replace('<@','').replace('>','')) || interaction.guild.members.cache.find(x => userinfo.username === getUser.toLowerCase())
+        const memberinfo = interaction.guild.members.cache.get(`${getUser.id}`)
 
-        const uname = userinfo.username
+        const uname = getUser.username
         const unickname = uname ?? memberinfo.nickname
-        const utag = userinfo.tag
-        const uid = userinfo.id
-        const ucreatedat = `${moment(userinfo.createdAt).format('LLL')} (${moment(userinfo.createdAt).fromNow()})`
-        const uavatar = userinfo.displayAvatarURL({dynamic: true})
+        const utag = getUser.tag
+        const uid = getUser.id
+        const ucreatedat = `${moment(getUser.createdAt).format('LLL')} (${moment(getUser.createdAt).fromNow()})`
+        const uavatar = getUser.displayAvatarURL({dynamic: true})
 
         function isMember(){
-            let result = interaction.guild.members.cache.filter(a => a.id === userinfo.id).size
+            let result = interaction.guild.members.cache.filter(a => a.id === getUser.id).size
             if(result === 1){
                 return true
             } else{
