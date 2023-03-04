@@ -7,13 +7,13 @@ module.exports = {
         .addUserOption((option) => 
             option
                 .setName('usuário')
-                .setDescription('Pra qual usuário você dejesa tranferir os MewnCoins?')
+                .setDescription('Pra qual usuário você deseja tranferir os MewnCoins?')
                 .setRequired(true)
         )
         .addNumberOption((option) =>
             option
                 .setName('quantidade')
-                .setDescription('Quantos MewnCoins você deseja enviae?')
+                .setDescription('Quantos MewnCoins você deseja enviar?')
                 .setRequired(true)
         ),
     async execute(interaction){
