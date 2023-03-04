@@ -13,7 +13,7 @@ module.exports = {
             .setRequired(false)
         ),
     async execute(interaction) {
-        const getUser = interaction.options.getUser('usuário') || interaction.member.id
+        const getUser = interaction.options.getUser('usuário') || interaction.user
         if(!getUser){
             await interaction.reply({ content: "Desculpe, não consegui encontrar o usuário", ephemeral: true})
             return
