@@ -11,7 +11,7 @@ module.exports = {
         ),
     async execute(interaction){
         const JSONdb = require('simple-json-db')
-        const db = new JSONdb('./storage.json')
+        const db = new JSONdb(`${__dirname}/../../storage.json`)
 
         const user = interaction.options.getUser('usuário') || interaction.user
 

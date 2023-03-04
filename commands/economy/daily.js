@@ -10,7 +10,7 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         const JSONdb = require('simple-json-db')
-        const db = new JSONdb('./storage.json')
+        const db = new JSONdb(`${__dirname}/../../storage.json`)
 
         if(!db.has(interaction.user.id)){
             db.set(interaction.user.id, {"name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": null, "coins": 0})
