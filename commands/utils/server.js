@@ -7,6 +7,21 @@ module.exports = {
         .setName(`server`)
         .setDescription(`[Utils] Veja as informações de um servidor`)
         .setDMPermission(false)
+        .addSubcommandGroup((grup) =>
+            grup
+                .setName('channel')
+                .setDescription('.')
+                .addSubcommand((subcommand) =>
+                    subcommand
+                        .setName('info')
+                        .setDescription('[Utils] Veja as informações de um canal')
+                        .addChannelOption((options) =>
+                            options
+                                .setName('channel')
+                                .setDescription('Você quer ver as informações de qual canal?')
+                        )
+                )
+        )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('icon')
@@ -18,10 +33,10 @@ module.exports = {
                 .setDescription('[Utils] Digite o id de um servidor')
                 .addStringOption(options =>
                     options.setName('servidor')
-                    .setDescription('Digite o id de um servidor')
+                        .setDescription('Digite o id de um servidor')
                 )),
     async execute(interaction, client) {
-        if (interaction.options.getSubcommand() == "info") {
+        if (interaction.options.getSubcommand() == "info" && interaction.options._group !== 'channel') {
             const {
                 channels,
                 ownerId,
@@ -79,13 +94,79 @@ module.exports = {
 
                 .setImage(server.bannerURL({ dinamic: false, size: 4096 }))
             await interaction.reply({ embeds: [embed] })
-        } else if(interaction.options.getSubcommand() == 'icon'){
-            const picture = interaction.guild.iconURL({dynamic: true, size: 4096})
+        } else if (interaction.options.getSubcommand() == 'icon') {
+            const picture = interaction.guild.iconURL({ dynamic: true, size: 4096 })
             const embed = new EmbedBuilder()
                 .setTitle(`${interaction.guild.name}`)
                 .setColor('Aqua')
                 .setImage(picture)
-            await interaction.reply({ embeds:[embed] })
+            await interaction.reply({ embeds: [embed] })
+        } else if (interaction.options.getSubcommandGroup() == 'channel') {
+            let canal = interaction.options.getChannel('channel') || interaction.channel
+
+            let topico = canal.topic ?? '-'
+            let nsfw = canal.nsfw
+            let createdAt = moment(canal.createdAt).format('LLLL')
+            let type = canal.type
+            let slowmode = canal.rateLimitPerUser
+
+            if (slowmode === '0') {
+                slowmode = 'Não tem :/'
+            } else if (slowmode !== 'Não tem :/') {
+                slowmode = `${slowmode}s`
+            }
+            if (type === 0 || type === 11 || type === 12) {
+                const canalInfo = new EmbedBuilder()
+                    .setTitle(canal.name)
+                    .setDescription(topico)
+                    .addFields({
+                        name: "Sobre",
+                        value: `> Id: ${canal.id}\n > Tipo: Canal de texto\n> NSFW: ${nsfw}\n> Modo lento: ${slowmode}`
+                    })
+                    .addFields({
+                        name: 'Info',
+                        value: `> Criado em: ${moment(canal.createdAt).format('LLLL')}`
+                    })
+                    .setColor("#2f3136")
+                return interaction.reply({ embeds: [canalInfo] })
+
+            }
+            if (type === 2 || type === 13) {
+                let userlimit = canal.userLimit
+                if (userlimit === '0') userlimit = 'Não definido'
+
+                const voice = new EmbedBuilder()
+                    .setTitle(canal.name)
+                    .setDescription(topico)
+                    .addFields({
+                        name: 'Sobre',
+                        value: `> Id: ${canal.id}\n > Tipo: Canal de voz\n> Bite Rate: ${canal.bitrate}\n> Limite de usuários: ${userlimit}`
+                    })
+                    .addFields({
+                        name: 'Info',
+                        value: `> Criado em: ${createdAt}`
+                    })
+                    .setColor("#2f3136")
+                return interaction.reply({ embeds: [voice] })
+
+            }
+            if (type === 4) {
+                const category = new EmbedBuilder()
+                    .setTitle(canal.name)
+                    .setDescription(topico)
+                    .addFields({
+                        name: `Sobre`,
+                        value: `> Id: ${canal.id}\n > Tipo: Categoria`
+                    })
+                    .addFields({
+                        name: `Info`,
+                        value: `> Criado em: ${createdAt}`
+                    })
+                    .setColor("#2f3136")
+                return interaction.reply({ embeds: [category] })
+            } else {
+                return interaction.reply(`Desculpe, o tipo de canal ${type} ainda não foi registrado nos meus códigos`)
+            }
         }
     },
 };
