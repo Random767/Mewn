@@ -1,7 +1,7 @@
 const { Events, EmbedBuilder } = require('discord.js')
 const { eventLog } = require('./../config.json')
 const Discord = require('./../index')
-const logger = require('./../logger')
+const logger = require('./../modules/logger')
 let client = Discord.client
 const moment = require('moment')
 moment.locale('pt-BR')

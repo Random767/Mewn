@@ -1,7 +1,7 @@
 const { Routes, Collection, REST } = require('discord.js');
 const { developerCommands } = require('./config.json')
 const fs = require(`fs`);
-const logger = require('./logger')
+const logger = require('./modules/logger')
 
 module.exports = (client) => {
   client.commands = new Collection()

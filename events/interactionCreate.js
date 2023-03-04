@@ -1,6 +1,6 @@
 const { Events, EmbedBuilder } = require('discord.js')
 const { eventLog } = require('./../config.json')
-const logger = require('./../logger')
+const logger = require('./../modules/logger')
 const Discord = require('./../index')
 let client = Discord.client
 

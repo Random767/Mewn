@@ -3,7 +3,7 @@ const { eventLog } = require('./../config.json')
 const moment = require('moment')
 moment.locale('pt-BR')
 const Discord = require('./../index')
-const logger = require('./../logger')
+const logger = require('./../modules/logger')
 let client = Discord.client
 
 module.exports = {
