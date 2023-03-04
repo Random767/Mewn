@@ -12,12 +12,11 @@ module.exports = {
     async execute(interaction){
         const JSONdb = require('simple-json-db')
         const db = new JSONdb('./storage.json')
-        
+
         const user = interaction.options.getUser('usuário') || interaction.user
 
         if(!db.has(user.id)){
             db.set(user.id, {"name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0})
-            console.log('Novo usuário criado no banco de dados')
         }
 
         const atm = db.get(user.id)

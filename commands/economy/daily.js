@@ -14,7 +14,6 @@ module.exports = {
 
         if(!db.has(interaction.user.id)){
             db.set(interaction.user.id, {"name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": null, "coins": 0})
-            console.log('Novo usuário criado no banco de dados')
         }
         
         const convert = moment_timezone(db.get(interaction.user.id).ld).tz('America/Sao_Paulo');

@@ -25,9 +25,7 @@ module.exports = {
 
         if(!db.has(user.id)){
             db.set(user.id, {"name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0})
-            console.log('Novo usuário criado no banco de dados')
         }
-        db.sync()
 
         if(quantity > db.get(interaction.user.id).coins){
             return await interaction.reply(`Você não tem MewnCoins o suficiente para fazer isso :(`)
