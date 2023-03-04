@@ -5,7 +5,7 @@ moment.locale('pt-BR')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`server`)
-        .setDescription(`[UTILS] Veja as informações de um servidor`)
+        .setDescription(`[Utils] Veja as informações de um servidor`)
         .setDMPermission(false)
         .addSubcommand(subcommand =>
             subcommand
