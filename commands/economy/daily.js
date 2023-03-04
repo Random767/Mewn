@@ -12,7 +12,6 @@ module.exports = {
         const JSONdb = require('simple-json-db')
         const db = new JSONdb('./storage.json')
 
-        console.log(interaction.user)
         if(!db.has(interaction.user.id)){
             db.set(interaction.user.id, {"name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": null, "coins": 0})
             console.log('Novo usuário criado no banco de dados')
