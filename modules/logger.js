@@ -3,7 +3,7 @@ const moment = require('moment')
 moment.locale('pt-BR')
 
 let config = {
-  file: `${__dirname}/app.log`,
+  file: `${__dirname}/../app.log`,
   overWrite: false
 }
 
@@ -17,19 +17,19 @@ async function write(content) {
 
 const log = {
   info: (arg) => {
+    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Info] ${arg}`
     console.log(arg)
-    arg = `[${moment().format()}] [info] ${arg}\n`
-    write(arg)
+    write(`${arg}\n`)
   },
   warning: (arg) => {
+    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Warning] ${arg}`
     console.log(arg)
-    arg = `[${moment().format()}] [Warning] ${arg}\n`
-    write(arg)
+    write(`${arg}\n`)
   },
   error: (arg) => {
+    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Error] ${arg}`
     console.log(arg)
-    arg = `[${moment().format()}] [🔴 Error] ${arg}\n`
-    write(arg)
+    write(`${arg}\n`)
   }
   
 }
