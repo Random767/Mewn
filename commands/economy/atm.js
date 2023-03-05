@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js')
+const JSONdb = require('simple-json-db')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +11,7 @@ module.exports = {
                 .setDescription('Quer ver a quantidade de MewnCoins de qual usuário?')
         ),
     async execute(interaction){
-        const JSONdb = require('simple-json-db')
+        await interaction.deferReply()
         const db = new JSONdb(`${__dirname}/../../storage.json`)
 
         const user = interaction.options.getUser('usuário') || interaction.user
@@ -21,8 +22,8 @@ module.exports = {
 
         const atm = db.get(user.id)
         if(user === interaction.user){
-            return await interaction.reply(`Você tem ${atm.coins} MewnCoins :D`)
+            return await interaction.editReply(`Você tem ${atm.coins} MewnCoins :D`)
         }
-        await interaction.reply(`${atm.name} tem ${atm.coins} MewnCoins :D`)
+        await interaction.editReply(`${atm.name} tem ${atm.coins} MewnCoins :D`)
     }
 }

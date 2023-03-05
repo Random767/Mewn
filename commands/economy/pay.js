@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js')
+const JSONdb = require('simple-json-db')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +18,6 @@ module.exports = {
                 .setRequired(true)
         ),
     async execute(interaction){
-        const JSONdb = require('simple-json-db')
         const db = new JSONdb(`${__dirname}/../../storage.json`)
 
         const user = interaction.options.getUser('usuário')
