@@ -14,7 +14,7 @@ module.exports = {
         let rank = {
             title: 'Rank global de MewnCoins',
             fields: userCoins,
-            color: '#2f3136'
+            color: 0x2f3136
         }
         return await interaction.reply({ embeds: [rank] })
     }
