@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require('discord.js')
-const data = require('./../../storage.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('rank')
         .setDescription('[Economy] Veja o ranking de MewnCoins!'),
     async execute(interaction){
+        const data = require('./../../storage.json')
         const sortedData = Object.values(data).sort((a, b) => b.coins - a.coins);
 
         const userCoins = Object.entries(sortedData)
