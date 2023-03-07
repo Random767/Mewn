@@ -22,12 +22,12 @@ module.exports = {
         const hours = moment_timezone().diff(convert, 'hours');
 
         if(hours < 12 && hours != null){
-            return await interaction.editReply(`Você já pegou seu daily, espere **${12 - hours} horas**`)
+            return await interaction.editReply(`:clock12: | Você já pegou seu daily, espere **${12 - hours} horas**!`)
         }
 
-        const daily = Math.floor(Math.random() * (5000 - 300 + 1)) + 300
+        const daily = Math.floor(Math.random() * (2400 - 300 + 1)) + 300
         const coins = db.get(interaction.user.id).coins
         db.set(interaction.user.id, {"name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": moment().format(), "coins": daily + coins})
-        await interaction.editReply(`Olá ${interaction.user.username}, você ganhou ${daily} MewnCoins, agora você tem ${db.get(interaction.user.id).coins} MewnCoins!`)
+        await interaction.editReply(`:moneybag: | Você ganhou **${daily} MewnCoins**, agora você tem ${db.get(interaction.user.id).coins} MewnCoins!`)
     }
 }
