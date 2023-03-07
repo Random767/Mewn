@@ -22,8 +22,8 @@ module.exports = {
 
         const atm = db.get(user.id)
         if(user === interaction.user){
-            return await interaction.editReply(`Você tem ${atm.coins} MewnCoins :D`)
+            return await interaction.editReply(`:bank: | Você tem **${atm.coins} MewnCoins**!`)
         }
-        await interaction.editReply(`${atm.name} tem ${atm.coins} MewnCoins :D`)
+        await interaction.editReply(`:bank: | ${atm.name} tem **${atm.coins} MewnCoins**!`)
     }
 }
