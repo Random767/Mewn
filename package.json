@@ -22,7 +22,7 @@
     "dotenv": "^16.0.3",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.41",
-    "simple-json-db": "^2.0.0",
+    "simpl.db": "^2.12.1",
     "topgg-autoposter": "^2.0.1"
   }
 }
