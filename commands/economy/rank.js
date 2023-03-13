@@ -16,7 +16,7 @@ module.exports = {
             name: `**${name}**`,
             value: `${coins} MewnCoins`,
             inline: true
-        })).slice(0, 10)
+        })).slice(0, 13)
         
         return await interaction.reply({ embeds: [{
             title: 'Rank global de MewnCoins',
