@@ -3,6 +3,7 @@ require('dotenv').config()
 const { AutoPoster } = require('topgg-autoposter')
 const fs = require('fs')
 const path = require('path')
+const log = require('./modules/logger')
 process.title = 'Mewn'
 
 const client = new Client ({ 
@@ -31,5 +32,10 @@ for (const file of eventFiles) {
 if(process.env.TOPGG_TOKEN){
     AutoPoster(process.env.TOPGG_TOKEN, client)
 }
+
+process.on('uncaughtException', (err, origin) => {
+    console.error(`${err}: ${origin}`)
+    log.error(`${err}: ${origin}`)
+});
 
 client.login(process.env.TOKEN)
