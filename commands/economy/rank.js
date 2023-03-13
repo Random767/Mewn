@@ -11,12 +11,13 @@ module.exports = {
     async execute(interaction){
         const userdata = Users.fetchAll()
         let sortedData = userdata.sort((a, b) => b.coins - a.coins);
+        let n = 0;
         
-        let userCoins = sortedData.map(({ name, coins }) => ({
-            name: `**${name}**`,
+        let userCoins = sortedData.slice(0, 15).map(({ name, coins }, rank) => ({
+            name: `${rank + 1}° **${name}**`,
             value: `${coins} MewnCoins`,
             inline: true
-        })).slice(0, 13)
+        }))
         
         return await interaction.reply({ embeds: [{
             title: 'Rank global de MewnCoins',
