@@ -42,15 +42,8 @@ module.exports = {
 
         Users.update(
             person => {
-                if(person.id !== interaction.user.id) return 
-                person.coins -= quantity
-            }
-        
-        )
-        Users.update(
-            person => {
-                if(person.id !== user.id) return 
-                person.coins += quantity
+                if(person.id === interaction.user.id) person.coins -= quantity
+                if(person.id !== user.id) person.coins += quantity
             }
         )
 
