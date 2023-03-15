@@ -18,7 +18,7 @@ module.exports = {
     async execute(interaction){
         const user = interaction.options.getUser('usuário') || interaction.user
 
-        if(!Users.fetch(u => u.id == user.id)){
+        if(Users.fetchAll().find(x => x.id === user.id) === undefined){
             //Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0})
             return await interaction.reply(`:bank: | **${user.tag}** tem **0 MewnCoins**!`)
         }
