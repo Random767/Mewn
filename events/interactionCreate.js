@@ -20,7 +20,6 @@ module.exports = {
           return `${name}: ${value}`
         })
         let logs = {
-          title: "Alguém executou um comando",
           fields: [
             { name: "Autor", value: "```" + interaction.user.tag + " (" + interaction.user.id + ") ```", inline: false},
             { name: "Servidor", value: "```" + interaction.guild.name + " (" + interaction.guild.id + ")```", inline: false},
