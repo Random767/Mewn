@@ -16,20 +16,27 @@ module.exports = {
           return;
         }
         const options = interaction.options._hoistedOptions
-        const log = new EmbedBuilder()
-          .setTitle("Alguém executou um comando")
-          .addFields(
+        const args = options.map(({ name, value }) => {
+          return `${name}: ${value}`
+        })
+        let logs = {
+          title: "Alguém executou um comando",
+          fields: [
             { name: "Autor", value: "```" + interaction.user.tag + " (" + interaction.user.id + ") ```", inline: false},
             { name: "Servidor", value: "```" + interaction.guild.name + " (" + interaction.guild.id + ")```", inline: false},
-            { name: "Canal", value: "```" + interaction.channel.name + " (" + interaction.channel.id + ")```", inline: false},
             { name: "Comando", value: "```" + interaction.commandName + "```", inline: false},
-            { name: "Argumentos", value: `\`\`\`${options[0]?.value ?? 'Nenhum argumento foi utilizado'}\`\`\`` }
-          )
-          .addFields()
-          .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
-          .setColor('#2f3136')
+          ],
+          thumbnail: {
+            url: interaction.user.displayAvatarURL({dynamic: true})
+          },
+          color: 0x2f3136
+        }
+        if(args.length >= 1){
+          logs["fields"] = logs["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(', ')}\`\`\`` })
+        }
+        
         if(eventLog.isEnabled){
-          client.channels.cache.get(eventLog.channels.commandCreate).send({ embeds: [log] })
+          client.channels.cache.get(eventLog.channels.commandCreate).send({ embeds: [logs] })
         }
       
         try {
