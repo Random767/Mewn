@@ -54,16 +54,20 @@ module.exports = {
             thumbnail:{
                 "url": null
             },
+            footer: {
+                text: null
+            },
             color: 0x2f3136
         }
         if(options('titulo') == null && options('descrição') == null && options('imagem') == null && options('thumbnail') == null){
-            return await interaction.reply(':octagonal_sign: | Preciso de pelo menos um argumento para criar a embed!')
+            return await interaction.reply({ content: ':octagonal_sign: | Preciso de pelo menos um argumento para criar a embed!', ephemeral: true })
         }
 
         embed['title'] = options('titulo')
         embed['description'] = options('descrição')
         embed['image']['url'] = options('imagem')
         embed['thumbnail']['url'] = options('thumbnail')
+        embed['footer']['text'] = options('rodapé')
 
         interaction.reply(`:white_check_mark: | Embed criada com sucesso!`)
         channel.send({ embeds:[embed] })
