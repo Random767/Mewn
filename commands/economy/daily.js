@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js')
 const SimplDB = require('simpl.db')
-const db = new SimplDB()
+const db = new SimplDB({
+    collectionsFolder: __dirname + '/../../collections'
+})
 const Users = db.createCollection('users')
 const moment_timezone = require('moment-timezone')
 const moment = require('moment')

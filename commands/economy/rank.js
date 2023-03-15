@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, User } = require('discord.js')
 const SimplDB = require('simpl.db')
-const db = new SimplDB()
+const db = new SimplDB({
+    collectionsFolder: __dirname + '/../../collections'
+})
 const Users = db.createCollection('users')
 
 module.exports = {
@@ -11,7 +13,6 @@ module.exports = {
     async execute(interaction){
         const userdata = Users.fetchAll()
         let sortedData = userdata.sort((a, b) => b.coins - a.coins);
-        let n = 0;
         
         let userCoins = sortedData.slice(0, 15).map(({ name, coins }, rank) => ({
             name: `${rank + 1}° **${name}**`,

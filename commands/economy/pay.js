@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, User } = require('discord.js')
 const SimplDB = require('simpl.db')
-const db = new SimplDB()
+const db = new SimplDB({
+    collectionsFolder: __dirname + '/../../collections'
+})
 const Users = db.createCollection('users')
 
 module.exports = {
