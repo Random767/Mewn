@@ -104,7 +104,7 @@ module.exports = {
         } else if (interaction.options.getSubcommandGroup() == 'channel') {
             let canal = interaction.options.getChannel('channel') || interaction.channel
 
-            let topico = canal.topic ?? '-'
+            let topico = canal.topic ?? null
             let nsfw = canal.nsfw
             let createdAt = moment(canal.createdAt).format('LLLL')
             let type = canal.type
