@@ -33,6 +33,10 @@ module.exports = {
                 if(person.id === interaction.user.id){
                     person.coins += daily
                     person.ld = moment().format()
+                    if(person.name !== interaction.user.username){
+                        person.name = interaction.user.username
+                        person.discriminator = interaction.user.discriminator
+                    }
                 }
             }
         )
