@@ -31,7 +31,7 @@ module.exports = {
             return interaction.reply(':chart_with_downwards_trend: | Você não tem MewnCoins!')
         }
         if(!Users.has(u => u.id == user.id)){
-            await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0})
+            await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
         }
 
         if(quantity > Users.get(u => u.id == interaction.user.id).coins){
