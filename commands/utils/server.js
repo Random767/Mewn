@@ -54,7 +54,7 @@ module.exports = {
                 id,
                 preferredLocale,
             } = client.guilds.cache.get(interaction.options.getString("servidor")) || interaction.guild
-            let server = client.guilds.cache.get(interaction.options.getString("guild")) || interaction.guild
+            let server = client.guilds.cache.get(interaction.options.getString("servidor")) || interaction.guild
             let text = channels.cache.filter(x => x.type === 0).size
             let voice = channels.cache.filter(x => x.type === 2).size
             let category = channels.cache.filter(x => x.type === 4).size
