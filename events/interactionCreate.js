@@ -31,7 +31,7 @@ module.exports = {
           color: 0x2f3136
         }
         if(args.length >= 1){
-          logs["fields"] = logs["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(', ')}\`\`\`` })
+          logs["fields"] = logs["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(' ')}\`\`\`` })
         }
         
         if(eventLog.isEnabled){
@@ -43,15 +43,24 @@ module.exports = {
         } catch (error) {
           console.error(error)
           logger.error(`${error.stack.split('\n')[1].trim()}: ${error}`)
-          const err = new EmbedBuilder()
-            .setTitle('Ocorreu um erro enquanto eu estava executando um comando :/')
-            .setDescription(`Error ${error.stack.split('\n')[1].trim()}: ${error}`)
-            .addFields({ name: "Comando", value: `\`\`\`${interaction.commandName}\`\`\``})
-            .addFields({ name: "Argumentos", value: `\`\`\`${options[0]?.value ?? 'Nenhum argumento foi utilizado'}\`\`\`` })
-            .setThumbnail('https://2.bp.blogspot.com/-CPO_z4zNSnc/WsY667p0JgI/AAAAAAAAYRs/ubTMJD5ToyImbR-o4EiK18gBypYXd0RiwCLcBGAs/s1600/Mercenary%2BGarage%2BError%2BGIF.gif')
-            .setColor('#e02c2f')
+          const err = {
+            author: {
+              name: `${error}`
+            },
+            description: `> ${error.stack.split('\n')[1].trim()}`,
+            thumbnail: {
+              url: 'https://2.bp.blogspot.com/-CPO_z4zNSnc/WsY667p0JgI/AAAAAAAAYRs/ubTMJD5ToyImbR-o4EiK18gBypYXd0RiwCLcBGAs/s1600/Mercenary%2BGarage%2BError%2BGIF.gif',
+            },
+            fields: [
+              { name: "Comando", value: `\`\`\`${interaction.commandName}\`\`\``}
+            ],
+            color: 0xe02c2f
+          }
+          if(args.length >= 1){
+            err["fields"] = err["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(' ')}\`\`\`` })
+          }
           client.channels.cache.get(eventLog.channels.errorCreate).send({ embeds: [err] })
-          await interaction.reply({ content: 'Ocorreu um erro enquanto eu estava executando o comando :/', ephemeral: true });
+          await interaction.reply({ content: 'Algo de errado aconteceu, mas não se preocupe, todos os meus erros são automaticamente reportados ao meu desenvolvedor :>', ephemeral: true });
         }
     }
 }
