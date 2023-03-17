@@ -40,6 +40,9 @@ module.exports = {
                 }
             }
         )
-        await interaction.reply(`:moneybag: | Você ganhou **${daily} MewnCoins**, agora você tem ${Users.get(u => u.id === interaction.user.id).coins} MewnCoins!`)
+        const fetch = Users.fetchAll()
+        let rank = fetch.findIndex(x => x.id === interaction.user.id)
+        rank !== -1 ? rank + 1 : -1;
+        await interaction.reply(`:moneybag: | Você _ganhou_ **${daily} MewnCoins**, agora você tem *${Users.get(u => u.id === interaction.user.id).coins}* MewnCoins e está em **_#${rank + 1}_ no rank global de MewnCoins!**!`)
     }
 }
