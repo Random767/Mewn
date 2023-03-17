@@ -41,8 +41,9 @@ module.exports = {
             }
         )
         const fetch = Users.fetchAll()
-        let rank = fetch.findIndex(x => x.id === interaction.user.id)
-        rank !== -1 ? rank + 1 : -1;
-        await interaction.reply(`:moneybag: | Você _ganhou_ **${daily} MewnCoins**, agora você tem *${Users.get(u => u.id === interaction.user.id).coins}* MewnCoins e está em **_#${rank + 1}_ no rank global de MewnCoins!**!`)
+        let ranking = fetch.sort((a, b) => b.coins - a.coins)
+        let result = ranking.findIndex(usuario => usuario.id === user.id) + 1
+
+        await interaction.reply(`:moneybag: | Você _ganhou_ **${daily} MewnCoins**, agora você tem *${Users.get(u => u.id === interaction.user.id).coins}* MewnCoins e está em **_#${result}_ no rank global de MewnCoins!**!`)
     }
 }

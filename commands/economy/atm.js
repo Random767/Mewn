@@ -24,10 +24,10 @@ module.exports = {
             return await interaction.reply(`:bank: | **${user.tag}** tem **0 MewnCoins**!`)
         }
 
-        let rank = fetch.findIndex(x => x.id === user.id)
-        rank !== -1 ? rank + 1 : -1;
+        let ranking = fetch.sort((a, b) => b.coins - a.coins)
+        let result = ranking.findIndex(usuario => usuario.id === user.id) + 1
 
         const atm = Users.fetch(u => u.id == user.id).coins
-        await interaction.reply(`:bank: | **${user.tag}** tem **${atm} MewnCoins** ocupando a **posição #${rank + 1}** no _ranking global de MewnCoins_!`)
+        await interaction.reply(`:bank: | **${user.tag}** tem **${atm} MewnCoins** ocupando a **posição #${result}** no _ranking global de MewnCoins_!`)
     }
 }
