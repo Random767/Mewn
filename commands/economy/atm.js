@@ -17,16 +17,17 @@ module.exports = {
         ),
     async execute(interaction){
         const user = interaction.options.getUser('usuário') || interaction.user
+        const fetch = Users.fetchAll()
 
-        if(Users.fetchAll().find(x => x.id === user.id) === undefined){
+        if(fetch.find(x => x.id === user.id) === undefined){
             //Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0})
             return await interaction.reply(`:bank: | **${user.tag}** tem **0 MewnCoins**!`)
         }
 
+        let rank = fetch.findIndex(x => x.id === user.id)
+        rank !== -1 ? rank + 1 : -1;
+
         const atm = Users.fetch(u => u.id == user.id).coins
-        if(user === interaction.user){
-            return await interaction.reply(`:bank: | Você tem **${atm} MewnCoins**!`)
-        }
-        await interaction.reply(`:bank: | **${user.tag}** tem **${atm} MewnCoins**!`)
+        await interaction.reply(`:bank: | **${user.tag}** tem **${atm} MewnCoins** ocupando a **posição #${rank + 1}** no _ranking global de MewnCoins_!`)
     }
 }
