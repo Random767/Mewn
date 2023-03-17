@@ -34,7 +34,7 @@ module.exports = {
             await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0})
         }
 
-        if(quantity > Users.get(u => u.id = interaction.user.id).coins){
+        if(quantity > Users.get(u => u.id == interaction.user.id).coins){
             return await interaction.reply(`:chart_with_downwards_trend: | Você não tem MewnCoins o suficiente!`)
         } else if(interaction.user.id == user.id){
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
@@ -43,7 +43,7 @@ module.exports = {
         Users.update(
             person => {
                 if(person.id === interaction.user.id) person.coins -= quantity
-                if(person.id !== user.id) person.coins += quantity
+                if(person.id === user.id) person.coins += quantity
             }
         )
 
