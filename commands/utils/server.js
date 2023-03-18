@@ -58,6 +58,10 @@ module.exports = {
             let text = channels.cache.filter(x => x.type === 0).size
             let voice = channels.cache.filter(x => x.type === 2).size
             let category = channels.cache.filter(x => x.type === 4).size
+            let online = members.cache.filter(x => x.presence && x.presence.status === 'online').size
+            let idle = members.cache.filter(x => x.presence && x.presence.status  === 'idle').size
+            let dnd = members.cache.filter(x => x.presence && x.presence.status  === 'dnd').size
+            let offline = members.cache.filter(x => !x.presence ).size
 
             const criador = client.users.cache.get(ownerId)
             const criadoEm = moment(createdAt).format('LLLL')
@@ -78,7 +82,12 @@ module.exports = {
                 })
                 .addFields({
                     name: "Estatísticas usuários",
-                    value: `> Membros: ${memberCount}\n> Bots: ${bots}\n> Humanos: ${memberCount - bots}`,
+                    value: `> Membros: ${memberCount}\n> Bots: ${bots}\n> Humanos: ${memberCount - bots}\n> Total online: ${online + idle + dnd}`,
+                    inline: false
+                })
+                .addFields({
+                    name: "Presenças",
+                    value: `> Online: ${online}\n> Ausente: ${idle}\n> Não Perturbe: ${dnd}\n> Offline: ${offline}`,
                     inline: false
                 })
                 .addFields({
