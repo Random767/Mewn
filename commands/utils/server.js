@@ -77,7 +77,7 @@ module.exports = {
 
                 .addFields({
                     name: "Geral",
-                    value: `> Posse: ${criador.tag}\n> Id do servidor: ${id}\n> local de preferência: ${preferredLocale}\n> Boosts: ${premiumSubscriptionCount}\n> Level do boost: ${premiumTier}\n> Panter: ${partnered}`,
+                    value: `> Posse: ${criador.tag}\n> Id do servidor: ${id}\n> local de preferência: ${preferredLocale}\n> Boosts: ${premiumSubscriptionCount}\n> Level do boost: ${premiumTier}\n> Partner: ${partnered}`,
                     inline: false
                 })
                 .addFields({
