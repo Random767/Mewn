@@ -6,7 +6,7 @@ module.exports =  {
     name: Events.ClientReady,
     once: false,
     exec(client) {
-        logger.info(`${client.user.tag}:${version} iniciado com ${client.guilds.cache.size} servidores`)
+        logger.info(`${client.user.tag} v${version} iniciado com ${client.guilds.cache.size} servidores`)
   
         let activities = [
           `❓ • Utilize /help para ajuda`,
