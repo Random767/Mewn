@@ -3,6 +3,7 @@ require('dotenv').config()
 const { AutoPoster } = require('topgg-autoposter')
 const fs = require('fs')
 const path = require('path')
+const { version } = require('./package.json')
 const log = require('./modules/logger')
 process.title = 'Mewn'
 
@@ -12,7 +13,13 @@ const client = new Client ({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildPresences
-    ]
+    ],
+    presence: {
+        activities: [{
+            name: `Versão ${version}`,
+            type: 2
+        }],
+    }
 })
 exports.client = client
 

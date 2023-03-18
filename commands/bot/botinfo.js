@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-
+const { version } = require('./../../package.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,12 +16,19 @@ module.exports = {
         const botinfo = new EmbedBuilder()
             .setTitle('Minhas informações')
             .setDescription(`Clique [aqui](https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=132875558974) para me adicionar\nMeu repositório no github: [github.com/Random767/Mewn](https://github.com/Random767/Mewn)`)
-            .addFields({ 
+            .addFields(
+                { 
                     name: "Desenvolvedores",
-                    value: `\`\`\`${client.users.cache.get('633764019559202836').tag}\`\`\``, 
+                    value: `\`\`\`GRandom#0898\`\`\``, 
                     inline: false
-                })
-            
+                },
+                { 
+                    name: "Versão",
+                    value: `\`\`\`${version}\`\`\``, 
+                    inline: false
+                }
+                
+            )
             .addFields({ 
                 name: "Linguagem de programação", 
                 value: `\`\`\`NodeJs\`\`\``, 

@@ -1,11 +1,12 @@
 const { Events } = require('discord.js')
 const logger = require('./../modules/logger')
+const { version } = require('./../package.json')
 
 module.exports =  {
     name: Events.ClientReady,
     once: false,
     exec(client) {
-        logger.info(`${client.user.tag} foi iniciado com ${client.guilds.cache.size} servidores`)
+        logger.info(`${client.user.tag}:${version} iniciado com ${client.guilds.cache.size} servidores`)
   
         let activities = [
           `❓ • Utilize /help para ajuda`,

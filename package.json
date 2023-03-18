@@ -1,6 +1,6 @@
 {
   "name": "mewn",
-  "version": "1.0.0",
+  "version": "17.03.2023",
   "description": "O Mewn é um bot que oferece uma variedade de recursos úteis para os usuários do servidor.",
   "main": "index.js",
   "scripts": {
