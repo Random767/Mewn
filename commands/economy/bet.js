@@ -34,7 +34,7 @@ module.exports = {
         }
         const target_info = Users.fetch(u => u.id === user.id)
         if (!target_info) {
-            return interaction.reply(`O usuário ${target.username} não tem MewnCoins!`)
+            return interaction.reply(`O usuário ${user.username} não tem MewnCoins!`)
         }
 
         if (interaction.user.id === user.id) {
@@ -42,7 +42,7 @@ module.exports = {
         }
 
         if (number > author_info.coins) return await interaction.reply(`Você não pode apostar mais do que você tem :v`)
-        if (number > target_info.coins ?? 0) return await interaction.reply(`O usuário ${target.username} não tem MewnCoins o suficiente!`)
+        if (number > target_info.coins ?? 0) return await interaction.reply(`O usuário ${user.username} não tem MewnCoins o suficiente!`)
 
         await interaction.reply({ content: `<@${user.id}>, <@${interaction.user.id}> quer fazer uma aposta de ${number} MewnCoins com você.`, ephemeral: false })
 
