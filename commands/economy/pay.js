@@ -26,11 +26,14 @@ module.exports = {
     async execute(interaction){
         const user = interaction.options.getUser('usuário')
         const quantity = interaction.options.getNumber('quantidade')
-        const userinfo = Users.fetch(u => u.id === interaction.user.id)
+        const userinfo = Users.fetch(u => u.id == interaction.user.id)
 
 
-        if(!Users.fetch(x => x.id === interaction.user.id)){
+        if(!Users.fetch(x => x.id == interaction.user.id)){
             return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
+        }
+        if(interaction.user.id == user.id){
+            return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
         if(!Users.has(u => u.id == user.id)){
             if(!Users.has(u => u.id === interaction.user.id)){
@@ -41,14 +44,12 @@ module.exports = {
 
         if(quantity > userinfo.coins){
             return await interaction.reply(`:octagonal_sign: | Você não pode fazer uma tranferencia de **${quantity} Mewncoins** tendo **${userinfo.coins} MewnCoins** :v`)
-        } else if(interaction.user.id == user.id){
-            return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
 
         Users.update(
             person => {
-                if(person.id === interaction.user.id) person.coins -= quantity
-                if(person.id === user.id) person.coins += quantity
+                if(person.id == interaction.user.id) person.coins -= quantity
+                if(person.id == user.id) person.coins += quantity
             }
         )
 
