@@ -100,9 +100,9 @@ module.exports = {
                                 })
                                 return
                             }
-                            person.coins = users[lost] - number
+                            person.coins = users[lost].coins - number
                         }
-                        if (person.id == users[winner]) person.coins = users[winner] + number
+                        if (person.id == users[winner]) person.coins = users[winner].coins + number
                     }
                 )
                 await i.reply({
