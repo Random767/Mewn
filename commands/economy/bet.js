@@ -26,7 +26,7 @@ module.exports = {
     async execute(interaction, client) {
 
         const user = interaction.options.getUser('usuário')
-        const number = interaction.options.getNumber('quantidade')
+        let number = interaction.options.getNumber('quantidade')
         const author_info = Users.fetch(u => u.id == interaction.user.id)
 
         if (!author_info) {
@@ -95,9 +95,10 @@ module.exports = {
                 Users.update(
                     person => {
                         if (person.id == lost[0]){
-                            if(person.coins > number) {
+                            if(person.coins < number) {
+                                number = person.coins
                                 return i.reply({
-                                    content: `:error: | <@${users[winner]}> ganhou apenas **${number} MewnCoins** por que <@${lost[0]}>, não tinha MewnCoins o suficiente para a transferência.`,
+                                    content: `:x: | <@${users[winner]}> ganhou apenas **${number} MewnCoins** por que <@${lost[0]}>, não tinha MewnCoins o suficiente para a transferência.`,
                                     ephemeral: false,
                                 })
                             }
