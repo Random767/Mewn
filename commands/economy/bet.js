@@ -87,10 +87,10 @@ module.exports = {
                     author_info,
                     target_info
                 ]
-                const lost = users.filter(x => x !== users[winner])
+                const lost = users.filter(x => x.id !== users[winner].id)
                 Users.update(
                     async person => {
-                        if (person.id == lost[0]){
+                        if (person.id == lost[0].id){
                             if(person.coins < number) {
                                 number = person.coins
                                 person.coins = 0
@@ -100,9 +100,9 @@ module.exports = {
                                 })
                                 return
                             }
-                            person.coins = users[lost].coins - number
+                            person.coins = lost[0].coins - number
                         }
-                        if (person.id == users[winner]) person.coins = users[winner].coins + number
+                        if (person.id == users[winner].id) person.coins = users[winner].coins + number
                     }
                 )
                 await i.reply({
