@@ -32,11 +32,12 @@ module.exports = {
         if(!Users.fetch(x => x.id == interaction.user.id)){
             return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
         }
+        const targetinfo = Users.fetch(x => x.id == user.id)
         if(interaction.user.id == user.id){
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
         if(!Users.has(u => u.id == user.id)){
-            if(!Users.has(u => u.id === interaction.user.id)){
+            if(!Users.has(u => u.id == interaction.user.id)){
                 await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": null, "coins": userinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
             }
             await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
@@ -48,8 +49,12 @@ module.exports = {
 
         Users.update(
             person => {
-                if(person.id == interaction.user.id) person.coins -= quantity
-                if(person.id == user.id) person.coins += quantity
+                if(person.id === interaction.user.id){
+                    person.coins = userinfo.coins - quantity
+                }
+                if(person.id === user.id){
+                    person.coins = targetinfo.coins + quantity
+                }
             }
         )
 
