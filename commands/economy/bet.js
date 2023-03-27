@@ -33,12 +33,11 @@ module.exports = {
             return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
         }
         const target_info = Users.fetch(u => u.id == user.id)
-        if (!target_info) {
-            return interaction.reply(`O usuário ${user.username} não tem MewnCoins!`)
-        }
-
         if (interaction.user.id == user.id) {
             return await interaction.reply(':confused: | Você não pode apostar com você mesmo.')
+        }
+        if (!target_info) {
+            return interaction.reply(`O usuário ${user.username} não tem MewnCoins!`)
         }
 
         if (number > author_info.coins) return await interaction.reply(`Você não pode apostar mais do que você tem :v`)
@@ -80,35 +79,34 @@ module.exports = {
 
         collector.on('collect', async i => {
             if (i.user.id !== user.id) {
-                return await i.reply({
-                    content: `:face_with_monocle: | Só <@${user.id}> pode clicar nesse botão!`,
-                    ephemeral: true
-                })
+                return await i.deferUpdate()
             } else if (i.customId == `bet-accept-${message.id}`) {
                 interaction.editReply({ components: [buttons_disabled] })
                 const winner = Math.floor((Math.random() * 2))
                 let users = [
-                    `${interaction.user.id}`,
-                    `${user.id}`
+                    author_info,
+                    target_info
                 ]
                 const lost = users.filter(x => x !== users[winner])
                 Users.update(
-                    person => {
+                    async person => {
                         if (person.id == lost[0]){
                             if(person.coins < number) {
                                 number = person.coins
-                                return i.reply({
-                                    content: `:x: | <@${users[winner]}> ganhou apenas **${number} MewnCoins** por que <@${lost[0]}>, não tinha MewnCoins o suficiente para a transferência.`,
+                                person.coins = 0
+                                await i.reply({
+                                    content: `:x: | <@${users[winner].id}> ganhou apenas **${number} MewnCoins** por que <@${lost[0].id}>, não tinha MewnCoins o suficiente para a transferência.`,
                                     ephemeral: false,
                                 })
+                                return
                             }
-                            person.coins -= number
+                            person.coins = users[lost] - number
                         }
-                        if (person.id == users[winner]) person.coins += number
+                        if (person.id == users[winner]) person.coins = users[winner] + number
                     }
                 )
                 await i.reply({
-                    content: `:moneybag: | <@${users[winner]}> ganhou **${number} MewnCoins** patrocinado por <@${lost[0]}>`,
+                    content: `:moneybag: | <@${users[winner].id}> ganhou **${number} MewnCoins** patrocinado por <@${lost[0].id}>`,
                     ephemeral: false,
                 })
                 return
