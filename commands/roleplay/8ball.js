@@ -7,7 +7,7 @@ module.exports = {
         .setDescription(`[RP] Faça uma pergunta`)
         .setDMPermission(false)
         .addStringOption(option =>
-            option.setName('frase')
+            option.setName('pergunta')
                 .setDescription('Digite algo')
                 .setRequired(true)),
     async execute(interaction, client) {
@@ -27,12 +27,12 @@ module.exports = {
             "Não :D",
             "Claramente",
         ]
-        const frase = interaction.options.getString("frase")
-        if(frase.length > 220) return interaction.reply(`Desculpe, o que você enviou tem ${frase.length} caracteres e eu suporto de 1 a 220 devido a limitações do Discord`)
+        const pergunta = interaction.options.getString("pergunta")
+        if(pergunta.length > 220) return interaction.reply(`Desculpe, o que você enviou tem ${pergunta.length} caracteres e eu suporto de 1 a 220 devido a limitações do Discord`)
         let result = Math.floor((Math.random() * results.length));
 
         const embed = new EmbedBuilder()
-            .addFields({ name: `"${frase}"`, value: results[result] })
+            .addFields({ name: `"${pergunta}"`, value: results[result] })
             .setThumbnail(client.user.displayAvatarURL())
             .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({dynamic: true}) })
             .setColor("#2f3136")
