@@ -32,7 +32,6 @@ module.exports = {
         if(!Users.fetch(x => x.id == interaction.user.id)){
             return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
         }
-        const targetinfo = Users.fetch(x => x.id == user.id)
         if(interaction.user.id == user.id){
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
@@ -42,6 +41,7 @@ module.exports = {
             }
             await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
         }
+        const targetinfo = Users.fetch(x => x.id == user.id)
 
         if(quantity > userinfo.coins){
             return await interaction.reply(`:octagonal_sign: | Você não pode fazer uma tranferencia de **${quantity} Mewncoins** tendo **${userinfo.coins} MewnCoins** :v`)
