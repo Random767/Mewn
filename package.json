@@ -23,6 +23,7 @@
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.41",
     "simpl.db": "^2.12.1",
-    "topgg-autoposter": "^2.0.1"
+    "topgg-autoposter": "^2.0.1",
+    "uuid": "^9.0.0"
   }
 }
