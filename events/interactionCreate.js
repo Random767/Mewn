@@ -42,7 +42,7 @@ module.exports = {
           await command.execute(interaction, client);
         } catch (error) {
           console.error(error)
-          logger.error(`${error.stack.split('\n')[1].trim()}: ${error}`)
+          logger.error(__filename, `${error.stack.split('\n')[1].trim()}: ${error}`)
           const err = {
             author: {
               name: `${error}`

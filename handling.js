@@ -18,7 +18,7 @@ module.exports = (client) => {
           commands.push(command.data.toJSON());
           client.commands.set(command.data.name, command)
         } else {
-          logger.warning(`O comando ${folder}/${file} não tem a propriedade "data" ou "execute" obrigatorias`)
+          logger.warning(__filename, `O comando ${folder}/${file} não tem a propriedade "data" ou "execute" obrigatorias`)
         }
       } else {
         const command = require(__dirname + `/commands/${folder}/${file}`);
@@ -43,7 +43,7 @@ module.exports = (client) => {
       logger.info(`Comandos carregados com sucesso!`);
 
     } catch(err){
-      logger.error(`${err.stack.split('\n')[1].trim()}: ${err}`)
+      logger.error(__filename, `${err.stack.split('\n')[1].trim()}: ${err}`)
     }
   })();
 }

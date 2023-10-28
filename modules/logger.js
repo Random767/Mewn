@@ -21,13 +21,13 @@ const log = {
     console.log(arg)
     write(`${arg}\n`)
   },
-  warning: (arg) => {
-    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Warning] ${arg}`
+  warning: (filename, arg) => {
+    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Warning] (${filename}) ${arg}`
     console.log(arg)
     write(`${arg}\n`)
   },
-  error: (arg) => {
-    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Error] ${arg}`
+  error: (filename, arg) => {
+    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Error] (${filename}) ${arg}`
     console.log(arg)
     write(`${arg}\n`)
   }
