@@ -45,4 +45,9 @@ process.on('uncaughtException', (err, origin) => {
     process.exit(1)
 });
 
+process.on('unhandledRejection', (err, origin) => {
+    log.error(`${err}: ${origin}`)
+    process.exit(1)
+});
+
 client.login(process.env.TOKEN)
