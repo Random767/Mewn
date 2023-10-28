@@ -75,7 +75,7 @@ module.exports = {
 
         const filter = i => i.customId == `bet-accept-${message.id}` || `bet-refuse-${message.id}`
 
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 1800000 })
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 3600000 })
 
         collector.on('collect', async i => {
             if (i.user.id !== user.id) {
