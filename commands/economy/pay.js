@@ -27,7 +27,6 @@ module.exports = {
         const user = interaction.options.getUser('usuário')
         const quantity = interaction.options.getNumber('quantidade')
         const userinfo = Users.fetch(u => u.id == interaction.user.id)
-        const targetinfo = Users.fetch(x => x.id == user.id)
 
         if(!Users.fetch(x => x.id == interaction.user.id)){
             return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
@@ -35,6 +34,7 @@ module.exports = {
         if(interaction.user.id == user.id){
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
+        const targetinfo = Users.fetch(x => x.id == user.id)
         if(!Users.has(u => u.id == user.id)){
             if(targetinfo){
                 await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": targetinfo.ld, "coins": targetinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
