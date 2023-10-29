@@ -9,20 +9,17 @@ module.exports =  {
         logger.info(`${client.user.tag} v${version} iniciado com ${client.guilds.cache.size} servidores`)
   
         let activities = [
-          `❓ • Utilize /help para ajuda`,
-          `🖥️ • Criado por: ${client.users.cache.get('633764019559202836').tag}`,
+          `❓ • /help para ajuda`,
+          `⌨️ • /commands para ver meus comandos`,
           `🐱 • Estou espalhando fofura em ${client.guilds.cache.size} servidores >:3`,
-          `👌 • Ajudando ${client.users.cache.size} pessoas :3`,
-          `🦆 • Patos são fofos :D`,
-          `+  • Me adicione usando o comando /add`
         ]
         i = 0
         setInterval(() => {
           client.user.setActivity(`${activities[i++ % activities.length]}`, {
           type: 0
         }
-        )}, 10000);
-        client.user.setStatus('online')
+        )}, 30000);
+        client.user.setStatus('idle')
       
         require(`${__dirname}/../handling`)(client)
     }
