@@ -28,16 +28,16 @@ module.exports = {
         const user = interaction.options.getUser('usuário')
         let number = interaction.options.getNumber('quantidade')
         const author_info = Users.fetch(u => u.id == interaction.user.id)
+        const target_info = Users.fetch(u => u.id == user.id)
 
         if (!author_info) {
-            return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
+            return await interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
         }
-        const target_info = Users.fetch(u => u.id == user.id)
         if (interaction.user.id == user.id) {
             return await interaction.reply(':confused: | Você não pode apostar com você mesmo.')
         }
         if (!target_info) {
-            return interaction.reply(`O usuário ${user.username} não tem MewnCoins!`)
+            return await interaction.reply(`O usuário ${user.username} não tem MewnCoins!`)
         }
 
         if (number > author_info.coins) return await interaction.reply(`Você não pode apostar mais do que você tem :v`)
@@ -78,8 +78,6 @@ module.exports = {
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 3600000 })
 
         collector.on('collect', async i => {
-            await i.deferReply({ ephemeral: false });
-
             if(!Users.has(u => u.id == target_info.id)){
                 if(target_info){
                     await Users.create({"id": target_info.id, "name": user.username, "discriminator": user.discriminator, "ld": target_info.ld, "coins": target_info.coins, aboutme: target_info.aboutme, reps: target_info.reps, banned: target_info.banned})
@@ -95,7 +93,8 @@ module.exports = {
             if (i.user.id !== user.id) {
                 return await i.deferUpdate()
             } else if (i.customId == `bet-accept-${message.id}`) {
-                interaction.editReply({ components: [buttons_disabled] })
+                await i.deferReply({ ephemeral: false });
+                await interaction.editReply({ components: [buttons_disabled] })
                 const winner = Math.floor((Math.random() * 2))
                 let users = [
                     author_info,
@@ -125,7 +124,8 @@ module.exports = {
                 })
                 return
             } else if (i.customId == `bet-refuse-${message.id}`) {
-                interaction.editReply({ components: [buttons_disabled] })
+                await i.deferReply({ ephemeral: false });
+                await interaction.editReply({ components: [buttons_disabled] })
                 return await i.editReply({
                     content: `:octagonal_sign: | <@${interaction.user.id}>, <@${user.id}> recusou sua aposta D:`,
                     ephemeral: false,
@@ -133,7 +133,7 @@ module.exports = {
             }
         });
 
-        interaction.editReply({ components: [buttons], ephemeral: false })
+        await interaction.editReply({ components: [buttons], ephemeral: false })
     }
 
 }
