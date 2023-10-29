@@ -41,13 +41,15 @@ if(process.env.TOPGG_TOKEN){
 }
 
 process.on('uncaughtException', (err, origin) => {
+    console.error(err)
+    console.error(origin)
     log.error(__filename, `${err}: ${origin}`)
-    process.exit(1)
 });
 
 process.on('unhandledRejection', (err, origin) => {
+    console.error(err)
+    console.error(origin)
     log.error(__filename, `${err}: ${origin}`)
-    process.exit(1)
 });
 
 client.login(process.env.TOKEN)
