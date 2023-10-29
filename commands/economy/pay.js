@@ -27,7 +27,7 @@ module.exports = {
         const user = interaction.options.getUser('usuário')
         const quantity = interaction.options.getNumber('quantidade')
         const userinfo = Users.fetch(u => u.id == interaction.user.id)
-
+        const targetinfo = Users.fetch(x => x.id == user.id)
 
         if(!Users.fetch(x => x.id == interaction.user.id)){
             return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
@@ -36,12 +36,28 @@ module.exports = {
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
         if(!Users.has(u => u.id == user.id)){
-            if(!Users.has(u => u.id == interaction.user.id)){
-                await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": null, "coins": userinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
+            if(targetinfo){
+                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": targetinfo.ld, "coins": targetinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
+            } else {
+                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
             }
-            await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
         }
-        const targetinfo = Users.fetch(x => x.id == user.id)
+
+        // O código verifica duas vezes se o usuário que fez o comando
+        // e o que vai receber os MewnCoins existe. 
+        // O primeiro faz um fetch no banco de dados para ler
+        // diretamente no JSON e procurar pelo usuário, já o segundo
+        // verifica se o usuário está em cache, se não tiver, ele cria
+        // o usuário de novo, mas com as mesmas configurações que antes,
+        // porque, por algum motivo, a bilioteca utilizada (simpl.db)
+        // não armazena corretamente as informações em cache, isso foi
+        // a origem da boa parte dos bugs relacionados a economia do Mewn.
+        // Eu (GRandom) farei uma correção mais elaborada futuramente, quando
+        // eu fizer um gerenciamento de cache próprio do Mewn
+
+        if(!Users.has(u => u.id == interaction.user.id)){
+            await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": userinfo.ld, "coins": userinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
+        }
 
         if(quantity > userinfo.coins){
             return await interaction.reply(`:octagonal_sign: | Você não pode fazer uma tranferencia de **${quantity} Mewncoins** tendo **${userinfo.coins} MewnCoins** :v`)

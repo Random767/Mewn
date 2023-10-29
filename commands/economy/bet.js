@@ -78,6 +78,20 @@ module.exports = {
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 3600000 })
 
         collector.on('collect', async i => {
+            await i.deferReply({ ephemeral: false });
+
+            if(!Users.has(u => u.id == target_info.id)){
+                if(target_info){
+                    await Users.create({"id": target_info.id, "name": user.username, "discriminator": user.discriminator, "ld": target_info.ld, "coins": target_info.coins, aboutme: target_info.aboutme, reps: target_info.reps, banned: target_info.banned})
+                }
+            }
+    
+            if(!Users.has(u => u.id == interaction.user.id)){
+                if(author_info){
+                    await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": author_info.ld, "coins": author_info.coins, aboutme: author_info.aboutme, reps: author_info.reps, banned: author_info.banned})
+                }
+            }
+
             if (i.user.id !== user.id) {
                 return await i.deferUpdate()
             } else if (i.customId == `bet-accept-${message.id}`) {
@@ -105,14 +119,14 @@ module.exports = {
                         if (person.id == users[winner].id) person.coins = users[winner].coins + number
                     }
                 )
-                await i.reply({
+                await i.editReply({
                     content: `:moneybag: | <@${users[winner].id}> ganhou **${number} MewnCoins** patrocinado por <@${lost[0].id}>`,
                     ephemeral: false,
                 })
                 return
             } else if (i.customId == `bet-refuse-${message.id}`) {
                 interaction.editReply({ components: [buttons_disabled] })
-                return await i.reply({
+                return await i.editReply({
                     content: `:octagonal_sign: | <@${interaction.user.id}>, <@${user.id}> recusou sua aposta D:`,
                     ephemeral: false,
                 })
