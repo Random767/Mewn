@@ -34,12 +34,13 @@ module.exports = {
         if(interaction.user.id == user.id){
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
-        const targetinfo = Users.fetch(x => x.id == user.id)
+        let targetinfo = Users.fetch(x => x.id == user.id)
         if(!Users.has(u => u.id == user.id)){
             if(targetinfo){
                 await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": targetinfo.ld, "coins": targetinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
             } else {
                 await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
+                targetinfo = Users.fetch(x => x.id == user.id)
             }
         }
 
