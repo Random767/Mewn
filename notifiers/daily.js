@@ -34,7 +34,7 @@ module.exports = (client) => {
           ) 
         }
       } catch(err) {
-        console.error(err)
+        //console.error(err)
       }
     })
   })
