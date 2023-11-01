@@ -23,6 +23,8 @@ const client = new Client ({
 })
 exports.client = client
 
+require("./notifiers/daily.js")(client)
+
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
