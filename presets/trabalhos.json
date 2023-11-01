@@ -1,0 +1,10 @@
+[
+  {
+    "id": 0,
+    "name": "Servidor Publico",
+    "salary": 800,
+    "xp-per-service": 1,
+    "energy": 10,
+    "time": 5
+  }
+]
