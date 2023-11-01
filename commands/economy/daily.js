@@ -15,9 +15,12 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         const user = interaction.user
+        let userinfo = Users.fetch(u => u.id == user.id)
         
         if(!Users.has(u => u.id === interaction.user.id)){
-            Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
+          const userJSON =  {"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "notifications": {"daily": {"date":null}}, "coins": 0, aboutme: null, reps: 0, banned: false} 
+          Users.create(userJSON)
+          userinfo = userJSON
         }
         
         const convert = moment_timezone(Users.get(u => u.id === interaction.user.id).ld).tz('America/Sao_Paulo');
@@ -32,7 +35,8 @@ module.exports = {
             person => {
                 if(person.id === interaction.user.id){
                     person.ld = moment().format()
-                    person.coins += daily
+                    person.coins = userinfo.coins + daily
+                    person.notifications.daily.date = null
                     if(person.name !== interaction.user.username){
                         person.name = interaction.user.username
                         person.discriminator = interaction.user.discriminator

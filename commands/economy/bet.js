@@ -80,13 +80,36 @@ module.exports = {
         collector.on('collect', async i => {
             if(!Users.has(u => u.id == target_info.id)){
                 if(target_info){
-                    await Users.create({"id": target_info.id, "name": user.username, "discriminator": user.discriminator, "ld": target_info.ld, "coins": target_info.coins, aboutme: target_info.aboutme, reps: target_info.reps, banned: target_info.banned})
+                    await Users.create(
+                                        {
+                                          "id": target_info.id, 
+                                          "name": user.username, 
+                                          "discriminator": user.discriminator, 
+                                          "ld": target_info.ld, 
+                                          "notifications": {
+                                            "daily": {"date": target_info.notifications.daily.date}}, 
+                                          "coins": target_info.coins, 
+                                          "aboutme": target_info.aboutme, 
+                                          "reps": target_info.reps,
+                                          "banned": target_info.banned
+                      })
                 }
             }
     
             if(!Users.has(u => u.id == interaction.user.id)){
                 if(author_info){
-                    await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": author_info.ld, "coins": author_info.coins, aboutme: author_info.aboutme, reps: author_info.reps, banned: author_info.banned})
+                    await Users.create({
+                                        "id": interaction.user.id, 
+                                        "name": interaction.user.username, 
+                                        "discriminator": interaction.user.discriminator, 
+                                        "ld": author_info.ld, 
+                                        "notifications": {
+                                          "daily": {date: author_info.notifications.daily.date}}, 
+                                        "coins": author_info.coins, 
+                                        "aboutme": author_info.aboutme, 
+                                        "reps": author_info.reps, 
+                                        "banned": author_info.banned
+                                      })
                 }
             }
 

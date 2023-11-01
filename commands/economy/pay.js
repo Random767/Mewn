@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, User } = require('discord.js')
 const SimplDB = require('simpl.db')
 const db = new SimplDB({
-    collectionsFolder: __dirname + '/../../collections'
+collectionsFolder: __dirname + '/../../collections'
 })
 const Users = db.createCollection('users')
 
@@ -37,9 +37,9 @@ module.exports = {
         let targetinfo = Users.fetch(x => x.id == user.id)
         if(!Users.has(u => u.id == user.id)){
             if(targetinfo){
-                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": targetinfo.ld, "coins": targetinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
+                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": targetinfo.ld, "notifications": {"daily": {"date": targetinfo.notifications.daily.date}}, "coins": targetinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
             } else {
-                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "coins": 0, aboutme: null, reps: 0, banned: false})
+                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "notifications": {"daily": {"date": null}}, "coins": 0, aboutme: null, reps: 0, banned: false})
                 targetinfo = Users.fetch(x => x.id == user.id)
             }
         }
@@ -57,7 +57,7 @@ module.exports = {
         // eu fizer um gerenciamento de cache próprio do Mewn
 
         if(!Users.has(u => u.id == interaction.user.id)){
-            await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": userinfo.ld, "coins": userinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
+            await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": userinfo.ld, "notificatons": {"daily": {"date":null}}, "coins": userinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
         }
 
         if(quantity > userinfo.coins){
