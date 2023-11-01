@@ -24,7 +24,7 @@ module.exports = {
         const hours = moment_timezone().diff(convert, 'hours');
 
         if(hours < 24 && hours != null){
-            return await interaction.reply(`:clock12: | Você já pegou seu daily, espere **${12 - hours} horas**!`)
+            return await interaction.reply(`:clock12: | Você já pegou seu daily, espere **${24 - hours} horas**!`)
         }
 
         const daily = Math.floor(Math.random() * (2400 - 300 + 1)) + 300
