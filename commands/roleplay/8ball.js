@@ -26,6 +26,7 @@ module.exports = {
             'Sim, sem sombra de dúvida!',
             "Não :D",
             "Claramente",
+            "Evidentemente"
         ]
         const pergunta = interaction.options.getString("pergunta")
         if(pergunta.length > 220) return interaction.reply(`Desculpe, o que você enviou tem ${pergunta.length} caracteres e eu suporto de 1 a 220 devido a limitações do Discord`)
