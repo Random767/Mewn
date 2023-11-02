@@ -15,6 +15,7 @@ module.exports = {
                     > daily: Receba seus MewnCoins diários.
                     > pay: Transfira MewnCoins pra alguém.
                     > rank: Veja o ranking de MewnCoins.
+                    > bet: Aposte seus MewnCoins
                     `
                 },
                 {
