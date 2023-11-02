@@ -3,8 +3,24 @@
     "id": 0,
     "name": "Servidor Publico",
     "salary": 800,
-    "xp-per-service": 1,
+    "xpPerService": 1,
     "energy": 10,
     "time": 5
+  },
+  {
+    "id": 1,
+    "name": "Policial",
+    "salary": 1200,
+    "xpPerService": 3,
+    "energy": 15,
+    "time": 20
+  },
+  {
+    "id": 2,
+    "name": "Dev do Mewn",
+    "salary": 0,
+    "xpPerService": 10,
+    "energy": 15,
+    "time": 100
   }
 ]
