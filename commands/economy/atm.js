@@ -28,6 +28,6 @@ module.exports = {
         let result = ranking.findIndex(usuario => usuario.id === user.id) + 1
 
         const atm = Users.fetch(u => u.id == user.id).coins
-        await interaction.reply(`:bank: | **${user.tag}** tem **${atm} MewnCoins** ocupando a **posição #${result}** no _ranking global de MewnCoins_!`)
+        await interaction.reply(`:bank: | **${user.tag}** tem **${atm} MewnCoins** ocupando o **${result}° lugar** no _ranking global de MewnCoins_!`)
     }
 }
