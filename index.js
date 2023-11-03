@@ -5,6 +5,13 @@ const fs = require('fs')
 const path = require('path')
 const { version } = require('./package.json')
 const log = require('./modules/logger')
+
+const SimplDB = require('simpl.db')
+const db = new SimplDB({
+    collectionsFolder: __dirname + '/collections'
+})
+const Users = db.createCollection('users')
+
 process.title = 'Mewn'
 
 const client = new Client ({ 
@@ -22,6 +29,7 @@ const client = new Client ({
     }
 })
 exports.client = client
+exports.Users = Users
 
 require("./notifiers/daily.js")(client)
 

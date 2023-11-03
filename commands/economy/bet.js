@@ -1,9 +1,6 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const SimplDB = require('simpl.db')
-const db = new SimplDB({
-    collectionsFolder: __dirname + '/../../collections'
-})
-const Users = db.createCollection('users')
+const Mewn = require("../../index")
+const Users = Mewn.Users
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,11 +24,11 @@ module.exports = {
 
         const user = interaction.options.getUser('usuário')
         let number = interaction.options.getNumber('quantidade')
-        const author_info = Users.fetch(u => u.id == interaction.user.id)
-        const target_info = Users.fetch(u => u.id == user.id)
+        const author_info = Users.get(u => u.id == interaction.user.id)
+        const target_info = Users.get(u => u.id == user.id)
 
         if (!author_info) {
-            return await interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
+            return await interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily resgatar :D`)
         }
         if (interaction.user.id == user.id) {
             return await interaction.reply(':confused: | Você não pode apostar com você mesmo.')
@@ -78,41 +75,6 @@ module.exports = {
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 3600000 })
 
         collector.on('collect', async i => {
-            if(!Users.has(u => u.id == target_info.id)){
-                if(target_info){
-                    await Users.create(
-                                        {
-                                          "id": target_info.id, 
-                                          "name": user.username, 
-                                          "discriminator": user.discriminator, 
-                                          "ld": target_info.ld, 
-                                          "notifications": {
-                                            "daily": {"date": target_info.notifications.daily.date}}, 
-                                          "coins": target_info.coins, 
-                                          "aboutme": target_info.aboutme, 
-                                          "reps": target_info.reps,
-                                          "banned": target_info.banned
-                      })
-                }
-            }
-    
-            if(!Users.has(u => u.id == interaction.user.id)){
-                if(author_info){
-                    await Users.create({
-                                        "id": interaction.user.id, 
-                                        "name": interaction.user.username, 
-                                        "discriminator": interaction.user.discriminator, 
-                                        "ld": author_info.ld, 
-                                        "notifications": {
-                                          "daily": {date: author_info.notifications.daily.date}}, 
-                                        "coins": author_info.coins, 
-                                        "aboutme": author_info.aboutme, 
-                                        "reps": author_info.reps, 
-                                        "banned": author_info.banned
-                                      })
-                }
-            }
-
             if (i.user.id !== user.id) {
                 return await i.deferUpdate()
             } else if (i.customId == `bet-accept-${message.id}`) {
@@ -136,9 +98,9 @@ module.exports = {
                                 })
                                 return
                             }
-                            person.coins = lost[0].coins - number
+                            person.coins -= number
                         }
-                        if (person.id == users[winner].id) person.coins = users[winner].coins + number
+                        if (person.id == users[winner].id) person.coins += number
                     }
                 )
                 await i.editReply({

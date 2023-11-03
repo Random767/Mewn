@@ -1,9 +1,6 @@
 const { SlashCommandBuilder, User } = require('discord.js')
-const SimplDB = require('simpl.db')
-const db = new SimplDB({
-collectionsFolder: __dirname + '/../../collections'
-})
-const Users = db.createCollection('users')
+const Mewn = require("../../index")
+const Users = Mewn.Users
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -24,40 +21,24 @@ module.exports = {
                 .setMinValue(1)
         ),
     async execute(interaction){
-        const user = interaction.options.getUser('usuário')
+        const targetUser = interaction.options.getUser('usuário')
         const quantity = interaction.options.getNumber('quantidade')
-        const userinfo = Users.fetch(u => u.id == interaction.user.id)
+        const userinfo = Users.get(u => u.id == interaction.user.id)
 
-        if(!Users.fetch(x => x.id == interaction.user.id)){
-            return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
+
+        if(!Users.get(x => x.id == interaction.user.id)){
+            return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily resgatar :D`)
         }
-        if(interaction.user.id == user.id){
+        if(interaction.user.id == targetUser.id){
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
-        let targetinfo = Users.fetch(x => x.id == user.id)
-        if(!Users.has(u => u.id == user.id)){
-            if(targetinfo){
-                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": targetinfo.ld, "notifications": {"daily": {"date": targetinfo.notifications.daily.date}}, "coins": targetinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
-            } else {
-                await Users.create({"id": user.id, "name": user.username, "discriminator": user.discriminator, "ld": null, "notifications": {"daily": {"date": null}}, "coins": 0, aboutme: null, reps: 0, banned: false})
-                targetinfo = Users.fetch(x => x.id == user.id)
-            }
+        if(!Users.has(u => u.id == targetUser.id)){
+          await Users.create({"id": targetUser.id, "name": targetUser.username, "discriminator": targetUser.discriminator, "ld": null, "notifications": {"daily": {"date": null}}, "coins": 0, aboutme: null, reps: 0, banned: false})
+          targetinfo = Users.get(x => x.id == targetUser.id)
         }
 
-        // O código verifica duas vezes se o usuário que fez o comando
-        // e o que vai receber os MewnCoins existe. 
-        // O primeiro faz um fetch no banco de dados para ler
-        // diretamente no JSON e procurar pelo usuário, já o segundo
-        // verifica se o usuário está em cache, se não tiver, ele cria
-        // o usuário de novo, mas com as mesmas configurações que antes,
-        // porque, por algum motivo, a bilioteca utilizada (simpl.db)
-        // não armazena corretamente as informações em cache, isso foi
-        // a origem da boa parte dos bugs relacionados a economia do Mewn.
-        // Eu (GRandom) farei uma correção mais elaborada futuramente, quando
-        // eu fizer um gerenciamento de cache próprio do Mewn
-
         if(!Users.has(u => u.id == interaction.user.id)){
-            await Users.create({"id": interaction.user.id, "name": interaction.user.username, "discriminator": interaction.user.discriminator, "ld": userinfo.ld, "notificatons": {"daily": {"date":null}}, "coins": userinfo.coins, aboutme: userinfo.aboutme, reps: userinfo.reps, banned: userinfo.banned})
+            return await interaction.reply(":octagonal_sign: | Você não tem MewnCoins, mas não se preocupe, consiga MewnCoins utilizando o comando /daily resgatar")
         }
 
         if(quantity > userinfo.coins){
@@ -67,14 +48,14 @@ module.exports = {
         Users.update(
             person => {
                 if(person.id === interaction.user.id){
-                    person.coins = userinfo.coins - quantity
+                    person.coins -= quantity
                 }
-                if(person.id === user.id){
-                    person.coins = targetinfo.coins + quantity
+                if(person.id === targetUser.id){
+                    person.coins += quantity
                 }
             }
         )
 
-        await interaction.reply(`:money_with_wings: | **${quantity} MewnCoins** tranferidos para **${user.tag}** com sucesso!`)
+        await interaction.reply(`:money_with_wings: | **${quantity} MewnCoins** tranferidos para **${targetUser.tag}** com sucesso!`)
     }
 }
