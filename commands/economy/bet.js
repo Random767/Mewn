@@ -76,7 +76,7 @@ module.exports = {
 
         collector.on('collect', async i => {
             if (i.user.id !== user.id) {
-                return await i.deferUpdate()
+                return
             } else if (i.customId == `bet-accept-${message.id}`) {
                 await i.deferReply({ ephemeral: false });
                 await interaction.editReply({ components: [buttons_disabled] })
