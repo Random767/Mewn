@@ -33,7 +33,7 @@ module.exports = {
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)
         }
         if(!Users.has(u => u.id == targetUser.id)){
-          await Users.create({"id": targetUser.id, "name": targetUser.username, "discriminator": targetUser.discriminator, "ld": null, "notifications": {"daily": {"date": null}}, "coins": 0, aboutme: null, reps: 0, banned: false})
+          await Users.create({"id": targetUser.id, "name": targetUser.username, "discriminator": targetUser.discriminator})
           targetinfo = Users.get(x => x.id == targetUser.id)
         }
 
