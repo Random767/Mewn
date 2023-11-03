@@ -10,7 +10,7 @@ const SimplDB = require('simpl.db')
 const db = new SimplDB({
     collectionsFolder: __dirname + '/collections'
 })
-const Users = db.createCollection('users')
+const Users = db.createCollection('users', {"ld": null, "notifications": {"daily": {"date": null}}, "coins": 0, aboutme: null, reps: 0, banned: false})
 
 process.title = 'Mewn'
 
