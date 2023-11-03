@@ -1,9 +1,6 @@
-const { SlashCommandBuilder, User } = require('discord.js')
-const SimplDB = require('simpl.db')
-const db = new SimplDB({
-    collectionsFolder: __dirname + '/../../collections'
-})
-const Users = db.createCollection('users')
+const { SlashCommandBuilder } = require('discord.js')
+const Mewn = require("../../index")
+const Users = Mewn.Users
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +8,7 @@ module.exports = {
         .setDMPermission(false)
         .setDescription('[Economy] Veja o ranking de MewnCoins!'),
     async execute(interaction){
-        const userdata = Users.fetchAll()
+        const userdata = Users.getAll()
         let sortedData = userdata.sort((a, b) => b.coins - a.coins);
         
         let userCoins = sortedData.slice(0, 15).map(({ name, coins }, rank) => ({
