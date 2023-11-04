@@ -8,6 +8,12 @@
       "date": null, 
       "preference": "lastChannel", 
       "channelId": null
+    },
+    "work":{
+      "actived": "true",
+      "date": null,
+      "preference": "lastChannel",
+      "channelId": null
     }
   }, 
   "social": {
