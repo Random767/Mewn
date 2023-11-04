@@ -1,0 +1,29 @@
+{
+  "ld": null,
+  "coins": 0,
+  "banned": false,
+  "notifications": {
+    "daily": {
+      "actived": "true", 
+      "date": null, 
+      "preference": "lastChannel", 
+      "channelId": null
+    }
+  }, 
+  "social": {
+    "aboutme": null, 
+    "reps": 0,
+    "backgroundURL": null
+  }, 
+  "ratelimit": {
+    "commands": {
+      "raps": []
+    }
+  },
+  "work": {
+    "id": -1,
+    "status": "idle",
+    "startDate": null,
+    "endDate": null
+  }
+}
