@@ -42,7 +42,7 @@ module.exports = {
         }
 
         if(quantity > userinfo.coins){
-            return await interaction.reply(`:octagonal_sign: | Você não pode fazer uma tranferencia de **${quantity} Mewncoins** tendo **${userinfo.coins} MewnCoins** :v`)
+            return await interaction.reply(`:octagonal_sign: | Você não pode fazer uma tranferêcia de **${quantity} Mewncoins** tendo **${userinfo.coins} MewnCoins** :v`)
         }
 
         Users.update(
@@ -56,6 +56,6 @@ module.exports = {
             }
         )
 
-        await interaction.reply(`:money_with_wings: | **${quantity} MewnCoins** tranferidos para **${targetUser.tag}** com sucesso!`)
+        await interaction.reply(`:money_with_wings: | **${quantity} MewnCoins** transferidos para **${targetUser.tag}** com sucesso!`)
     }
 }
