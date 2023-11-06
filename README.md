@@ -5,7 +5,10 @@
 O bot que atende todos seus requisitos, com várias funcionalidades de qualidade, com updates _quase_ todos os dias e que suas sugestões são levadas em conta.
 Até gostaria de listar os comandos dele aqui, mas recomendo que você teste eles diretamente no servidor de suporte :D
 
-## Servidor de suporte 
+# Adicione o Mewn
+Adicionar o Mewn é tão simples quanto clicar aqui: [Adicionar o Mewn](https://discord.com/oauth2/authorize?client_id=1049428107150512148&scope=bot&permissions=58)
+
+# Servidor de suporte 
 Está esperando oque para ter uma nova esperiencia? https://discord.gg/3WYfg5RV9T
 
 # Ainda tem duvidas do potencial do Mewn?
