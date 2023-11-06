@@ -21,7 +21,7 @@ module.exports = {
           
         const adicionar = new ButtonBuilder()
           .setLabel("Me adicionar")
-          .setURL(`https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=132875558974`)
+          .setURL(`https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=58`)
           .setStyle(ButtonStyle.Link)
         
         const row = new ActionRowBuilder()
