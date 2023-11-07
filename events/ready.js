@@ -21,7 +21,7 @@ module.exports =  {
         )}, 30000);
         client.user.setStatus('idle')
 
-        require("./notifiers/daily.js")(client) 
+        require("./../notifiers/daily.js")(client) 
         require(`${__dirname}/../handling`)(client)
     }
 }
