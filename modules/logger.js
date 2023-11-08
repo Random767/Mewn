@@ -1,10 +1,10 @@
 const fs = require('fs/promises')
 const moment = require('moment')
-const config = require("./../config.json")
+const config = require(`${__dirname}/../config.json`)
 moment.locale('pt-BR')
 
 const infos = {
-  file: `${__dirname}/../${config.eventLog.filename}`,
+  file: `${__dirname}/../${config.eventLog.file.filename}`,
   overWrite: false
 }
 
