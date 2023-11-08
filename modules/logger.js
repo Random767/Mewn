@@ -1,15 +1,16 @@
 const fs = require('fs/promises')
 const moment = require('moment')
+const config = require("./../config.json")
 moment.locale('pt-BR')
 
-let config = {
-  file: `${__dirname}/../app.log`,
+const infos = {
+  file: `${__dirname}/../${config.eventLog.filename}`,
   overWrite: false
 }
 
 async function write(content) {
   try {
-    await fs.appendFile(config.file, content);
+    await fs.appendFile(infos.file, content);
   } catch (err) {
     console.log(err);
   }
