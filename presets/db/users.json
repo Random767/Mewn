@@ -2,6 +2,12 @@
   "ld": null,
   "coins": 0,
   "banned": false,
+  "energy": {
+    "config": {
+      "maxDailyPoints": 1000
+    },
+    "data": []
+  },
   "notifications": {
     "daily": {
       "actived": "true", 
@@ -23,13 +29,12 @@
   }, 
   "ratelimit": {
     "commands": {
-      "raps": []
+      "reps": []
     }
   },
   "work": {
     "id": -1,
-    "status": "idle",
-    "startDate": null,
-    "endDate": null
+    "xp": 0,
+    "lastDate": null
   }
 }
