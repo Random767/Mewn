@@ -27,7 +27,7 @@ module.exports = {
 
 
         if(!Users.get(x => x.id == interaction.user.id)){
-            return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily resgatar :D`)
+            return interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
         }
         if(interaction.user.id == targetUser.id){
             return interaction.reply(`:octagonal_sign: | Você não pode enviar MewnCoins pra você mesmo :v`)

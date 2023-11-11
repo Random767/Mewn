@@ -20,7 +20,7 @@ module.exports = {
                 .setRequired(true)
                 .setMinValue(1)
         ),
-    async execute(interaction, client) {
+    async execute(interaction) {
 
         const user = interaction.options.getUser('usuário')
         let number = interaction.options.getNumber('quantidade')
@@ -28,7 +28,7 @@ module.exports = {
         const target_info = Users.get(u => u.id == user.id)
 
         if (!author_info) {
-            return await interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily resgatar :D`)
+            return await interaction.reply(`:coin: | Você ainda não tem MewnCoins, mas você pode pegar usando o comando /daily :D`)
         }
         if (interaction.user.id == user.id) {
             return await interaction.reply(':confused: | Você não pode apostar com você mesmo.')
