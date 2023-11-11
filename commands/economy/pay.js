@@ -37,10 +37,6 @@ module.exports = {
           targetinfo = Users.get(x => x.id == targetUser.id)
         }
 
-        if(!Users.has(u => u.id == interaction.user.id)){
-            return await interaction.reply(":octagonal_sign: | Você não tem MewnCoins, mas não se preocupe, consiga MewnCoins utilizando o comando /daily resgatar")
-        }
-
         if(quantity > userinfo.coins){
             return await interaction.reply(`:octagonal_sign: | Você não pode fazer uma tranferêcia de **${quantity} Mewncoins** tendo **${userinfo.coins} MewnCoins** :v`)
         }
