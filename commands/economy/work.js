@@ -50,7 +50,9 @@ module.exports = {
         .addSubcommand(subcommand => 
           subcommand
             .setName("stat")
-            .setDescription("Veja a quantidade de xp e de energia que você tem")),
+            .setDescription("Veja a quantidade de xp, energia e etc que um usuário tem")
+            .addUserOption(option => option.setName("usuário").setDescription("Deseja ver as infos de qual usuário?"))
+        ),
     
     async execute(interaction) {
         const user = interaction.user
@@ -135,19 +137,21 @@ module.exports = {
 
                 break
             case "stat":
-              if(!userHas || userinfo.work.id === -1){
-                return await interaction.reply(":octagonal_sign: | Nenhuma informação para monstrar porque você ainda não trabalhou, veja os trabalhos disponiveis utilizando /work list")
+              const target = interaction.options.getUser("usuário") || interaction.user
+              const targetInfo = Users.get(u => u.id === target.id)
+
+              if(!targetInfo || targetInfo.work.id === -1){
+                return await interaction.reply(`:octagonal_sign: | Nenhuma informação para monstrar porque ${target.username} nunca trabalhou`)
               }
 
-              let currentEnergy = verifyAndUpdateEnergy(userinfo, user)
+              let currentEnergy = verifyAndUpdateEnergy(targetInfo, target)
 
               const stat = new EmbedBuilder()
-                .setTitle("Suas informações de trabalho")
-                .setDescription(`:briefcase: | **Trabalho atual**: ${works[userinfo.work.id].name}\n :book: | **XP**: ${userinfo.work.xp}\n :zap: | **energia restante**: ${currentEnergy} de ${userinfo.energy.config.maxDailyPoints}`)
+                .setTitle(`Informações de trabalho de ${target.username}`)
+                .setDescription(`:briefcase: | **Trabalho atual**: ${works[targetInfo.work.id].name}\n :book: | **XP**: ${targetInfo.work.xp}\n :zap: | **energia restante**: ${currentEnergy} de ${targetInfo.energy.config.maxDailyPoints}`)
                 .setColor("#85bb65")
-                .setThumbnail(interaction.user.displayAvatarURL({dynamic: true}))
+                .setThumbnail(target.displayAvatarURL({dynamic: true}))
                 
-
               return await interaction.reply({ embeds: [stat] }) 
 
         }
