@@ -5,7 +5,7 @@ const Mewn = require("../../index")
 const Users = Mewn.Users
 const cooldownInMinutes = 60
 
-function verifyAndUpdateEnergy(userinfo){
+function verifyAndUpdateEnergy(userinfo, user){
   let remainingEnergy = userinfo.energy.config.maxDailyPoints
   if(userinfo.energy.data.length > 0){
     const actualDate = moment()
@@ -105,7 +105,7 @@ module.exports = {
                 
                 await interaction.deferReply()
 
-                let remainingEnergy = verifyAndUpdateEnergy(userinfo)
+                let remainingEnergy = verifyAndUpdateEnergy(userinfo, user)
 
                 if(remainingEnergy < 270){
                   return await interaction.editReply(":stopwatch: | Você esgotou suas energias diárias, você poderá usa-las novamente daqui a 24 horas. Saiba mais como funciona sua energia e o sistema de xp utilizando /work help")
@@ -139,7 +139,7 @@ module.exports = {
                 return await interaction.reply(":octagonal_sign: | Nenhuma informação para monstrar porque você ainda não trabalhou, veja os trabalhos disponiveis utilizando /work list")
               }
 
-              let currentEnergy = verifyAndUpdateEnergy(userinfo)
+              let currentEnergy = verifyAndUpdateEnergy(userinfo, user)
 
               const stat = new EmbedBuilder()
                 .setTitle("Suas informações de trabalho")
