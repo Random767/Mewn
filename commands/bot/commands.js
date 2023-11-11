@@ -16,6 +16,10 @@ module.exports = {
                     > pay: Transfira MewnCoins pra alguém.
                     > rank: Veja o ranking de MewnCoins.
                     > bet: Aposte seus MewnCoins
+                    > work list: Veja a lista de trabalhos disponíveis
+                    > work choice: Escolha um trabalho
+                    > work start: Começe a trabalhar
+                    > work stat: Veja o status do seu trabalho ou de outras pessoas
                     `
                 },
                 {
