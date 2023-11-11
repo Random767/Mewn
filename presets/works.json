@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Catador de papel",
+    "salary": 250,
+    "xpLeveRequired": 0
+  },
+  {
+    "name": "Servidor Público",
+    "salary": 400,
+    "xpLevelRequired": 5
+  },
+  {
+    "id": 2,
+    "name": "Programador",
+    "salary": 470,
+    "xpLevelRequired": 10
+  }
+]
