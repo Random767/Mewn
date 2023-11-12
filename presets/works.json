@@ -5,14 +5,24 @@
     "xpLeveRequired": 0
   },
   {
-    "name": "Servidor Público",
-    "salary": 400,
+    "name": "Escritor",
+    "salary": 380,
+    "xpLevelRequired": 2
+  },
+  {
+    "name": "Programador",
+    "salary": 450,
     "xpLevelRequired": 5
   },
   {
-    "id": 2,
-    "name": "Programador",
-    "salary": 470,
+    "name": "Traficante",
+    "salary": 490,
     "xpLevelRequired": 10
+  },
+  {
+    "name": "Policial",
+    "salary": 530,
+    "xpLevelRequired": 15
   }
+
 ]
