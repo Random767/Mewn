@@ -63,16 +63,16 @@ module.exports = {
             case "list":
                 const workFilds = works.map(({ name, salary, xpLevelRequired }) => ({
                   name: `${name}`,
-                  value: `Salário: ${salary}\nNível de XP: ${xpLevelRequired}\n`,
+                  value: `> Salário: ${salary}\n> Nível de XP: ${xpLevelRequired !== undefined ? xpLevelRequired : 0}\n`,
                   inline: false,
                 }))
                 await interaction.reply({ embeds: [{
                   title: "Trabalhos disponiveis",
                   fields: workFilds,
                   thumbnail: {
-                    url: "https://authenticjobs.com/wp-content/uploads/2020/04/cropped-aj-site-favicon.png"
+                    url: "https://hotemoji.com/images/dl/2/cityscape-emoji-by-google.png"
                   },
-                  color: 0x393A
+                  color: 0x85bb65
                 }] })
                 break
             case "choice":
