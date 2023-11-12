@@ -36,6 +36,7 @@ module.exports = {
                         .setDescription('Digite o id de um servidor')
                 )),
     async execute(interaction, client) {
+        await interaction.deferReply()
         if (interaction.options.getSubcommand() == "info" && interaction.options._group !== 'channel') {
             const {
                 channels,
@@ -102,14 +103,14 @@ module.exports = {
                 })
 
                 .setImage(server.bannerURL({ dinamic: false, size: 4096 }))
-            await interaction.reply({ embeds: [embed] })
+            await interaction.editReply({ embeds: [embed] })
         } else if (interaction.options.getSubcommand() == 'icon') {
             const picture = interaction.guild.iconURL({ dynamic: true, size: 4096 })
             const embed = new EmbedBuilder()
                 .setTitle(`${interaction.guild.name}`)
                 .setColor('Aqua')
                 .setImage(picture)
-            await interaction.reply({ embeds: [embed] })
+            await interaction.editReply({ embeds: [embed] })
         } else if (interaction.options.getSubcommandGroup() == 'channel') {
             let canal = interaction.options.getChannel('channel') || interaction.channel
 
@@ -137,7 +138,7 @@ module.exports = {
                         value: `> Criado em: ${moment(canal.createdAt).format('LLLL')}`
                     })
                     .setColor("#2f3136")
-                return interaction.reply({ embeds: [canalInfo] })
+                return interaction.editReply({ embeds: [canalInfo] })
 
             }
             if (type === 2 || type === 13) {
@@ -156,7 +157,7 @@ module.exports = {
                         value: `> Criado em: ${createdAt}`
                     })
                     .setColor("#2f3136")
-                return interaction.reply({ embeds: [voice] })
+                return interaction.editReply({ embeds: [voice] })
 
             }
             if (type === 4) {
@@ -172,9 +173,9 @@ module.exports = {
                         value: `> Criado em: ${createdAt}`
                     })
                     .setColor("#2f3136")
-                return interaction.reply({ embeds: [category] })
+                return interaction.editReply({ embeds: [category] })
             } else {
-                return interaction.reply(`Desculpe, o tipo de canal ${type} ainda não foi registrado nos meus códigos`)
+                return interaction.editReply(`Desculpe, o tipo de canal ${type} ainda não foi registrado nos meus códigos`)
             }
         }
     },
