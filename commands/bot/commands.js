@@ -47,6 +47,7 @@ module.exports = {
                     > support: Entre no meu servidor de suporte.
                     > uptime: Veja a quanto tempo estou acordado.
                     > upvote: Vote em mim na top.gg!
+                    > notifications dailt: Configure suas notificações do daily
                     `
                 },
             ],
