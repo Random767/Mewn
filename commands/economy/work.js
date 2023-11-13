@@ -109,7 +109,7 @@ module.exports = {
 
                 let remainingEnergy = verifyAndUpdateEnergy(userinfo, user)
 
-                if(remainingEnergy < 270){
+                if(remainingEnergy < 170){
                   return await interaction.editReply(":stopwatch: | Você esgotou suas energias diárias, você poderá usa-las novamente daqui a 24 horas. Saiba mais como funciona sua energia e o sistema de xp utilizando /work help")
                 }
 
@@ -120,8 +120,8 @@ module.exports = {
                   return await interaction.editReply(`:stopwatch: | Você precisa esperar **${cooldownInMinutes - StartEndDiference} minutos** para trabalhar novamente`)
                 }
                 
-                const xpRecived = Math.floor(Math.random() * (150 - 50 + 1)) + 50
-                const energySpent = Math.floor(Math.random() * (270 - 200 + 1)) + 200
+                const xpRecived = Math.floor(Math.random() * (250 - 150 + 1)) + 150
+                const energySpent = Math.floor(Math.random() * (170 - 120 + 1)) + 120
                 const energyValidity = moment().add(24, 'hours')
 
                 Users.update(person => {
