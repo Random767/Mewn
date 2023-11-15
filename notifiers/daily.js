@@ -35,7 +35,7 @@ module.exports = (client) => {
 
         const dailyMsg = new EmbedBuilder()
           .setTitle("Pegue seu daily agora")
-          .setDescription("As 24 horas já se passaram e você já pode pegar seu daily novamente :D Utilize o comando /daily resgatar")
+          .setDescription("Você já pode pegar seu daily novamente utilizando o comando daily")
           .setThumbnail(client.user.avatarURL({ dynamic: true, size: 4096, format: "png" }))
           .setColor("#40bf40")
         channel.send({ content: `<@${user.id}>`, embeds: [dailyMsg] })
