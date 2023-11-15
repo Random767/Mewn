@@ -6,6 +6,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("notifications")
     .setDescription("[Utils] Configure as notificações que quer receber")
+    .setDMPermission(false)
     .addSubcommand(subcommand => subcommand.setName("daily")
       .setDescription("[Utils] Configure as notificações do daily")
       .addStringOption(option => option.setName("canal")
