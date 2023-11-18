@@ -9,6 +9,14 @@
     "data": []
   },
   "notifications": {
+    "config": {
+      "default": {
+        "actived": "true",
+        "date": null,
+        "preference": "lastChannel",
+        "channelId": null
+      }
+    },
     "daily": {
       "actived": "true", 
       "date": null, 
@@ -16,10 +24,18 @@
       "channelId": null
     },
     "work":{
-      "actived": "true",
-      "date": null,
-      "preference": "lastChannel",
-      "channelId": null
+      "cooldown": {
+        "actived": "true",
+        "date": null,
+        "preference": "lastChannel",
+        "channelId": null
+      },
+      "recoveredEnergy": {
+        "actived": "true",
+        "date": [],
+        "preference": "lastChannel",
+        "channelId": null
+      }
     }
   }, 
   "social": {
