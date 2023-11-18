@@ -26,16 +26,14 @@
     "work":{
       "cooldown": {
         "actived": "true",
-        "date": null,
-        "preference": "lastChannel",
-        "channelId": null
+        "date": null
       },
       "recoveredEnergy": {
         "actived": "true",
-        "date": [],
-        "preference": "lastChannel",
-        "channelId": null
-      }
+        "date": []
+      },
+      "preference": "lastChannel",
+      "channelId": null
     }
   }, 
   "social": {
