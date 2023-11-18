@@ -1,4 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder,
+        ActionRowBuilder, ButtonBuilder, ButtonStyle
+} = require("discord.js");
 const { client } = require('../../index')
 
 module.exports = {
@@ -9,9 +11,18 @@ module.exports = {
     async execute(interaction){
         const voteEmbed = new EmbedBuilder()
             .setTitle('Vote em mim na top.gg :D')
-            .setDescription(`Olá ${interaction.user.username}! ao votar em mim você me ajuda a crescer e espalhar fofura em mais servidores :D\nPara votar em mim é simples, basta clicar nesse link: https://top.gg/bot/${client.user.id}/vote`)
+            .setDescription(`Olá ${interaction.user.username}! ao votar em mim você me ajuda a crescer e espalhar fofura em mais servidores :D`)
             .setThumbnail(client.user.avatarURL({ dynamic: true, size: 4096, format: "png" }))
             .setColor('#4775ec')
-        await interaction.reply({ embeds:[voteEmbed] })
+
+        const upvote = new ButtonBuilder()
+          .setLabel("Votar em mim :D")
+          .setURL(`https://top.gg/bot/${client.user.id}/vote`)
+          .setStyle(ButtonStyle.Link)
+        
+        const row = new ActionRowBuilder()
+          .addComponents(upvote)
+        
+        await interaction.reply({ embeds:[voteEmbed], components: [row] })
     }
 }
