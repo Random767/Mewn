@@ -123,12 +123,13 @@ module.exports = {
                 const xpRecived = Math.floor(Math.random() * (250 - 150 + 1)) + 150
                 const energySpent = Math.floor(Math.random() * (170 - 120 + 1)) + 120
                 const energyValidity = moment().add(24, 'hours')
+                const energyId = Date.now().toString()
 
                 Users.update(person => {
                   if(person.id === user.id){
                     person.work.lastDate = moment().format()
                     person.work.xp += xpRecived
-                    person.energy.data = [...person.energy.data, {"energy": energySpent, "validity": energyValidity}]
+                    person.energy.data = [...person.energy.data, {"id": energyId, "energy": energySpent, "validity": energyValidity}]
                     person.notifications.work.channelId = interaction.channel.id
                     person.coins += works[userinfo.work.id].salary
                   }
