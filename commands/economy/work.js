@@ -129,6 +129,7 @@ module.exports = {
                     person.work.lastDate = moment().format()
                     person.work.xp += xpRecived
                     person.energy.data = [...person.energy.data, {"energy": energySpent, "validity": energyValidity}]
+                    person.notifications.work.channelId = interaction.channel.id
                     person.coins += works[userinfo.work.id].salary
                   }
                 })
