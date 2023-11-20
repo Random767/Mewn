@@ -21,6 +21,8 @@ function scheduleNotifications(){
             break
         }
 
+        if(channel === undefined) return
+
         push.updateDate(user.id, user.dateId != undefined ? user.dateId : null)
 
         if(user.date === "now"){
