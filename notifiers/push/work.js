@@ -1,5 +1,4 @@
 const moment = require('moment')
-const { EmbedBuilder } = require('discord.js')
 const moment_timezone = require('moment-timezone')
 const Mewn = require('../../index')
 const Users = Mewn.Users
@@ -35,15 +34,10 @@ const work = {
               channel = user.notifications.work.channelId
               break
           }
-
-          const workMsg = new EmbedBuilder()
-            .setTitle(`Você recuperou **${energy.energy} pontos de energia** :D`)
-            .setDescription("Você pode usa-las com o comando work start")
-            .setThumbnail("http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42689-high-voltage-icon.png")
-            .setColor("#40bf40")
         
           const date = moment(energy.validity).format('m H D M d')
 
+          const message = `:zap: | <@${user.id}> você recuperou **${energy.energy}** pontos de energia :D`
           let userNotificationInfo = {
             "id": user.id,
             "date": minutes >= 0 ? "now" : date,
@@ -53,8 +47,7 @@ const work = {
             },
             "dateId": energy.id,
             "message": {
-              content: `<@${user.id}>`,
-              embeds: [workMsg]
+              content: message,
             }
           } 
           usersArray.push(userNotificationInfo)
