@@ -26,7 +26,7 @@ function verifyAndUpdateEnergy(userinfo, user){
   return remainingEnergy
 }
 
-module.exports = {
+const infos = {
     data: new SlashCommandBuilder()
         .setName("work")
         .setDescription("[Economy] (BETA) Trabalhe e consiga MewnCoins em troca")
@@ -36,12 +36,6 @@ module.exports = {
                     .setName('list')
                     .setDescription("Veja todos os trabalhos disponiveis")
         )
-        .addSubcommand(subcommand => 
-            subcommand
-                .setName('choice')
-                .setDescription("Escolha um trabalho")
-                .addStringOption(options => options.setName("work").setDescription("Nome do trabalho").setRequired(true)
-        ))
         .addSubcommand(subcommand => 
             subcommand
                 .setName('start')
@@ -76,28 +70,24 @@ module.exports = {
                 }] })
                 break
             case "choice":
-                const chosenJob = interaction.options.getString("work")
-                const index = works.findIndex(work => work.name.toLowerCase() === chosenJob.toLowerCase())
-                
-                if(index === -1) {
-                  return await interaction.reply(":octagonal_sign: | O trabalho escolhido não foi encontrado. Verifique se escreveu o nome corretamente e tente novamente")
-                }
+                const userInput = interaction.options.getString("work")
+                const chosenJob = works[Number(userInput)]
 
                 if(!userHas){
                   userinfo = await Users.create({ id: user.id, name: user.username, discriminator: user.discriminator  })
                 }
 
-                if(userinfo.work.xp/1000 < works[index].xpLevelRequired){
-                  return await interaction.reply(`:octagonal_sign: | Você está no nível ${Math.floor(userinfo.work.xp/1000)} de xp, mas o trabalho de ${works[index].name} exige o nível ${works[index].xpLevelRequired} :/`)
+                if(userinfo.work.xp/1000 < chosenJob.xpLevelRequired){
+                  return await interaction.reply(`:octagonal_sign: | Você está no nível ${Math.floor(userinfo.work.xp/1000)} de xp, mas o trabalho de ${chosenJob.name} exige o nível ${chosenJob.xpLevelRequired} :/`)
                 }
 
                 Users.update(person => {
                   if(person.id === user.id) {
-                    person.work.id = index
+                    person.work.id = userInput
                   }
                 })
                 
-                await interaction.reply(`:office: | Você escolheu trabalhar como ${works[index].name}, começe a trabalhar com o comando /work start`)
+                await interaction.reply(`:office: | Você escolheu trabalhar como **${chosenJob.name}**, começe a trabalhar com o comando **/work start**`)
                 break
 
             case "start":
@@ -159,3 +149,19 @@ module.exports = {
         }
     }
 }
+
+const dynamicChoices = works.map((work, index) => ({
+    name: `${work.name} [Level ${work.xpLevelRequired !== undefined ? work.xpLevelRequired : 0}]`,
+    value: index.toString(),
+}))
+
+infos.data.addSubcommand(subcommand => 
+  subcommand
+    .setName('choice')
+      .setDescription("Escolha um trabalho")
+      .addStringOption(options => options.setName("work").setDescription("Nome do trabalho").setRequired(true)
+      .addChoices(...dynamicChoices)
+    )
+)
+
+module.exports = infos
