@@ -45,6 +45,5 @@ function operations(){
   }
 }
 
-operations().users.create({ id: 0, name: "gr" })
 
 module.exports = operations()
