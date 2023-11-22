@@ -63,7 +63,7 @@ module.exports = {
               person.notifications.daily.preference = channel
             }
             if(active) {
-              person.notifications.daily.actived = active
+              person.notifications.daily.actived = Boolean(active)
             }
           }
         })
@@ -94,7 +94,7 @@ module.exports = {
               person.notifications.work.preference = channel
             }
             if(active) {
-              person.notifications.work.recoveredEnergy.actived = active
+              person.notifications.work.recoveredEnergy.actived = Boolean(active)
             }
           }
         })
