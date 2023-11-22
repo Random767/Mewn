@@ -1,10 +1,10 @@
 {
     "eventLog": {
-        "isEnabled": true,
+        "isEnabled": false,
         "channels": {
-            "commandCreate": "1050831952707604510",
-            "guildUpdate": "1050831950530756648",
-            "errorCreate": "1070373118771724350"
+            "commandCreate": "changeMe",
+            "guildUpdate": "changeMe",
+            "errorCreate": "changeMe"
         },
         "file": {
             "filename": "client.log",
@@ -15,11 +15,12 @@
         "folder": "dev",
         "whitelist": {
             "servers": [
-                "1047905177459499018"
+                "changeMe"
             ],
             "users": [
-                "633764019559202836"
+                "changeMe"
             ]
         }
-    }
+    },
+    "developerId": "changeMe"
 }
