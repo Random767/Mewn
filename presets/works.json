@@ -16,12 +16,12 @@
   },
   {
     "name": "Traficante",
-    "salary": 490,
+    "salary": 500,
     "xpLevelRequired": 10
   },
   {
     "name": "Policial",
-    "salary": 530,
+    "salary": 560,
     "xpLevelRequired": 15
   }
 
