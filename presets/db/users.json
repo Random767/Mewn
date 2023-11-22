@@ -11,25 +11,25 @@
   "notifications": {
     "config": {
       "default": {
-        "actived": "true",
+        "actived": true,
         "date": null,
         "preference": "lastChannel",
         "channelId": null
       }
     },
     "daily": {
-      "actived": "true", 
+      "actived": true, 
       "date": null, 
       "preference": "lastChannel", 
       "channelId": null
     },
     "work":{
       "cooldown": {
-        "actived": "true",
+        "actived": true,
         "date": null
       },
       "recoveredEnergy": {
-        "actived": "true",
+        "actived": true,
         "date": []
       },
       "preference": "lastChannel",
