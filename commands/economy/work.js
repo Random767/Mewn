@@ -26,7 +26,12 @@ function verifyAndUpdateEnergy(userinfo, user){
   return remainingEnergy
 }
 
-const infos = {
+const dynamicChoices = works.map((work, index) => ({
+    name: `${work.name} [Level ${work.xpLevelRequired !== undefined ? work.xpLevelRequired : 0}]`,
+    value: index.toString(),
+}))
+
+module.exports = {
     data: new SlashCommandBuilder()
         .setName("work")
         .setDescription("[Economy] (BETA) Trabalhe e consiga MewnCoins em troca")
@@ -41,6 +46,13 @@ const infos = {
                 .setName('start')
                 .setDescription("Começe a trabalhar")
         )
+        .addSubcommand(subcommand => 
+          subcommand
+            .setName('choice')
+            .setDescription("Escolha um trabalho")
+            .addStringOption(options => options.setName("work").setDescription("Nome do trabalho").setRequired(true)
+            .addChoices(...dynamicChoices)
+        ))
         .addSubcommand(subcommand => 
           subcommand
             .setName("stat")
@@ -149,19 +161,3 @@ const infos = {
         }
     }
 }
-
-const dynamicChoices = works.map((work, index) => ({
-    name: `${work.name} [Level ${work.xpLevelRequired !== undefined ? work.xpLevelRequired : 0}]`,
-    value: index.toString(),
-}))
-
-infos.data.addSubcommand(subcommand => 
-  subcommand
-    .setName('choice')
-      .setDescription("Escolha um trabalho")
-      .addStringOption(options => options.setName("work").setDescription("Nome do trabalho").setRequired(true)
-      .addChoices(...dynamicChoices)
-    )
-)
-
-module.exports = infos
