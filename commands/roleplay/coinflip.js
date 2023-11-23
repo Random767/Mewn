@@ -7,10 +7,10 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction){
         const coinflip = [
-            'Cara',
-            'Coroa'
+            'cara',
+            'coroa'
         ]
         const result = Math.floor((Math.random() * coinflip.length))
-        await interaction.reply(`:coin: | ${coinflip[result]}!`)
+        await interaction.reply(`:coin: | Eu girei a moeda e caiu **${coinflip[result]}**!`)
     }
 }
