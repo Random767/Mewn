@@ -16,21 +16,38 @@ async function write(content) {
   }
 }
 
+function getDefaultDateAndTime(){
+  const formateddate = moment().format('L')
+  const formatedtime = moment().format('LT')
+  return formateddate + " " + formatedtime
+}
+
+const args = process.argv.slice(2)
+const debugFlag = args.includes("-debug")
+const magenta = "\x1b[35m"
+
 const log = {
   info: (arg) => {
-    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Info] ${arg}`
+    arg = `[${getDefaultDateAndTime()} >> Info] ${arg}`
     console.log(arg)
     write(`${arg}\n`)
   },
   warning: (filename, arg) => {
-    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Warning] (${filename}) ${arg}`
+    arg = `[${getDefaultDateAndTime()} >> Warning] (${filename}) ${arg}`
     console.log(arg)
     write(`${arg}\n`)
   },
   error: (filename, arg) => {
-    arg = `[${moment().format('L') + ' ' + moment().format('LT')} >> Error] (${filename}) ${arg}`
+    arg = `[${getDefaultDateAndTime()} >> Error] (${filename}) ${arg}`
     console.log(arg)
     write(`${arg}\n`)
+  },
+  debug: (filename, arg) => {
+    if(debugFlag){
+      arg = `[${getDefaultDateAndTime()} >> Debug] (${filename}) ${arg}`
+      console.log(`${magenta}${arg}${magenta}`)
+      write(`${arg}\n`)
+    } 
   }
   
 }
