@@ -23,14 +23,14 @@ function scheduleNotifications(){
 
         if(channel === undefined) return
 
-        push.updateDate(user.id, user.dateId != undefined ? user.dateId : null)
-
         if(user.date === "now"){
           channel.send(user.message)
+          push.updateDate(user.id, user.dateId != undefined ? user.dateId : null)
           return
         }
         cron.schedule(user.date, () => {
           channel.send(user.message)
+          push.updateDate(user.id, user.dateId != undefined ? user.dateId : null)
         })
       }); 
     
