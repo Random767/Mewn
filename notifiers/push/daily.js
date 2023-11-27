@@ -1,6 +1,7 @@
 const moment = require('moment')
 const { EmbedBuilder } = require('discord.js')
 const moment_timezone = require('moment-timezone')
+const log = require('../../modules/logger')
 const Mewn = require('../../index')
 const Users = Mewn.Users
 
@@ -11,7 +12,7 @@ const daily = {
       try {
         if(user.notifications.daily.active == "false") {
           return
-        } else if(user.notifications.daily.date){
+        } else if(user.notifications.daily.date !== null){
           return
         } else if (!user.notifications.daily.channelId){
           return
@@ -34,7 +35,7 @@ const daily = {
 
         const dailyMsg = new EmbedBuilder()
           .setTitle("Seu daily já está disponível :D")
-          .setDescription("Peque seu daily utilizando o comando /daily")
+          .setDescription("Pegue seu daily utilizando o comando /daily")
           .setThumbnail(Mewn.client.user.avatarURL({ dynamic: true, size: 4096, format: "png" }))
           .setColor("#40bf40")
         
@@ -53,7 +54,7 @@ const daily = {
             embeds: [dailyMsg]
           }
         }
-        
+        log.debug(__filename, `Notificação do daily preparada para ${user.name}`)
         usersArray.push(userNotificationInfo)
         
       } catch(err) {

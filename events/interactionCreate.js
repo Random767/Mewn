@@ -1,7 +1,9 @@
-const { Events, EmbedBuilder } = require('discord.js')
+const { Events } = require('discord.js')
 const { eventLog } = require('./../config.json')
 const logger = require('./../modules/logger')
 const Discord = require('./../index')
+const { performance } = require('perf_hooks')
+const log = require('./../modules/logger')
 let client = Discord.client
 
 module.exports = {
@@ -39,7 +41,11 @@ module.exports = {
         }
       
         try {
+          const startTime = performance.now()
           await command.execute(interaction, client);
+          const endTime = performance.now()
+          const elapsedTime = endTime - startTime
+          log.debug(__filename, `Comando ${interaction.commandName} executado por ${interaction.user.username} levou ${elapsedTime} ms para ser processado e enviado`)
         } catch (error) {
           console.error(error)
           logger.error(__filename, `${error.stack.split('\n')[1].trim()}: ${error}`)
@@ -60,7 +66,7 @@ module.exports = {
             err["fields"] = err["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(' ')}\`\`\`` })
           }
           client.channels.cache.get(eventLog.channels.errorCreate).send({ embeds: [err] })
-          await interaction.reply({ content: 'Algo de errado aconteceu, mas não se preocupe, todos os meus erros são automaticamente reportados ao meu desenvolvedor :>', ephemeral: true });
+          await interaction.reply({ content: 'Eita, ocorreu um erro enquanto eu estava tentando executar esse comando, ainda bem que meus erros são automaticamente reportados para o GR', ephemeral: true });
         }
     }
 }

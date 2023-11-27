@@ -1,5 +1,6 @@
 const moment = require('moment')
 const moment_timezone = require('moment-timezone')
+const log = require('./../../modules/logger')
 const Mewn = require('../../index')
 const Users = Mewn.Users
 
@@ -49,7 +50,8 @@ const work = {
             "message": {
               content: message,
             }
-          } 
+          }
+          log.debug(__filename, `Notificação da energia preparada para ${user.name}`)
           usersArray.push(userNotificationInfo)
 
         })

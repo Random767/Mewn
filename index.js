@@ -14,6 +14,7 @@ const usersDefaltFormat = require("./presets/db/users.json")
 const Users = db.createCollection('users', usersDefaltFormat)
 
 process.title = 'Mewn'
+log.debug(__filename, "Mewn está iniciando...")
 
 const client = new Client ({ 
     intents: [
@@ -35,9 +36,11 @@ exports.Users = Users
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
+log.debug(__filename, "Carregando eventos...")
 for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
+  log.debug(__filename, `Carregando o evento ${event.name}`)
 	if (event.once) {
 		client.once(event.name, (...args) => event.exec(...args));
 	} else {

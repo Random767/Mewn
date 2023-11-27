@@ -1,6 +1,8 @@
 const { Events } = require('discord.js')
 const logger = require('./../modules/logger')
 const { version } = require('./../package.json')
+const { performance } = require('perf_hooks')
+const log = require('../modules/logger')
 
 module.exports =  {
     name: Events.ClientReady,
@@ -21,7 +23,19 @@ module.exports =  {
         )}, 30000);
         client.user.setStatus('idle')
 
-        require(__dirname + "/../notifiers/manager") 
+        log.debug(__filename, "Carregando módulo de notificações...")
+        
+        let startTime = performance.now()
+        require(__dirname + "/../notifiers/manager")
+        let endTime = performance.now()
+        let elapsedTime = endTime - startTime
+        log.debug(__filename, `Módulo de notificações carregado em ${elapsedTime} ms`)
+
+        log.debug(__filename, "Carregando handler...")
+        startTime = performance.now()
         require(`${__dirname}/../handling`)(client)
+        endTime = performance.now()
+        elapsedTime = endTime - startTime
+        log.debug(__filename, `Handler carregado em ${elapsedTime} ms`)
     }
 }
