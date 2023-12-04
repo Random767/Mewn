@@ -16,6 +16,14 @@ async function write(content) {
   }
 }
 
+async function debugWrite(content) {
+  try {
+    await fs.appendFile('debug.log', content);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 function getDefaultDateAndTime(){
   const formateddate = moment().format('L')
   const formatedtime = moment().format('LT')
@@ -46,7 +54,7 @@ const log = {
     if(debugFlag){
       arg = `[${getDefaultDateAndTime()} >> Debug] (${filename}) ${arg}`
       console.log(`${magenta}${arg}${magenta}`)
-      write(`${arg}\n`)
+      debugWrite(`${arg}\n`)
     } 
   }
   
