@@ -10,7 +10,8 @@ const SimplDB = require('simpl.db')
 const db = new SimplDB({
     collectionsFolder: __dirname + '/collections'
 })
-const Users = db.createCollection('users')
+const usersDefaltFormat = require("./presets/db/users.json")
+const Users = db.createCollection('users', usersDefaltFormat)
 
 process.title = 'Mewn'
 log.debug(__filename, "Mewn está iniciando...")
