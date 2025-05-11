@@ -3,12 +3,15 @@ const db = new SimplDB({
   collectionsFolder: `${__dirname}/../collections`
 })
 const usersDefaultFormat = require('./../presets/db/users.json')
-const Users = db.createCollection('users', usersDefaultFormat)
+const Users = db.createCollection('users')
 
 function operations(){
   function methods(data){
     function create(operation){
-      const result = data.create(operation)
+      let userinfo = JSON.parse(JSON.stringify(usersDefaultFormat))
+      userinfo.id = operation.id;
+      userinfo.username = operation.username
+      const result = data.create(userinfo)
       return result
     }
     function get(operation){
