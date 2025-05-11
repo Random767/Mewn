@@ -86,7 +86,7 @@ module.exports = {
                 const chosenJob = works[Number(userInput)]
 
                 if(!userHas){
-                  userinfo = await Users.create({ id: user.id, name: user.username, discriminator: user.discriminator  })
+                  userinfo = await Users.create({ id: user.id, name: user.username })
                 }
 
                 if(userinfo.work.xp/1000 < chosenJob.xpLevelRequired){
