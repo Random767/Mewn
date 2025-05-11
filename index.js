@@ -6,12 +6,7 @@ const path = require('path')
 const { version } = require('./package.json')
 const log = require('./modules/logger')
 
-const SimplDB = require('simpl.db')
-const db = new SimplDB({
-    collectionsFolder: __dirname + '/collections'
-})
-const usersDefaltFormat = require("./presets/db/users.json")
-const Users = db.createCollection('users', usersDefaltFormat)
+const Users = require('./modules/db').users
 
 process.title = 'Mewn'
 log.debug(__filename, "Mewn está iniciando...")
