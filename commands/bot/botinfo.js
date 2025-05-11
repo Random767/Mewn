@@ -19,7 +19,7 @@ module.exports = {
             .addFields(
                 { 
                     name: "Desenvolvedores",
-                    value: `\`\`\`GRandom#0898\`\`\``, 
+                    value: `\`\`\`grandom.\`\`\``, 
                     inline: false
                 },
                 { 
