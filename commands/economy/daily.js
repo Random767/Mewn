@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js')
 const Mewn = require("../../index")
+const usersDefault = require('./../../presets/db/users.json')
 const Users = Mewn.Users
 const moment_timezone = require('moment-timezone')
 const moment = require('moment')
@@ -16,7 +17,9 @@ module.exports = {
       let userinfo = Users.get(u => u.id == user.id)
 
       if(!userExist){
-        const userJSON ={"id": user.id, "name": user.username, "discriminator": user.discriminator} 
+        const userJSON = JSON.parse(JSON.stringify(usersDefault))
+        userJSON.id = user.id 
+        userJSON.name = user.username
         Users.create(userJSON)
         userinfo = userJSON
       }
