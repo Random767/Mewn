@@ -33,6 +33,7 @@ function getDefaultDateAndTime(){
 const args = process.argv.slice(2)
 const debugFlag = args.includes("-debug")
 const magenta = "\x1b[35m"
+const colorEnd = "\x1b[0m"
 
 const log = {
   info: (arg) => {
@@ -53,7 +54,7 @@ const log = {
   debug: (filename, arg) => {
     if(debugFlag){
       arg = `[${getDefaultDateAndTime()} >> Debug] (${filename}) ${arg}`
-      console.log(`${magenta}${arg}${magenta}`)
+      console.log(`${magenta}${arg}${colorEnd}`)
       debugWrite(`${arg}\n`)
     } 
   }
