@@ -6,7 +6,7 @@ const usersDefaultFormat = require('./../presets/db/users.json')
 const Users = db.createCollection('users')
 
 function operations(){
-  function methods(data){
+  function userMethods(data){
     function create(operation){
       let userinfo = JSON.parse(JSON.stringify(usersDefaultFormat))
       userinfo.id = operation.id;
@@ -41,7 +41,7 @@ function operations(){
   }
 
   function users(){
-    return methods(Users)
+    return userMethods(Users)
   }
   return {
     users: users()
