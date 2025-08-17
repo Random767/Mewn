@@ -1,0 +1,10 @@
+{
+    "id": 0,
+    "transaction_type": "",
+    "sender_id": 0,
+    "reciver_id": 0,
+    "amount": 0,
+    "timestamp": 0,
+    "status": "",
+    "message": ""
+}
