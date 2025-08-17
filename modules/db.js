@@ -40,11 +40,8 @@ function operations(){
     }
   }
 
-  function users(){
-    return userMethods(Users)
-  }
   return {
-    users: users()
+    users: userMethods(Users)
   }
 }
 
