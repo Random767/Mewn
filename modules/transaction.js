@@ -2,12 +2,15 @@ const SimplDB = require("simpl.db")
 const db = new SimplDB({
     collectionsFolder: `${__dirname}/../collections`
 })
-const Users = db.createCollection('users')
 const TransactionsDB = db.createCollection('transactions')
-const transactionsDefaultFormat = require('./../presets/db/transaction.json')
 
-function log(type, info) {
-    console.log(`Criando transação do tipo ${type}...`)
+const Mewn = require("./../index")
+const Users = Mewn.Users
+const transactionsDefaultFormat = require('./../presets/db/transaction.json')
+const log = require('./logger')
+
+function make(type, info) {
+    log.debug(__filename, `Criando uma transação do tipo daily para ${info.reciver_id}`)
     if(type == "daily") {
         Users.update(person => {
             if(person.id == info.reciver_id) {
@@ -38,5 +41,5 @@ function log(type, info) {
 
 
 module.exports = {
-    log: log
+    make: make
 }
