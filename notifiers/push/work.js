@@ -19,6 +19,7 @@ const work = {
 
         user.energy.data.forEach(energy => {
           if(user.notifications.work.recoveredEnergy.date.some(obj => {
+            // 17/08/2025 Adicionar remoção de energias que já foram notificadas para o usuário
             return obj.id === energy.id
           })){
             return 
