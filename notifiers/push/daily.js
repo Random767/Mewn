@@ -2,8 +2,8 @@ const moment = require('moment')
 const { EmbedBuilder } = require('discord.js')
 const moment_timezone = require('moment-timezone')
 const log = require('../../modules/logger')
-const Mewn = require('../../index')
-const Users = Mewn.Users
+const DB = require('./../../modules/db')
+const Users = DB.Users
 
 const daily = {
   getData: (users) => {

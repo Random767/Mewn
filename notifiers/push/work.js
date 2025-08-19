@@ -1,8 +1,8 @@
 const moment = require('moment')
 const moment_timezone = require('moment-timezone')
 const log = require('./../../modules/logger')
-const Mewn = require('../../index')
-const Users = Mewn.Users
+const DB = require('./../../modules/db')
+const Users = DB.Users
 
 const work = {
   getData: (users) => {

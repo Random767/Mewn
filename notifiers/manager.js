@@ -1,7 +1,8 @@
 const fs = require('fs')
 const cron = require('node-cron')
 const Mewn = require('../index')
-const Users = Mewn.Users
+const DB = require('./../modules/db')
+const Users = DB.Users
 const archives = fs.readdirSync(__dirname + '/push')
 
 function scheduleNotifications(){
