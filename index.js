@@ -6,7 +6,6 @@ const path = require('path')
 const { version } = require('./package.json')
 const log = require('./modules/logger')
 
-const Users = require('./modules/db').users
 
 process.title = 'Mewn'
 log.debug(__filename, "Mewn está iniciando...")
@@ -26,7 +25,6 @@ const client = new Client ({
     }
 })
 exports.client = client
-exports.Users = Users
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
