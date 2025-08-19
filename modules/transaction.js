@@ -1,17 +1,12 @@
-const SimplDB = require("simpl.db")
-const db = new SimplDB({
-    collectionsFolder: `${__dirname}/../collections`
-})
-const TransactionsDB = db.createCollection('transactions')
-
-const Mewn = require("./../index")
-const Users = Mewn.Users
+const DB = require('./db')
+const Users = DB.Users
+const TransactionsDB = DB.Transactions
 const transactionsDefaultFormat = require('./../presets/db/transaction.json')
 const log = require('./logger')
 
 function make(type, info) {
-    log.debug(__filename, `Criando uma transação do tipo daily para ${info.reciver_id}`)
     if(type == "daily") {
+        log.debug(__filename, `Criando uma transação do tipo daily para ${info.reciver_id}`)
         Users.update(person => {
             if(person.id == info.reciver_id) {
                 person.coins += info.amount
@@ -34,7 +29,15 @@ function make(type, info) {
         })
 
     } else if(type == "pay") {
-        // Função não implementada
+        Users.update(person => {
+            if(person.id == info.sender_id) {
+                person.coins -= info.amount
+            }
+            if(person.id == info.reciver_id){
+                person.coins += info.amount
+            }
+        })
+        // implementar log de transação
     }
 }
 
