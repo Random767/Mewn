@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js')
-const Mewn = require("../../index")
-const Users = Mewn.Users
+const DB = require('./../../modules/db')
+const Users = DB.Users
 
 module.exports = {
     data: new SlashCommandBuilder()

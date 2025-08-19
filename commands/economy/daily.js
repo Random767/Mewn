@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js')
-const Mewn = require("../../index")
-const usersDefault = require('./../../presets/db/users.json')
-const Users = Mewn.Users
+const DB = require('./../../modules/db')
+const Users = DB.Users
 const Transactions = require('./../../modules/transaction')
 const moment_timezone = require('moment-timezone')
 const moment = require('moment')

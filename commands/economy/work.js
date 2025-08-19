@@ -1,8 +1,8 @@
 const {SlashCommandBuilder, EmbedBuilder} = require("discord.js")
 const works = require("../../presets/works.json")
 const moment = require("moment")
-const Mewn = require("../../index")
-const Users = Mewn.Users
+const DB = require('./../../modules/db')
+const Users = DB.Users
 const cooldownInMinutes = 60
 
 function verifyAndUpdateEnergy(userinfo, user){

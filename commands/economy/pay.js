@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, User } = require('discord.js')
-const Mewn = require("../../index")
-const Users = Mewn.Users
+const Transactions = require('./../../modules/transaction')
+const DB = require('./../../modules/db')
+const Users = DB.Users
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -41,16 +42,13 @@ module.exports = {
             return await interaction.reply(`:octagonal_sign: | Você não pode fazer uma tranferêcia de **${quantity} Mewncoins** tendo **${userinfo.coins} MewnCoins** :v`)
         }
 
-        Users.update(
-            person => {
-                if(person.id === interaction.user.id){
-                    person.coins -= quantity
-                }
-                if(person.id === targetUser.id){
-                    person.coins += quantity
-                }
-            }
-        )
+        const dateNow = Date.now()
+        Transactions.make("pay", {
+            "sender_id": userinfo.id,
+            "reciver_id": targetUser.id,
+            "amount": quantity,
+            "timestamp": dateNow
+        })
 
         await interaction.reply(`:money_with_wings: | **${quantity} MewnCoins** transferidos para **${targetUser.tag}** com sucesso!`)
     }
