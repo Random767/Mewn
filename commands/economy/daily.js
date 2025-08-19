@@ -17,7 +17,7 @@ module.exports = {
       let userinfo = Users.get(u => u.id == user.id)
 
       if(!userExist){
-        const userJSON = {id: user.id, username: user.username}
+        const userJSON = {id: user.id, name: user.username}
         Users.create(userJSON)
         userinfo = userJSON
       }
@@ -44,7 +44,6 @@ module.exports = {
             person.notifications.daily.channelId = interaction.channel.id
             if(person.name !== interaction.user.username){
               person.name = interaction.user.username
-              person.discriminator = interaction.user.discriminator
             }
           }
         }
