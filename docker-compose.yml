@@ -1,0 +1,6 @@
+services:
+  bot:
+    build: .
+    container_name: Mewn-bot
+    volumes:
+      - ./collections:/app/collections
