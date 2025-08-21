@@ -7,7 +7,7 @@ function operations(){
     function create(operation){
       let userinfo = JSON.parse(JSON.stringify(usersDefaultFormat))
       userinfo.id = operation.id;
-      userinfo.username = operation.username
+      userinfo.name = operation.name
       const result = data.create(userinfo)
       return result
     }
