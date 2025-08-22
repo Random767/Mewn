@@ -4,6 +4,32 @@ const log = require('./../../modules/logger')
 const DB = require('./../../modules/db')
 const Users = DB.Users
 
+function verifyAndUpdateEnergy(userinfo, user){
+  if(userinfo.notifications.work.recoveredEnergy.date.length > 0){
+
+    userinfo.notifications.work.recoveredEnergy.date.forEach(energy => {
+      for(let i = 0; i < userinfo.energy.data.length; i++) {
+        console.log(`energy.id = ${energy.id}  userinfo.energy.data[i].id = ${userinfo.energy.data[i].id}`)
+        if(energy.id == userinfo.energy.data[i].id) {
+          console.log("Energia válida encontrada")
+        } else {
+          // deleta registro
+        }
+      }
+      /*
+      if(!energy.id == userinfo.energy.id) {
+        Users.update(person => {
+          if(person.id === user.id){
+            log.debug(__filename, `Limpando energias de ${userinfo.name}, que venceram ${energy.date}`)
+            person.notifications.work.recoveredEnergy.date = person.notifications.work.recoveredEnergy.date.filter((value) => value.date !== energy.date) 
+          }
+        })
+      }
+      */
+    })
+  }
+}
+
 const work = {
   getData: (users) => {
     let usersArray = []
@@ -56,6 +82,8 @@ const work = {
           usersArray.push(userNotificationInfo)
 
         })
+
+        verifyAndUpdateEnergy(user, user)
         
       } catch(err) {
         console.error(err)
