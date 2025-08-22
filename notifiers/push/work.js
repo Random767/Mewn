@@ -4,57 +4,41 @@ const log = require('./../../modules/logger')
 const DB = require('./../../modules/db')
 const Users = DB.Users
 
-function verifyAndUpdateEnergy(userinfo, user){
-  if(userinfo.notifications.work.recoveredEnergy.date.length > 0){
-
-    userinfo.notifications.work.recoveredEnergy.date.forEach(energy => {
-      for(let i = 0; i < userinfo.energy.data.length; i++) {
-        console.log(`energy.id = ${energy.id}  userinfo.energy.data[i].id = ${userinfo.energy.data[i].id}`)
-        if(energy.id == userinfo.energy.data[i].id) {
-          console.log("Energia válida encontrada")
-        } else {
-          // deleta registro
-        }
-      }
-      /*
-      if(!energy.id == userinfo.energy.id) {
-        Users.update(person => {
-          if(person.id === user.id){
-            log.debug(__filename, `Limpando energias de ${userinfo.name}, que venceram ${energy.date}`)
-            person.notifications.work.recoveredEnergy.date = person.notifications.work.recoveredEnergy.date.filter((value) => value.date !== energy.date) 
-          }
-        })
-      }
-      */
-    })
-  }
-}
 
 const work = {
   getData: (users) => {
     let usersArray = []
     users.forEach(user => {
       try {
-        if(!user.notifications.work.recoveredEnergy.actived){
+        if (!user.notifications.work.recoveredEnergy.actived) {
           return
-        } else if(user.energy.data.length === 0) {
+        } else if (user.energy.data.length === 0){
           return
-        } else if (!user.notifications.work.channelId){
+        } else if (!user.notifications.work.channelId) {
           return
         }
 
+        // Limpar os resíduos de notificações guardados
+        // em user.notifications.work.recoveredEnergy.date
+        const newRecoveredEnergy = user.notifications.work.recoveredEnergy.date
+        .filter(energy => user.energy.data.some(e => e.id === energy.id))
+        Users.update(person => {
+          if(person.id === user.id) {
+            person.notifications.work.recoveredEnergy.date = newRecoveredEnergy
+          }
+        })
+
         user.energy.data.forEach(energy => {
-          if(user.notifications.work.recoveredEnergy.date.some(obj => {
-            // 17/08/2025 Adicionar remoção de energias que já foram notificadas para o usuário
+          if (user.notifications.work.recoveredEnergy.date.some(obj => {
             return obj.id === energy.id
-          })){
-            return 
+          })) {
+            return
           }
           const convert = moment_timezone(energy.validity).tz('America/Sao_Paulo');
-          const minutes = moment_timezone().diff(convert, 'minutes'); 
+          const minutes = moment_timezone().diff(convert, 'minutes');
 
           let channel;
-          switch(user.notifications.work.preference){
+          switch (user.notifications.work.preference) {
             case "dm":
               channel = user.id
               break
@@ -62,7 +46,7 @@ const work = {
               channel = user.notifications.work.channelId
               break
           }
-        
+
           const date = moment(energy.validity).format('m H D M d')
 
           const message = `:zap: | <@${user.id}> você recuperou **${energy.energy}** pontos de energia :D`
@@ -83,9 +67,8 @@ const work = {
 
         })
 
-        verifyAndUpdateEnergy(user, user)
-        
-      } catch(err) {
+
+      } catch (err) {
         console.error(err)
       }
     })
@@ -93,7 +76,7 @@ const work = {
   },
   updateDate: (userId, energyId) => {
     Users.update(person => {
-      if(person.id === userId){
+      if (person.id === userId) {
         person.notifications.work.recoveredEnergy.date = [
           ...person.notifications.work.recoveredEnergy.date,
           {
