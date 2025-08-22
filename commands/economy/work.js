@@ -3,6 +3,7 @@ const works = require("../../presets/works.json")
 const moment = require("moment")
 const DB = require('./../../modules/db')
 const Users = DB.Users
+const transaction = require('./../../modules/transaction')
 const cooldownInMinutes = 60
 
 function verifyAndUpdateEnergy(userinfo, user){
@@ -127,17 +128,27 @@ module.exports = {
                 const energyValidity = moment().add(24, 'hours')
                 const energyId = Date.now().toString()
 
+                const dateNow = Date.now()
+                const transactionResult = transaction.make("work", {
+                  "reciver_id": user.id,
+                  "amount": works[userinfo.work.id].salary,
+                  "timestamp": dateNow
+                })
+
+                if(transactionResult.status == "fail") {
+                  return await interaction.editReply(`:octagonal_sign: | Erro: ${transactionResult.reason}\n\`\`🔑 ${transactionResult.id}\`\``)
+                }
+
                 Users.update(person => {
                   if(person.id === user.id){
                     person.work.lastDate = moment().format()
                     person.work.xp += xpRecived
                     person.energy.data = [...person.energy.data, {"id": energyId, "energy": energySpent, "validity": energyValidity}]
                     person.notifications.work.channelId = interaction.channel.id
-                    person.coins += works[userinfo.work.id].salary
                   }
                 })
                 
-                await interaction.editReply(`:money_with_wings: | Você trabalhou e recebeu um pagamento de **${works[userinfo.work.id].salary} MewnCoins**, **ganhou ${xpRecived} XP** e **gastou ${energySpent}/${remainingEnergy} pontos de energia** :D`)
+                await interaction.editReply(`:money_with_wings: | Você trabalhou e recebeu um pagamento de **${works[userinfo.work.id].salary} MewnCoins**, **ganhou ${xpRecived} XP** e **gastou ${energySpent}/${remainingEnergy} pontos de energia** :D\n\`\`🔑 ${transactionResult.id}\`\``)
 
                 break
             case "stat":

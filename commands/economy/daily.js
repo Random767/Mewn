@@ -34,7 +34,12 @@ module.exports = {
       const daily = Math.floor(Math.random() * (2400 - 300 + 1)) + 300
       
       const dateNow = Date.now()
-      Transactions.make("daily", {"reciver_id": userinfo.id, "amount": daily, "timestamp": dateNow})
+      const transactionResult = Transactions.make("daily", {"reciver_id": userinfo.id, "amount": daily, "timestamp": dateNow})
+
+      if(transactionResult.status == "fail") {
+        await interaction.reply(`Erro! Transação cancelada :/\nMotivo: ${transactionResult.reason}\n \`\`🔑 ${transactionResult.id}\`\``)
+        return
+      }
 
       Users.update(
         person => {

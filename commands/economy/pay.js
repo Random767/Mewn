@@ -43,13 +43,17 @@ module.exports = {
         }
 
         const dateNow = Date.now()
-        Transactions.make("pay", {
+        const transactionResult = Transactions.make("pay", {
             "sender_id": userinfo.id,
             "reciver_id": targetUser.id,
             "amount": quantity,
             "timestamp": dateNow
         })
 
-        await interaction.reply(`:money_with_wings: | **${quantity} MewnCoins** transferidos para **${targetUser.tag}** com sucesso!`)
+        if(transactionResult.status == "fail") {
+            return await interaction.reply(`:octagonal_sign: | Erro: ${transactionResult.reason}\n\`\`🔑 ${transactionResult.id}\`\``)
+        }
+
+        await interaction.reply(`:money_with_wings: | **${quantity} MewnCoins** transferidos para **${targetUser.tag}** com sucesso! \`\`🔑 ${transactionResult.id}\`\``)
     }
 }
