@@ -1,0 +1,4 @@
+Todos os módulos de notificação precisam de uma refatoração, e rápido
+Fazer testes unitátios neles parece um parto, no ./push/work.js tem
+loop dentro de loop dentro de outro loop
+
