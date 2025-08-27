@@ -1,5 +1,6 @@
 const moment = require('moment')
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder, AttachmentBuilder } = require('discord.js')
+const MewnProfilePhoto = new AttachmentBuilder('./../../assets/internal/mewn_profile_picture.webp')
 const moment_timezone = require('moment-timezone')
 const log = require('../../modules/logger')
 const DB = require('./../../modules/db')
@@ -36,7 +37,7 @@ const daily = {
         const dailyMsg = new EmbedBuilder()
           .setTitle("Seu daily já está disponível :D")
           .setDescription("Pegue seu daily utilizando o comando /daily")
-          .setThumbnail(Mewn.client.user.avatarURL({ dynamic: true, size: 4096, format: "png" }))
+          .setThumbnail('attachment://mewn_profile_picture.webp') // Não sei porque não funciona
           .setColor("#40bf40")
         
         const date = moment(user.ld)
