@@ -1,10 +1,11 @@
-const { Events } = require('discord.js')
+const { Events, AttachmentBuilder } = require('discord.js')
 const { eventLog } = require('./../config.json')
 const logger = require('./../modules/logger')
 const Discord = require('./../index')
 const { performance } = require('perf_hooks')
 const log = require('./../modules/logger')
 let client = Discord.client
+const errorGif = new AttachmentBuilder('./../assets/internal/error.gif', { name: 'error.gif' })
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -55,7 +56,7 @@ module.exports = {
             },
             description: `> ${error.stack.split('\n')[1].trim()}`,
             thumbnail: {
-              url: 'https://2.bp.blogspot.com/-CPO_z4zNSnc/WsY667p0JgI/AAAAAAAAYRs/ubTMJD5ToyImbR-o4EiK18gBypYXd0RiwCLcBGAs/s1600/Mercenary%2BGarage%2BError%2BGIF.gif',
+              url: 'attachment://error.gif',
             },
             fields: [
               { name: "Comando", value: `\`\`\`${interaction.commandName}\`\`\``}
