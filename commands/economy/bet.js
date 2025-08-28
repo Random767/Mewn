@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const DB = require('./../../modules/db')
 const Users = DB.Users
+const Transactions = require('./../../modules/transaction')
+const transaction = require('./../../modules/transaction')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -23,7 +25,7 @@ module.exports = {
     async execute(interaction) {
 
         const user = interaction.options.getUser('usuário')
-        let number = interaction.options.getNumber('quantidade')
+        let coins = interaction.options.getNumber('quantidade')
         const author_info = Users.get(u => u.id == interaction.user.id)
         const target_info = Users.get(u => u.id == user.id)
 
@@ -37,10 +39,10 @@ module.exports = {
             return await interaction.reply(`O usuário ${user.username} não tem MewnCoins!`)
         }
 
-        if (number > author_info.coins) return await interaction.reply(`Você não pode apostar mais do que você tem :v`)
-        if (number > target_info.coins) return await interaction.reply(`O usuário ${user.username} não tem MewnCoins o suficiente!`)
+        if (coins > author_info.coins) return await interaction.reply(`Você não pode apostar mais do que você tem :v`)
+        if (coins > target_info.coins) return await interaction.reply(`O usuário ${user.username} não tem MewnCoins o suficiente!`)
 
-        await interaction.reply({ content: `<@${user.id}>, <@${interaction.user.id}> quer fazer uma aposta de **${number} MewnCoins** com você.`, ephemeral: false })
+        await interaction.reply({ content: `<@${user.id}>, <@${interaction.user.id}> quer fazer uma aposta de **${coins} MewnCoins** com você.`, ephemeral: false })
 
         const message = await interaction.fetchReply()
 
@@ -85,26 +87,23 @@ module.exports = {
                     author_info,
                     target_info
                 ]
-                const lost = users.filter(x => x.id !== users[winner].id)
-                Users.update(
-                    async person => {
-                        if (person.id == lost[0].id){
-                            if(person.coins < number) {
-                                number = person.coins
-                                person.coins = 0
-                                await i.reply({
-                                    content: `:x: | <@${users[winner].id}> ganhou apenas **${number} MewnCoins** por que <@${lost[0].id}>, não tinha MewnCoins o suficiente para a transferência.`,
-                                    ephemeral: false,
-                                })
-                                return
-                            }
-                            person.coins -= number
-                        }
-                        if (person.id == users[winner].id) person.coins += number
-                    }
-                )
+                const lost = users.filter(x => x.id !== users[winner].id)[0]
+
+                const transactionResult = transaction.make("bet", {
+                    "sender_id": lost.id,
+                    "reciver_id": users[winner].id,
+                    "amount": coins,
+                    "timestamp": Date.now(),
+                })
+
+                if(transactionResult.status == "fail") {
+                    await interaction.reply(`Erro! Transação falhou :/\nMotivo: ${transactionResult.reason}\n \`\`🔑 ${transactionResult.id}\`\``)
+                    return
+                }
+
+
                 await i.editReply({
-                    content: `:moneybag: | <@${users[winner].id}> ganhou **${number} MewnCoins** patrocinado por <@${lost[0].id}>`,
+                    content: `:moneybag: | <@${users[winner].id}> ganhou **${coins} MewnCoins** patrocinado por <@${lost.id}>\n \`\`🔑 ${transactionResult.id}\`\``,
                     ephemeral: false,
                 })
                 return
