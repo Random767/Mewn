@@ -156,6 +156,13 @@ Informações dadas ao final da execução do módulo:
     "reason": null          // Motivo pela transação ter sido cancelada, vazio quando não existe erro 
 }
 
+28/08/2025: 
+Adicionar uma padronização de IDs para indicar as
+falhas da tranzação, já que depois vai ser díficil
+filtrar transações por motivos de falha, não existe
+nenhuma padronização.
+Ainda será mantida a mensagem de erro para o usuário,
+mas ela não será salva no banco de dados
 
 */
 
