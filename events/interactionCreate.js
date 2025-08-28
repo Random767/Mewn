@@ -18,6 +18,11 @@ module.exports = {
           console.error(`Nenhum comando com o nome ${interaction.commandName} foi encontrado`);
           return;
         }
+
+        const options = interaction.options._hoistedOptions
+        const args = options.map(({ name, value }) => {
+          return `${name}: ${value}`
+        })
       
         try {
           const startTime = performance.now()
@@ -53,10 +58,6 @@ module.exports = {
           }
         }
 
-        const options = interaction.options._hoistedOptions
-        const args = options.map(({ name, value }) => {
-          return `${name}: ${value}`
-        })
         let logs = {
           fields: [
             { name: "Autor", value: "```" + interaction.user.tag + " (" + interaction.user.id + ") ```", inline: false},
