@@ -18,28 +18,6 @@ module.exports = {
           console.error(`Nenhum comando com o nome ${interaction.commandName} foi encontrado`);
           return;
         }
-        const options = interaction.options._hoistedOptions
-        const args = options.map(({ name, value }) => {
-          return `${name}: ${value}`
-        })
-        let logs = {
-          fields: [
-            { name: "Autor", value: "```" + interaction.user.tag + " (" + interaction.user.id + ") ```", inline: false},
-            { name: "Servidor", value: "```" + interaction.guild.name + " (" + interaction.guild.id + ")```", inline: false},
-            { name: "Comando", value: "```" + interaction.commandName + "```", inline: false},
-          ],
-          thumbnail: {
-            url: interaction.user.displayAvatarURL({dynamic: true})
-          },
-          color: 0x2f3136
-        }
-        if(args.length >= 1){
-          logs["fields"] = logs["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(' ')}\`\`\`` })
-        }
-        
-        if(eventLog.isEnabled){
-          client.channels.cache.get(eventLog.channels.commandCreate).send({ embeds: [logs] })
-        }
       
         try {
           const startTime = performance.now()
@@ -73,6 +51,29 @@ module.exports = {
             log.error(__dirname, "O log automático de erros para o servidor oficial do Mewn está desativado :/")
             await interaction.reply({ content: 'Opss. Algo deu errado enquanto eu estava tentando executar esse comando, o log de erros está desativado, você pode reportar o erro diretamente no servidor de suporte:\nhttps://discord.gg/QpvC6B3Enp', ephemeral: true });
           }
+        }
+
+        const options = interaction.options._hoistedOptions
+        const args = options.map(({ name, value }) => {
+          return `${name}: ${value}`
+        })
+        let logs = {
+          fields: [
+            { name: "Autor", value: "```" + interaction.user.tag + " (" + interaction.user.id + ") ```", inline: false},
+            { name: "Servidor", value: "```" + interaction.guild.name + " (" + interaction.guild.id + ")```", inline: false},
+            { name: "Comando", value: "```" + interaction.commandName + "```", inline: false},
+          ],
+          thumbnail: {
+            url: interaction.user.displayAvatarURL({dynamic: true})
+          },
+          color: 0x2f3136
+        }
+        if(args.length >= 1){
+          logs["fields"] = logs["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(' ')}\`\`\`` })
+        }
+        
+        if(eventLog.isEnabled){
+          client.channels.cache.get(eventLog.channels.commandCreate).send({ embeds: [logs] })
         }
     }
 }
