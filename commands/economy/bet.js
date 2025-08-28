@@ -97,7 +97,7 @@ module.exports = {
                 })
 
                 if(transactionResult.status == "fail") {
-                    await interaction.reply(`Erro! Transação falhou :/\nMotivo: ${transactionResult.reason}\n \`\`🔑 ${transactionResult.id}\`\``)
+                    await i.editReply(`Erro! Transação falhou :/\nMotivo: ${transactionResult.reason}\n \`\`🔑 ${transactionResult.id}\`\``)
                     return
                 }
 
