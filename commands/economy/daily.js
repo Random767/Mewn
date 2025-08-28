@@ -57,6 +57,6 @@ module.exports = {
       let ranking = usersGet.sort((a, b) => b.coins - a.coins)
       let result = ranking.findIndex(usuario => usuario.id === user.id) + 1
 
-      await interaction.reply(`:moneybag: | Você _ganhou_ **${daily} MewnCoins**, agora você tem *${Users.get(u => u.id === interaction.user.id).coins}* MewnCoins e está em **_${result}° lugar_ no rank global de MewnCoins!**!`)
+      await interaction.reply(`:moneybag: | Você _ganhou_ **${daily} MewnCoins**, agora você tem *${Users.get(u => u.id === interaction.user.id).coins}* MewnCoins e está em **_${result}° lugar_ no rank global!**\n \`\`🔑 ${transactionResult.id}\`\``)
   }
 }
