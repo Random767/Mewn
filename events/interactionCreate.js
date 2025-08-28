@@ -66,8 +66,13 @@ module.exports = {
           if(args.length >= 1){
             err["fields"] = err["fields"].concat({ name: "Argumentos", value: `\`\`\`${args.join(' ')}\`\`\`` })
           }
-          client.channels.cache.get(eventLog.channels.errorCreate).send({ embeds: [err] })
-          await interaction.reply({ content: 'Eita, ocorreu um erro enquanto eu estava tentando executar esse comando, ainda bem que meus erros são automaticamente reportados para o GR', ephemeral: true });
+          if(eventLog.isEnabled) {
+            await interaction.reply({ content: 'Opss. Algo deu errado enquanto eu estava tentando executar esse comando, o problema foi enviado automaticamente para o servidor de suporte.\nhttps://discord.gg/QpvC6B3Enp', ephemeral: true});
+            client.channels.cache.get(eventLog.channels.errorCreate).send({ embeds: [err] })
+          } else {
+            log.error(__dirname, "O log automático de erros para o servidor oficial do Mewn está desativado :/")
+            await interaction.reply({ content: 'Opss. Algo deu errado enquanto eu estava tentando executar esse comando, o log de erros está desativado, você pode reportar o erro diretamente no servidor de suporte:\nhttps://discord.gg/QpvC6B3Enp', ephemeral: true });
+          }
         }
     }
 }
